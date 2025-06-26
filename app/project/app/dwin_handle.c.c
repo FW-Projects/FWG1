@@ -140,7 +140,35 @@ static void RecvDataFromLCD(DwinObjectType *dwim)
 
             /* direct handle wind set */
             case SHOW_DIRECT_SET_WIND:
-                sFWG2_t.Direct_handle_parameter.set_wind = dwim->rx_buff[FRAME_VAL_H] * 256 + dwim->rx_buff[FRAME_VAL_L];
+                if (sFWG2_t.Direct_handle_work_mode == NORMAL_MODE || sFWG2_t.Direct_handle_work_mode == EN_WORKING_MODE)
+                {
+                    sFWG2_t.Direct_handle_parameter.set_wind = dwim->rx_buff[FRAME_VAL_H] * 256 + dwim->rx_buff[FRAME_VAL_L];
+
+                    if (sFWG2_t.Direct_handle_parameter.set_wind <= 1)
+                    {
+                        sFWG2_t.Direct_handle_parameter.set_wind = 1;
+                    }
+
+                    if (sFWG2_t.Direct_handle_parameter.set_wind >= 200)
+                    {
+                        sFWG2_t.Direct_handle_parameter.set_wind = 200;
+                    }
+                }
+                else if (sFWG2_t.Direct_handle_work_mode == COLD_WIND_MODE)
+                {
+                    sFWG2_t.Direct_handle_parameter.cold_mode_set_wind = dwim->rx_buff[FRAME_VAL_H] * 256 + dwim->rx_buff[FRAME_VAL_L];
+
+                    if (sFWG2_t.Direct_handle_parameter.cold_mode_set_wind <= 1)
+                    {
+                        sFWG2_t.Direct_handle_parameter.cold_mode_set_wind = 1;
+                    }
+
+                    if (sFWG2_t.Direct_handle_parameter.cold_mode_set_wind >= 200)
+                    {
+                        sFWG2_t.Direct_handle_parameter.cold_mode_set_wind = 200;
+                    }
+                }
+
                 break;
 
             /* set handle channel */
