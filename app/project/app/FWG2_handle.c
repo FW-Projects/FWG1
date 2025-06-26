@@ -17,7 +17,7 @@ uint8_t FWG2_Init(FWG2_Handle * FWG2)
 	FWG2->Direct_handle_parameter.error_time            = 0,      
 	FWG2->Direct_handle_parameter.last_state            = HANDLE_SLEEP,      
                                                      
-	FWG2->Direct_handle_state                           = HANDLE_SLEEP,      
+	FWG2->Direct_handle_state                           = HANDLE_WORKING,      
 	FWG2->Direct_handle_position                        = NOT_IN_POSSITION,      
 	FWG2->Direct_handle_error_state                     = HANDLE_OK,    
 
@@ -38,6 +38,7 @@ uint8_t FWG2_Init(FWG2_Handle * FWG2)
 	FWG2->general_parameter.speak_state                 = SPEAKER_OPEN ,
 	FWG2->general_parameter.display_lock_state          = UNLOCK,
     FWG2->general_parameter.fn_key_set                  = SELECT_COLD_WIN_MODE,
+	FWG2->general_parameter.adjust_key_temporary_set    = TEMPORARY_SELECT_NONE,
 	FWG2->general_parameter.ota_state                   = OTA_OFF,
 	FWG2->general_parameter.touch_key_set               = TOUCH_CLOSE,
 	FWG2->general_parameter.uart_state                  = UART_CLOSE,

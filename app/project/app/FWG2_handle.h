@@ -18,7 +18,7 @@
 #define MIN_SET_WIND_VAL 1
 
 #define OVER_WIND_RATE   534
-#define LOW_WIND_RATE    10
+#define LOW_WIND_RATE    150
 
 #define ENHANCE_TEMP     50
 
@@ -108,6 +108,17 @@ typedef enum
     SELECT_TEMP = 0,
     SELECT_WIND,
 } fwg2_adjust_key_set_e;
+
+typedef enum
+{
+    TEMPORARY_SELECT_TEMP = 0,
+    TEMPORARY_SELECT_WIND,
+	TEMPORARY_SELECT_NONE,
+} fwg2_adjust_key_temporary_set_e;
+
+
+
+
 
 typedef enum
 {
@@ -221,6 +232,7 @@ typedef struct
     fwg2_temp_lock_state_e            display_lock_state;
     fwg2_fn_key_set_e                 fn_key_set;
 	fwg2_adjust_key_set_e             adjust_key_set;
+	fwg2_adjust_key_temporary_set_e   adjust_key_temporary_set;
     fwg2_ota_state_e                  ota_state;
     fwg2_touch_key_set_e              touch_key_set;
     fwg2_uart_state_e                 uart_state;

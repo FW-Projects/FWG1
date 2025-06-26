@@ -153,7 +153,7 @@ void wk_tmr3_init(void)
    */
 
   /* add user code begin tmr3_init 2 */
-
+  tmr_interrupt_enable(TMR3, TMR_C1_INT, TRUE);
   /* add user code end tmr3_init 2 */
 }
 

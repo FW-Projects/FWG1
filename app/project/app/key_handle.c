@@ -100,6 +100,10 @@ void KeyProc(void)
             direct_set_temp_time = 0;
             direct_set_temp_flag = false;
         }
+		if(sFWG2_t.general_parameter.adjust_key_temporary_set == TEMPORARY_SELECT_TEMP)
+			{
+			    sFWG2_t.general_parameter.adjust_key_temporary_set = TEMPORARY_SELECT_NONE;
+			}
     }
 
     if (direct_set_wind_flag)
@@ -110,6 +114,10 @@ void KeyProc(void)
         {
             direct_set_wind_time = 0;
             direct_set_wind_flag = false;
+			if(sFWG2_t.general_parameter.adjust_key_temporary_set == TEMPORARY_SELECT_WIND)
+			{
+			    sFWG2_t.general_parameter.adjust_key_temporary_set = TEMPORARY_SELECT_NONE;
+			}
         }
     }
 
@@ -202,7 +210,7 @@ void KeyProc(void)
             {
                 if (sFWG2_t.Direct_handle_work_mode == NORMAL_MODE)
                 {
-                    if (direct_set_temp_flag == false && direct_set_wind_flag == false)
+                    if (direct_set_temp_flag == false && direct_set_wind_flag == false && sFWG2_t.general_parameter.adjust_key_temporary_set == TEMPORARY_SELECT_NONE)
                     {
                         if (sFWG2_t.general_parameter.adjust_key_set == SELECT_TEMP)
                         {
@@ -213,6 +221,14 @@ void KeyProc(void)
                             direct_set_wind_flag = true;
                         }
                     }
+					else if (direct_set_temp_flag == false && direct_set_wind_flag == false && sFWG2_t.general_parameter.adjust_key_temporary_set == TEMPORARY_SELECT_WIND)
+					{
+					    direct_set_wind_flag = true;
+					}
+					else if (direct_set_temp_flag == false && direct_set_wind_flag == false && sFWG2_t.general_parameter.adjust_key_temporary_set == TEMPORARY_SELECT_TEMP)
+					{
+					    direct_set_temp_flag = true;
+					}
 
                     if (direct_set_temp_flag)
                     {

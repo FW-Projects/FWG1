@@ -64,11 +64,10 @@ float direct_handle_pid_out;
 
 /* private variables ---------------------------------------------------------*/
 /* add user code begin private variables */
-__IO uint32_t tmr4_ch1_freq = 0;
-__IO uint32_t tmr4_ch1_readvalue = 0;
+__IO uint32_t tmr3_ch1_freq = 0;
+__IO uint32_t tmr3_ch1_readvalue = 0;
 
-__IO uint32_t tmr4_ch2_freq = 0;
-__IO uint32_t tmr4_ch2_readvalue;
+
 /* add user code end private variables */
 
 /* private function prototypes --------------------------------------------*/
@@ -229,12 +228,11 @@ void SysTick_Handler(void)
     /*start the get fan speed of*/
     if (!time_out)
     {
-        //sFWG2_t.Direct_handle_parameter.actual_wind = tmr4_ch1_readvalue;
+        sFWG2_t.Direct_handle_parameter.actual_wind = tmr3_ch1_readvalue;
         //printf("Direct actual_wind  = %d\r\n", sFWG2_t.Direct_handle_parameter.actual_wind);
         
-		sFWG2_t.Direct_handle_parameter.actual_wind = 50;
-		tmr4_ch1_readvalue = 0;
-        time_out = 1000;
+		tmr3_ch1_readvalue = 0;
+        time_out = TIME_1S;
     }
     /*end the get fan speed of*/
 
@@ -259,7 +257,11 @@ void SysTick_Handler(void)
 void TMR3_GLOBAL_IRQHandler(void)
 {
   /* add user code begin TMR3_GLOBAL_IRQ 0 */
-
+    if (tmr_interrupt_flag_get(TMR3, TMR_C1_FLAG) != RESET)
+    {
+        tmr_flag_clear(TMR3, TMR_C1_FLAG);
+        tmr3_ch1_readvalue++;
+    }
   /* add user code end TMR3_GLOBAL_IRQ 0 */
 
 
@@ -300,7 +302,6 @@ void USART1_IRQHandler(void)
   /* add user code begin USART1_IRQ 1 */
     /* add user code end USART1_IRQ 1 */
 }
-
 
 
 /**
@@ -986,7 +987,7 @@ void count_down(void)
 	static uint16_t countdown_time = TIME_1S;
     
 	    /* start of countdown */
-    if (sFWG2_t.general_parameter.countdown_flag)
+    if (sFWG2_t.general_parameter.countdown_flag && sFWG2_t.Direct_handle_position == NOT_IN_POSSITION)
     {
         countdown_time--;
 
@@ -1009,6 +1010,7 @@ void count_down(void)
         if (sFWG2_t.general_parameter.fn_key_set == SELECT_COUNTDOWN_MODE)
         {
             sFWG2_t.Direct_handle_work_mode  = NORMAL_MODE;
+			sFWG2_t.general_parameter.countdown_flag = false;
            
         }
 

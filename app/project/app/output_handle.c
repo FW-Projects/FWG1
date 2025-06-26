@@ -26,8 +26,22 @@ void fan_control(void)
         {
             if (sFWG2_t.Direct_handle_state == HANDLE_SLEEP)
             {
+//				if (sFWG2_t.Direct_handle_parameter.actual_temp >= 250)
+//                {
+//                    sFWG2_t.Direct_handle_parameter.stop_set_wind = 100;
+//                    /* open fan output with a half of max set val*/
+//                    tmr_channel_value_set(TMR9, TMR_SELECT_CHANNEL_2, MAX_SET_WIND_VAL / 2 * 1.13 + 30);
+//                }
+//                else if (sFWG2_t.Direct_handle_parameter.actual_temp >= 70 && sFWG2_t.Direct_handle_parameter.actual_temp < 250)
+//                {
+//                    /* open fan output with actual temp change*/
+//                    sFWG2_t.Direct_handle_parameter.stop_set_wind = sFWG2_t.Direct_handle_parameter.actual_temp * 0.4;
+//                    tmr_channel_value_set(TMR9, TMR_SELECT_CHANNEL_2, sFWG2_t.Direct_handle_parameter.stop_set_wind * 1.13 + 30);
+//                }
+				
+				
                 /* keep fan output until the temp below 60 */
-                if (sFWG2_t.Direct_handle_parameter.actual_temp >= 60)
+                 if (sFWG2_t.Direct_handle_parameter.actual_temp >= 60 && sFWG2_t.Direct_handle_parameter.actual_temp < 70)
                 {
                     tmr_channel_value_set(TMR9, TMR_SELECT_CHANNEL_2, 20 * 1.13 + 30);
                 }
@@ -393,9 +407,9 @@ uint16_t temp_get_filter_move_average(adc_channel_select_type adc_channel)
     static uint16_t temp;
     temp =  moveAverageFilter(adc_channel) >> 2;
 
-    if (temp >= 1023)
+    if (temp >= 1020)
     {
-        temp = 1023;
+        temp = 1020;
     }
 
     return temp;

@@ -56,12 +56,13 @@ void wk_gpio_config(void)
   gpio_init(GPIOC, &gpio_init_struct);
 
   gpio_init_struct.gpio_mode = GPIO_MODE_INPUT;
-  gpio_init_struct.gpio_pins = KEY_DOWN_PIN | KEIY_CH_PIN | KEY_COUTH_PIN;
+  gpio_init_struct.gpio_pins = KEY_DOWN_PIN | KEY_CH_PIN;
   gpio_init_struct.gpio_pull = GPIO_PULL_UP;
   gpio_init(GPIOB, &gpio_init_struct);
 
   /* gpio output config */
   gpio_bits_reset(SPI1_CS_GPIO_PORT, SPI1_CS_PIN);
+  gpio_bits_set(KEY_TOUCH_GPIO_PORT, KEY_TOUCH_PIN);
   gpio_bits_reset(GPIOB, SPK_M_PIN | RELAY_HOT_PIN);
 
   gpio_init_struct.gpio_drive_strength = GPIO_DRIVE_STRENGTH_MODERATE;
@@ -74,7 +75,7 @@ void wk_gpio_config(void)
   gpio_init_struct.gpio_drive_strength = GPIO_DRIVE_STRENGTH_MODERATE;
   gpio_init_struct.gpio_out_type = GPIO_OUTPUT_PUSH_PULL;
   gpio_init_struct.gpio_mode = GPIO_MODE_OUTPUT;
-  gpio_init_struct.gpio_pins = SPK_M_PIN | RELAY_HOT_PIN;
+  gpio_init_struct.gpio_pins = KEY_TOUCH_PIN | SPK_M_PIN | RELAY_HOT_PIN;
   gpio_init_struct.gpio_pull = GPIO_PULL_NONE;
   gpio_init(GPIOB, &gpio_init_struct);
 

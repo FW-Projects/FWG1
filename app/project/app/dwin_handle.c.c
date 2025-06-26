@@ -69,19 +69,49 @@ static void RecvDataFromLCD(DwinObjectType *dwim)
                 break;
 
             case SHOW_DIRECT_CURRENT_TEMP_BAR:
-				
-			sFWG2_t.Direct_handle_parameter.set_temp = (dwim->rx_buff[FRAME_VAL_H] * 256 + dwim->rx_buff[FRAME_VAL_L] * 2.5);
-			if(sFWG2_t.Direct_handle_parameter.set_temp <=100)
-				sFWG2_t.Direct_handle_parameter.set_temp  = 100;
-			sFWG2_t.Direct_handle_parameter.set_temp_f_display  =  9 * sFWG2_t.Direct_handle_parameter.set_temp  / 5  + 32;
+                sFWG2_t.general_parameter.adjust_key_temporary_set    = TEMPORARY_SELECT_TEMP;
+
+                if (sFWG2_t.Direct_handle_work_mode == NORMAL_MODE || sFWG2_t.Direct_handle_work_mode == EN_WORKING_MODE)
+                {
+                    sFWG2_t.Direct_handle_parameter.set_temp = (dwim->rx_buff[FRAME_VAL_H] * 256 + dwim->rx_buff[FRAME_VAL_L] * 2.5);
+
+                    if (sFWG2_t.Direct_handle_parameter.set_temp <= 100)
+                    {
+                        sFWG2_t.Direct_handle_parameter.set_temp  = 100;
+                    }
+
+                    sFWG2_t.Direct_handle_parameter.set_temp_f_display  =  9 * sFWG2_t.Direct_handle_parameter.set_temp  / 5  + 32;
+                    break;
+                }
+
                 break;
 
             case SHOW_DIRECT_CURRENT_WIND_BAR:
-				
-			 sFWG2_t.Direct_handle_parameter.set_wind = dwim->rx_buff[FRAME_VAL_H] * 256 + dwim->rx_buff[FRAME_VAL_L];
-			 
-			if(sFWG2_t.Direct_handle_parameter.set_wind <=1)
-				sFWG2_t.Direct_handle_parameter.set_wind  = 1;
+                sFWG2_t.general_parameter.adjust_key_temporary_set    = TEMPORARY_SELECT_WIND;
+
+                if (sFWG2_t.Direct_handle_work_mode == NORMAL_MODE || sFWG2_t.Direct_handle_work_mode == EN_WORKING_MODE)
+                {
+                    sFWG2_t.Direct_handle_parameter.set_wind = dwim->rx_buff[FRAME_VAL_H] * 256 + dwim->rx_buff[FRAME_VAL_L];
+
+                    if (sFWG2_t.Direct_handle_parameter.set_wind <= 1)
+                    {
+                        sFWG2_t.Direct_handle_parameter.set_wind  = 1;
+                    }
+
+                    break;
+                }
+                else if (sFWG2_t.Direct_handle_work_mode == COLD_WIND_MODE)
+                {
+                    sFWG2_t.Direct_handle_parameter.cold_mode_set_wind = dwim->rx_buff[FRAME_VAL_H] * 256 + dwim->rx_buff[FRAME_VAL_L];
+
+                    if (sFWG2_t.Direct_handle_parameter.cold_mode_set_wind <= 1)
+                    {
+                        sFWG2_t.Direct_handle_parameter.cold_mode_set_wind  = 1;
+                    }
+
+                    break;
+                }
+
                 break;
 
             case SHOW_COUNTDOWN:
@@ -899,14 +929,14 @@ static void RecvDataFromLCD(DwinObjectType *dwim)
                     sFWG2_t.Direct_handle_parameter.set_temp;
                 ;
 
-                if (sFWG2_t.Direct_handle_parameter.set_calibration_temp >= 50)
+                if (sFWG2_t.Direct_handle_parameter.set_calibration_temp >= 100)
                 {
-                    sFWG2_t.Direct_handle_parameter.set_calibration_temp = 50;
+                    sFWG2_t.Direct_handle_parameter.set_calibration_temp = 100;
                 }
 
-                if (sFWG2_t.Direct_handle_parameter.set_calibration_temp <= -50)
+                if (sFWG2_t.Direct_handle_parameter.set_calibration_temp <= -100)
                 {
-                    sFWG2_t.Direct_handle_parameter.set_calibration_temp = -50;
+                    sFWG2_t.Direct_handle_parameter.set_calibration_temp = -100;
                 }
 
                 break;
@@ -1129,7 +1159,7 @@ void Page_Direct_Work_Heartbeat_Packet(void)
                                             sFWG2_t.Direct_handle_parameter.set_wind);
                             /* show direct handle set wind bar */
                             sdwin.send_data(&sdwin, (DWIN_BASE_ADDRESS + SHOW_DIRECT_CURRENT_WIND_BAR), DWIN_DATA_BITS,
-                                            sFWG2_t.Direct_handle_parameter.set_wind );
+                                            sFWG2_t.Direct_handle_parameter.set_wind);
                         }
                         else if (sFWG2_t.Direct_handle_state == HANDLE_WORKING && sFWG2_t.Direct_handle_position == IN_POSSITION)
                         {
@@ -1141,7 +1171,7 @@ void Page_Direct_Work_Heartbeat_Packet(void)
                                                     sFWG2_t.Direct_handle_parameter.set_wind);
                                     /* show direct handle set wind bar */
                                     sdwin.send_data(&sdwin, (DWIN_BASE_ADDRESS + SHOW_DIRECT_CURRENT_WIND_BAR), DWIN_DATA_BITS,
-                                                    sFWG2_t.Direct_handle_parameter.set_wind );
+                                                    sFWG2_t.Direct_handle_parameter.set_wind);
                                 }
                                 else
                                 {
@@ -1149,7 +1179,7 @@ void Page_Direct_Work_Heartbeat_Packet(void)
                                                     sFWG2_t.Direct_handle_parameter.stop_set_wind);
                                     /* show direct handle stop set wind bar */
                                     sdwin.send_data(&sdwin, (DWIN_BASE_ADDRESS + SHOW_DIRECT_CURRENT_WIND_BAR), DWIN_DATA_BITS,
-                                                    sFWG2_t.Direct_handle_parameter.stop_set_wind );
+                                                    sFWG2_t.Direct_handle_parameter.stop_set_wind);
                                 }
                             }
                         }
@@ -1159,7 +1189,7 @@ void Page_Direct_Work_Heartbeat_Packet(void)
                                             sFWG2_t.Direct_handle_parameter.set_wind);
                             /* show direct handle set wind bar */
                             sdwin.send_data(&sdwin, (DWIN_BASE_ADDRESS + SHOW_DIRECT_CURRENT_WIND_BAR), DWIN_DATA_BITS,
-                                            sFWG2_t.Direct_handle_parameter.set_wind );
+                                            sFWG2_t.Direct_handle_parameter.set_wind);
                         }
                     }
 
@@ -1184,7 +1214,7 @@ void Page_Direct_Work_Heartbeat_Packet(void)
                                         sFWG2_t.Direct_handle_parameter.set_wind);
                         /* show direct handle set wind bar */
                         sdwin.send_data(&sdwin, (DWIN_BASE_ADDRESS + SHOW_DIRECT_CURRENT_WIND_BAR), DWIN_DATA_BITS,
-                                        sFWG2_t.Direct_handle_parameter.set_wind );
+                                        sFWG2_t.Direct_handle_parameter.set_wind);
                     }
 
                     if (show_direct_set_wind_flag)
@@ -1214,7 +1244,7 @@ void Page_Direct_Work_Heartbeat_Packet(void)
                                     sFWG2_t.Direct_handle_parameter.cold_mode_set_wind);
                     /* show direct handle cold mode set wind bar */
                     sdwin.send_data(&sdwin, (DWIN_BASE_ADDRESS + SHOW_DIRECT_CURRENT_WIND_BAR), DWIN_DATA_BITS,
-                                    sFWG2_t.Direct_handle_parameter.cold_mode_set_wind );
+                                    sFWG2_t.Direct_handle_parameter.cold_mode_set_wind);
                 }
             }
             else if (sFWG2_t.general_parameter.work_mode == CODE)
@@ -1264,9 +1294,10 @@ void Page_Direct_Work_Heartbeat_Packet(void)
                             sdwin.send_data(&sdwin, (DWIN_BASE_ADDRESS + SHOW_DIRECT_CURRENT_TEMP), DWIN_DATA_BITS,
                                             sFWG2_t.Direct_handle_parameter.set_temp_f_display);
                         }
-						 /* show direct handle set temp bar */
-						 sdwin.send_data(&sdwin, (DWIN_BASE_ADDRESS + SHOW_DIRECT_CURRENT_TEMP_BAR), DWIN_DATA_BITS,
-                                                        sFWG2_t.Direct_handle_parameter.set_temp * 0.4);
+
+                        /* show direct handle set temp bar */
+                        sdwin.send_data(&sdwin, (DWIN_BASE_ADDRESS + SHOW_DIRECT_CURRENT_TEMP_BAR), DWIN_DATA_BITS,
+                                        sFWG2_t.Direct_handle_parameter.set_temp * 0.4);
                     }
 
                     if (show_direct_set_temp_flag)
@@ -1354,7 +1385,7 @@ void Page_Direct_Work_Heartbeat_Packet(void)
                                                                 sFWG2_t.Direct_handle_parameter.set_temp_f_display);
                                             }
 
-                                            /* show direct handle current temp bar */
+                                            /* show direct handle set temp bar */
                                             if (sFWG2_t.Direct_handle_parameter.set_temp < 500)
                                             {
                                                 sdwin.send_data(&sdwin, (DWIN_BASE_ADDRESS + SHOW_DIRECT_CURRENT_TEMP_BAR), DWIN_DATA_BITS,
@@ -1365,9 +1396,6 @@ void Page_Direct_Work_Heartbeat_Packet(void)
                                                 sdwin.send_data(&sdwin, (DWIN_BASE_ADDRESS + SHOW_DIRECT_CURRENT_TEMP_BAR), DWIN_DATA_BITS,
                                                                 200);
                                             }
-											
-											
-											
                                         }
                                         else
                                         {
@@ -1381,6 +1409,17 @@ void Page_Direct_Work_Heartbeat_Packet(void)
                                             {
                                                 sdwin.send_data(&sdwin, (DWIN_BASE_ADDRESS + SHOW_DIRECT_CURRENT_TEMP), DWIN_DATA_BITS,
                                                                 sFWG2_t.Direct_handle_parameter.actual_temp_f_display);
+                                            }
+
+                                            if (sFWG2_t.Direct_handle_parameter.set_temp < 500)
+                                            {
+                                                sdwin.send_data(&sdwin, (DWIN_BASE_ADDRESS + SHOW_DIRECT_CURRENT_TEMP_BAR), DWIN_DATA_BITS,
+                                                                sFWG2_t.Direct_handle_parameter.actual_temp * 0.4);
+                                            }
+                                            else
+                                            {
+                                                sdwin.send_data(&sdwin, (DWIN_BASE_ADDRESS + SHOW_DIRECT_CURRENT_TEMP_BAR), DWIN_DATA_BITS,
+                                                                200);
                                             }
                                         }
                                     }
@@ -1462,10 +1501,10 @@ void Page_Direct_Work_Heartbeat_Packet(void)
                                             sFWG2_t.Direct_handle_parameter.actual_temp_f_display);
                         }
 
-                        if (sFWG2_t.Direct_handle_parameter.set_temp < 500)
+                        if (sFWG2_t.Direct_handle_parameter.actual_temp < 500)
                         {
                             sdwin.send_data(&sdwin, (DWIN_BASE_ADDRESS + SHOW_DIRECT_CURRENT_TEMP_BAR), DWIN_DATA_BITS,
-                                            sFWG2_t.Direct_handle_parameter.set_temp * 0.4);
+                                            sFWG2_t.Direct_handle_parameter.actual_temp * 0.4);
                         }
                         else
                         {
@@ -1577,24 +1616,12 @@ void Page_Direct_Work_Heartbeat_Packet(void)
 #if 1
             if (time % DIRECT_TEMP_REFIRSH_TIME == 0)
             {
-                if (direct_handle_pid_out / 599 <= 3)
-                {
-                    /* show direct handle's outpot value */
-                    sdwin.send_data(&sdwin, (DWIN_BASE_ADDRESS + SHOW_DIRECT_TPME_OUTPUT_POWER), DWIN_DATA_BITS,
-                                    direct_handle_pid_out / 599);
-                    /* show direct handle's outpot bar */
-                    sdwin.send_data(&sdwin, (DWIN_BASE_ADDRESS + SHOW_DIRECT_TPME_OUTPUT_POWER_BAR), DWIN_DATA_BITS,
-                                    5 * 0.25);
-                }
-                else
-                {
-                    /* show direct handle's outpot value */
-                    sdwin.send_data(&sdwin, (DWIN_BASE_ADDRESS + SHOW_DIRECT_TPME_OUTPUT_POWER), DWIN_DATA_BITS,
-                                    (direct_handle_pid_out / 599));
-                    /* show direct handle's outpot bar */
-                    sdwin.send_data(&sdwin, (DWIN_BASE_ADDRESS + SHOW_DIRECT_TPME_OUTPUT_POWER_BAR), DWIN_DATA_BITS,
-                                    (direct_handle_pid_out / 599) * 0.25);
-                }
+                /* show direct handle's outpot value */
+                sdwin.send_data(&sdwin, (DWIN_BASE_ADDRESS + SHOW_DIRECT_TPME_OUTPUT_POWER), DWIN_DATA_BITS,
+                                (direct_handle_pid_out / 599));
+                /* show direct handle's outpot bar */
+                sdwin.send_data(&sdwin, (DWIN_BASE_ADDRESS + SHOW_DIRECT_TPME_OUTPUT_POWER_BAR), DWIN_DATA_BITS,
+                                (direct_handle_pid_out / 599));
             }
 
 #endif
@@ -2527,13 +2554,10 @@ void Page_Direct_Curve_Heartbeat_Packet(void)
 
         if (sFWG2_t.general_parameter.fwg2_page == PAGE_DIRECT_CURVE)
         {
-			if(first_in == false)
-			{
-				
-				sFWG2_t.Direct_handle_parameter.last_set_wind = 0;
-				
-				show_direct_set_wind_flag = false;
-				
+            if (first_in == false)
+            {
+                sFWG2_t.Direct_handle_parameter.last_set_wind = 0;
+                show_direct_set_wind_flag = false;
                 direct_wind_refirsh_time = 0;
                 show_direct_set_temp_flag = false;
                 first_in_cold_mode = false;
@@ -2542,14 +2566,15 @@ void Page_Direct_Curve_Heartbeat_Packet(void)
                 last_direct_handle_set_temp_f_display = 0;
                 direct_temp_refirsh_time = 0;
                 delay_time = CURVE_REFIRSH_TIME;
-			    first_in = true;
-			}
-			
+                first_in = true;
+            }
+
             switch (state)
             {
             case 0:
 #if 1
-                if (sFWG2_t.Direct_handle_work_mode == NORMAL_MODE  || sFWG2_t.Direct_handle_work_mode == EN_WORKING_MODE)
+                if (sFWG2_t.Direct_handle_work_mode == NORMAL_MODE  || sFWG2_t.Direct_handle_work_mode == EN_WORKING_MODE
+                        || sFWG2_t.Direct_handle_work_mode == COLD_WIND_MODE)
                 {
                     first_in_cold_mode = false;
 
@@ -2597,10 +2622,7 @@ void Page_Direct_Curve_Heartbeat_Packet(void)
                                             0);
                             /* change color */
                             sdwin.send_data(&sdwin, SHOW_CURVE_TEMP_VALUE_COLOUR, DWIN_DATA_BITS, WHITE_COLOR);
-							
-
-						
-							direct_temp_refirsh_time = 1;
+                            direct_temp_refirsh_time = 1;
                             show_direct_set_temp_time = 0;
                             show_direct_set_temp_flag = false;
                         }
@@ -2612,7 +2634,7 @@ void Page_Direct_Curve_Heartbeat_Packet(void)
 
                         if (!direct_temp_refirsh_time)
                         {
-                            direct_temp_refirsh_time = DIRECT_TEMP_REFIRSH_TIME*2;
+                            direct_temp_refirsh_time = DIRECT_TEMP_REFIRSH_TIME * 2;
 
                             if (last_direct_handle_current_temp != sFWG2_t.Direct_handle_parameter.actual_temp || \
                                     last_direct_handle_current_temp_f_display != sFWG2_t.Direct_handle_parameter.actual_temp_f_display)
@@ -2720,7 +2742,7 @@ void Page_Direct_Curve_Heartbeat_Packet(void)
                 }
 
                 /* send direct handle's temp curve */
-                direct_temp_buff[12] = sFWG2_t.Direct_handle_parameter.actual_temp>>8;
+                direct_temp_buff[12] = sFWG2_t.Direct_handle_parameter.actual_temp >> 8;
                 direct_temp_buff[13] = sFWG2_t.Direct_handle_parameter.actual_temp;
                 usart_sendData(DWIN_USART, direct_temp_buff, 14);
 #endif
@@ -2734,7 +2756,6 @@ void Page_Direct_Curve_Heartbeat_Packet(void)
                     /* show direct handle wind */
                     if (show_direct_set_wind_flag == false)
                     {
-
                         if (sFWG2_t.Direct_handle_state == HANDLE_WORKING && sFWG2_t.Direct_handle_position == NOT_IN_POSSITION)
                         {
                             sdwin.send_data(&sdwin, (DWIN_BASE_ADDRESS + SHOW_CURVE_WIND), DWIN_DATA_BITS,
@@ -2804,34 +2825,44 @@ void Page_Direct_Curve_Heartbeat_Packet(void)
                             show_direct_set_wind_flag = false;
                         }
                     }
-                }
 
-                if (sFWG2_t.Direct_handle_state == HANDLE_WORKING && sFWG2_t.Direct_handle_position == NOT_IN_POSSITION)
-                {
-                    /* send direct handle's wind curve */
-                    direct_wind_buff[13] = sFWG2_t.Direct_handle_parameter.set_wind;
-                    usart_sendData(DWIN_USART, direct_wind_buff, 14);
-                }
-                else if (sFWG2_t.Direct_handle_state == HANDLE_WORKING && sFWG2_t.Direct_handle_position == IN_POSSITION)
-                {
-                    if (sFWG2_t.Direct_handle_parameter.actual_temp < 65)
+                    if (sFWG2_t.Direct_handle_state == HANDLE_WORKING && sFWG2_t.Direct_handle_position == NOT_IN_POSSITION)
+                    {
+                        /* send direct handle's wind curve */
+                        direct_wind_buff[13] = sFWG2_t.Direct_handle_parameter.set_wind;
+                        usart_sendData(DWIN_USART, direct_wind_buff, 14);
+                    }
+                    else if (sFWG2_t.Direct_handle_state == HANDLE_WORKING && sFWG2_t.Direct_handle_position == IN_POSSITION)
+                    {
+                        if (sFWG2_t.Direct_handle_parameter.actual_temp < 65)
+                        {
+                            /* send direct handle's wind curve */
+                            direct_wind_buff[13] = 0;
+                            usart_sendData(DWIN_USART, direct_wind_buff, 14);
+                        }
+                        else
+                        {
+                            /* send direct handle's wind curve */
+                            direct_wind_buff[13] = sFWG2_t.Direct_handle_parameter.stop_set_wind;
+                            usart_sendData(DWIN_USART, direct_wind_buff, 14);
+                        }
+                    }
+                    else  if (sFWG2_t.Direct_handle_state == HANDLE_SLEEP)
                     {
                         /* send direct handle's wind curve */
                         direct_wind_buff[13] = 0;
                         usart_sendData(DWIN_USART, direct_wind_buff, 14);
                     }
-                    else
-                    {
-                        /* send direct handle's wind curve */
-                        direct_wind_buff[13] = sFWG2_t.Direct_handle_parameter.stop_set_wind;
-                        usart_sendData(DWIN_USART, direct_wind_buff, 14);
-                    }
                 }
-                else  if (sFWG2_t.Direct_handle_state == HANDLE_SLEEP)
+                else if (sFWG2_t.Direct_handle_work_mode == COLD_WIND_MODE)
                 {
                     /* send direct handle's wind curve */
-                    direct_wind_buff[13] = 0;
+                    direct_wind_buff[13] = sFWG2_t.Direct_handle_parameter.cold_mode_set_wind;
                     usart_sendData(DWIN_USART, direct_wind_buff, 14);
+                    sdwin.send_data(&sdwin, SHOW_CURVE_WIND_VALUE_COLOUR, DWIN_DATA_BITS,
+                                    BLUE_COLOR);
+                    sdwin.send_data(&sdwin, (DWIN_BASE_ADDRESS + SHOW_CURVE_WIND), DWIN_DATA_BITS,
+                                    sFWG2_t.Direct_handle_parameter.cold_mode_set_wind);
                 }
 
 #endif
@@ -2848,12 +2879,12 @@ void Page_Direct_Curve_Heartbeat_Packet(void)
                 break;
 
             case 3:
-#if 1
+#if 0
                 if (sFWG2_t.Direct_handle_state == HANDLE_WORKING && sFWG2_t.Direct_handle_position == NOT_IN_POSSITION)
                 {
                     /* show direct handle's set wind bar */
                     sdwin.send_data(&sdwin, (DWIN_BASE_ADDRESS + SHOW_DIRECT_CURRENT_WIND_BAR), DWIN_DATA_BITS,
-                                    sFWG2_t.Direct_handle_parameter.set_wind );
+                                    sFWG2_t.Direct_handle_parameter.set_wind);
                 }
                 else if (sFWG2_t.Direct_handle_state == HANDLE_WORKING && sFWG2_t.Direct_handle_position == IN_POSSITION)
                 {
@@ -2867,7 +2898,7 @@ void Page_Direct_Curve_Heartbeat_Packet(void)
                     {
                         /* show direct handle's set wind bar */
                         sdwin.send_data(&sdwin, (DWIN_BASE_ADDRESS + SHOW_DIRECT_CURRENT_WIND_BAR), DWIN_DATA_BITS,
-                                        sFWG2_t.Direct_handle_parameter.stop_set_wind );
+                                        sFWG2_t.Direct_handle_parameter.stop_set_wind);
                     }
                 }
                 else  if (sFWG2_t.Direct_handle_state == HANDLE_SLEEP)
@@ -2960,34 +2991,32 @@ void Page_Direct_Curve_Heartbeat_Packet(void)
 #endif
                 state ++;
                 break;
-				
-			case 5:
-				
-			
-			/* show countdown time */
-            if (sFWG2_t.general_parameter.countdown_flag == true)
-            {
-                sdwin.send_data(&sdwin, SHOW_CURVE_TIME_VALUE_COLOUR, DWIN_DATA_BITS,
-                                RED_COLOR);
-                sdwin.send_data(&sdwin, (DWIN_BASE_ADDRESS + SHOW_CURVE_TIME), DWIN_DATA_BITS,
-                                sFWG2_t.general_parameter.countdown_time_display);
-            }
-            else
-            {
-                sdwin.send_data(&sdwin, SHOW_CURVE_TIME_VALUE_COLOUR, DWIN_DATA_BITS,
-                                WHITE_COLOR);
-                sdwin.send_data(&sdwin, (DWIN_BASE_ADDRESS + SHOW_CURVE_TIME), DWIN_DATA_BITS,
-                                sFWG2_t.general_parameter.countdown_time);
-            }
-			state = 0;
-				break;
-				
+
+            case 5:
+
+                /* show countdown time */
+                if (sFWG2_t.general_parameter.countdown_flag == true)
+                {
+                    sdwin.send_data(&sdwin, SHOW_CURVE_TIME_VALUE_COLOUR, DWIN_DATA_BITS,
+                                    RED_COLOR);
+                    sdwin.send_data(&sdwin, (DWIN_BASE_ADDRESS + SHOW_CURVE_TIME), DWIN_DATA_BITS,
+                                    sFWG2_t.general_parameter.countdown_time_display);
+                }
+                else
+                {
+                    sdwin.send_data(&sdwin, SHOW_CURVE_TIME_VALUE_COLOUR, DWIN_DATA_BITS,
+                                    WHITE_COLOR);
+                    sdwin.send_data(&sdwin, (DWIN_BASE_ADDRESS + SHOW_CURVE_TIME), DWIN_DATA_BITS,
+                                    sFWG2_t.general_parameter.countdown_time);
+                }
+
+                state = 0;
+                break;
             }
         }
         else
         {
             first_in = false;
-            
         }
     }
 }
@@ -3020,27 +3049,25 @@ void Page_Code_Heartbeat_Packet(void)
 
             if (sFWG2_t.general_parameter.code_mode_handle_select == SELECT_DIRECT_HANDLE)
             {
+                /* send direct handle's temp curve */
+                direct_temp_buff[12] = sFWG2_t.Direct_handle_parameter.actual_temp >> 8;
+                direct_temp_buff[13] = sFWG2_t.Direct_handle_parameter.actual_temp;
+                usart_sendData(DWIN_USART, direct_temp_buff, 14);
+                show_temp_time++;
 
-                    /* send direct handle's temp curve */
-                    direct_temp_buff[12] = sFWG2_t.Direct_handle_parameter.actual_temp>>8;
-                    direct_temp_buff[13] = sFWG2_t.Direct_handle_parameter.actual_temp;
-                    usart_sendData(DWIN_USART, direct_temp_buff, 14);
-                    show_temp_time++;
-                    if (show_temp_time % 12 == 0)
+                if (show_temp_time % 12 == 0)
+                {
+                    if (sFWG2_t.general_parameter.temp_uint == FAHRENHEIT)
                     {
-						if(sFWG2_t.general_parameter.temp_uint == FAHRENHEIT)
-						{
-						   sdwin.send_data(&sdwin, (DWIN_BASE_ADDRESS + SHOW_CODE_MODE_TEMP), DWIN_DATA_BITS,
-                                        sFWG2_t.Direct_handle_parameter.actual_temp_f_display); 
-						}
-                        
-						else if(sFWG2_t.general_parameter.temp_uint == CELSIUS)
-						{
-						    sdwin.send_data(&sdwin, (DWIN_BASE_ADDRESS + SHOW_CODE_MODE_TEMP), DWIN_DATA_BITS,
-                                        sFWG2_t.Direct_handle_parameter.actual_temp); 
-						}
+                        sdwin.send_data(&sdwin, (DWIN_BASE_ADDRESS + SHOW_CODE_MODE_TEMP), DWIN_DATA_BITS,
+                                        sFWG2_t.Direct_handle_parameter.actual_temp_f_display);
                     }
-                
+                    else if (sFWG2_t.general_parameter.temp_uint == CELSIUS)
+                    {
+                        sdwin.send_data(&sdwin, (DWIN_BASE_ADDRESS + SHOW_CODE_MODE_TEMP), DWIN_DATA_BITS,
+                                        sFWG2_t.Direct_handle_parameter.actual_temp);
+                    }
+                }
             }
 
 #endif
@@ -3196,7 +3223,8 @@ void Page_Code_Heartbeat_Packet(void)
             {
                 if (sFWG2_t.general_parameter.code_mode_handle_select == SELECT_DIRECT_HANDLE)
                 {
-					show_wind_time++;
+                    show_wind_time++;
+
                     if (sFWG2_t.Direct_handle_parameter.actual_temp > 70)
                     {
                         if (show_wind_time % 12 == 0)

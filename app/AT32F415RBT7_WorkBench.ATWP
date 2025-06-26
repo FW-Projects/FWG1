@@ -179,11 +179,11 @@
         </Signal>
         <Signal SignalName="GPIO_Input" PinName="PB1">
             <Parameters name="GPIO_PullType_Set" value="GPIO_PULL_UP"/>
-            <Parameters name="Label" value="KEIY_CH"/>
+            <Parameters name="Label" value="KEY_CH"/>
         </Signal>
-        <Signal SignalName="GPIO_Input" PinName="PB2/BOOT1">
-            <Parameters name="GPIO_PullType_Set" value="GPIO_PULL_UP"/>
-            <Parameters name="Label" value="KEY_COUTH"/>
+        <Signal SignalName="GPIO_Output" PinName="PB2/BOOT1">
+            <Parameters name="GPIO_Outputlevel" value="GPIO_OUTPUTLEVEL_HIGH"/>
+            <Parameters name="Label" value="KEY_TOUCH"/>
         </Signal>
         <Signal SignalName="GPIO_Output" PinName="PB12">
             <Parameters name="Label" value="SPK_M"/>
@@ -236,7 +236,7 @@
         <PinSub pinname="PC5" signalname="GPIO_Input" signaltype="3"/>
         <PinSub pinname="PB0" signalname="GPIO_Input" signaltype="3"/>
         <PinSub pinname="PB1" signalname="GPIO_Input" signaltype="3"/>
-        <PinSub pinname="PB2/BOOT1" signalname="GPIO_Input" signaltype="3"/>
+        <PinSub pinname="PB2/BOOT1" signalname="GPIO_Output" signaltype="3"/>
         <PinSub pinname="PB10" signalname="USART3_TX" signaltype="2"/>
         <PinSub pinname="PB11" signalname="USART3_RX" signaltype="2"/>
         <PinSub pinname="PB12" signalname="GPIO_Output" signaltype="3"/>

@@ -168,40 +168,7 @@
           <Name>UL2CM3(-S0 -C0 -P0 -FD20000000 -FC1000 -FN1 -FF0AT32F415_128 -FS08000000 -FL00020000 -FP0($$Device:-AT32F415RBT7$Flash\AT32F415_128.FLM))</Name>
         </SetRegEntry>
       </TargetDriverDllRegistry>
-      <Breakpoint>
-        <Bp>
-          <Number>0</Number>
-          <Type>0</Type>
-          <LineNumber>3040</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>134268708</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>..\app\dwin_handle.c.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\AT32F415RBT7_WorkBench\../app/dwin_handle.c.c\3040</Expression>
-        </Bp>
-        <Bp>
-          <Number>1</Number>
-          <Type>0</Type>
-          <LineNumber>3033</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>134268670</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>..\app\dwin_handle.c.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\AT32F415RBT7_WorkBench\../app/dwin_handle.c.c\3033</Expression>
-        </Bp>
-      </Breakpoint>
+      <Breakpoint/>
       <WatchWindow1>
         <Ww>
           <count>0</count>
@@ -253,6 +220,11 @@
           <WinNumber>1</WinNumber>
           <ItemText>time,0x0A</ItemText>
         </Ww>
+        <Ww>
+          <count>10</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>\\AT32F415RBT7_WorkBench\../app/FWG2_handle.c\sFWG2_t.Direct_handle_parameter.actual_wind,0x0A</ItemText>
+        </Ww>
       </WatchWindow1>
       <WatchWindow2>
         <Ww>
@@ -265,7 +237,7 @@
         <Mm>
           <WinNumber>1</WinNumber>
           <SubType>0</SubType>
-          <ItemText>0x4002101C</ItemText>
+          <ItemText>\\AT32F415RBT7_WorkBench\../app/FWG2_handle.c\sFWG2_t.Direct_handle_parameter.actual_wind</ItemText>
           <AccSizeX>0</AccSizeX>
         </Mm>
       </MemoryWindow1>
@@ -305,7 +277,7 @@
         <aLa>0</aLa>
         <aPa1>0</aPa1>
         <AscS4>0</AscS4>
-        <aSer4>1</aSer4>
+        <aSer4>0</aSer4>
         <StkLoc>0</StkLoc>
         <TrcWin>0</TrcWin>
         <newCpu>0</newCpu>
@@ -512,7 +484,7 @@
 
   <Group>
     <GroupName>firmware</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
