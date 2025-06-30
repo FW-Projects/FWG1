@@ -3,7 +3,7 @@
 #include "flash.h"
 #define FLASH_HANDLE_TIME          2
 #define DATA_SIZE                  2
-#define FLASH_MENBER               103
+#define FLASH_MENBER               105
 
 
 
@@ -12,8 +12,11 @@
 #define A_LAST_DIRECT_SET_WIND_ADDRESS                     A_LAST_DIRECT_SET_TEMP_ADDRESS + DATA_SIZE          
 #define A_LAST_DIRECT_SET_COLD_MODE_WIND_ADDRESS           A_LAST_DIRECT_SET_WIND_ADDRESS + DATA_SIZE            
 #define A_LAST_DIRECT_SET_CALIBRATION_TEMP                 A_LAST_DIRECT_SET_COLD_MODE_WIND_ADDRESS + DATA_SIZE 
-#define A_LAST_SET_COUNTDOWN_TIME                          A_LAST_DIRECT_SET_CALIBRATION_TEMP + DATA_SIZE
-#define A_LAST_TEMP_UINT                                   A_LAST_SET_COUNTDOWN_TIME + DATA_SIZE               
+#define A_LAST_DIRECT_SET_QUICK_TEMP                       A_LAST_DIRECT_SET_CALIBRATION_TEMP + DATA_SIZE
+#define A_LAST_DIRECT_SET_QUICK_TIME                       A_LAST_DIRECT_SET_QUICK_TEMP+ DATA_SIZE
+
+#define A_LAST_SET_COUNTDOWN_TIME                          A_LAST_DIRECT_SET_QUICK_TIME + DATA_SIZE
+#define A_LAST_TEMP_UINT                                   A_LAST_DIRECT_SET_QUICK_TIME + DATA_SIZE               
 #define A_LAST_SPEAK_STATE                                 A_LAST_TEMP_UINT + DATA_SIZE                          
 #define A_LAST_DISPLAY_LOCK_STATE                          A_LAST_SPEAK_STATE + DATA_SIZE                        
 #define A_LAST_FN_KEY_SET                                  A_LAST_DISPLAY_LOCK_STATE + DATA_SIZE    
@@ -117,7 +120,11 @@
 #define B_LAST_DIRECT_SET_WIND_ADDRESS                     B_LAST_DIRECT_SET_TEMP_ADDRESS + DATA_SIZE           
 #define B_LAST_DIRECT_SET_COLD_MODE_WIND_ADDRESS           B_LAST_DIRECT_SET_WIND_ADDRESS + DATA_SIZE                                                                 
 #define B_LAST_DIRECT_SET_CALIBRATION_TEMP                 B_LAST_DIRECT_SET_COLD_MODE_WIND_ADDRESS + DATA_SIZE
-#define B_LAST_SET_COUNTDOWN_TIME                          B_LAST_DIRECT_SET_CALIBRATION_TEMP + DATA_SIZE
+#define B_LAST_DIRECT_SET_QUICK_TEMP                       B_LAST_DIRECT_SET_CALIBRATION_TEMP + DATA_SIZE
+#define B_LAST_DIRECT_SET_QUICK_TIME                       B_LAST_DIRECT_SET_QUICK_TEMP + DATA_SIZE
+
+
+#define B_LAST_SET_COUNTDOWN_TIME                          B_LAST_DIRECT_SET_QUICK_TIME + DATA_SIZE
 #define B_LAST_TEMP_UINT                                   B_LAST_SET_COUNTDOWN_TIME + DATA_SIZE
 #define B_LAST_SPEAK_STATE                                 B_LAST_TEMP_UINT + DATA_SIZE
 #define B_LAST_DISPLAY_LOCK_STATE                          B_LAST_SPEAK_STATE + DATA_SIZE

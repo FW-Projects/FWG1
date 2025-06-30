@@ -74,7 +74,7 @@ static void RecvDataFromLCD(DwinObjectType *dwim)
             case SHOW_DIRECT_CURRENT_TEMP_BAR:
                 sFWG2_t.general_parameter.adjust_key_temporary_set    = TEMPORARY_SELECT_TEMP;
 
-                if (sFWG2_t.Direct_handle_work_mode == NORMAL_MODE || sFWG2_t.Direct_handle_work_mode == EN_WORKING_MODE)
+                if (sFWG2_t.Direct_handle_work_mode == NORMAL_MODE)
                 {
                     sFWG2_t.Direct_handle_parameter.set_temp = (dwim->rx_buff[FRAME_VAL_H] * 256 + dwim->rx_buff[FRAME_VAL_L] * 2.5);
 
@@ -92,7 +92,7 @@ static void RecvDataFromLCD(DwinObjectType *dwim)
             case SHOW_DIRECT_CURRENT_WIND_BAR:
                 sFWG2_t.general_parameter.adjust_key_temporary_set = TEMPORARY_SELECT_WIND;
 
-                if (sFWG2_t.Direct_handle_work_mode == NORMAL_MODE || sFWG2_t.Direct_handle_work_mode == EN_WORKING_MODE)
+                if (sFWG2_t.Direct_handle_work_mode == NORMAL_MODE)
                 {
                     sFWG2_t.Direct_handle_parameter.set_wind = dwim->rx_buff[FRAME_VAL_H] * 256 + dwim->rx_buff[FRAME_VAL_L];
 
@@ -122,42 +122,45 @@ static void RecvDataFromLCD(DwinObjectType *dwim)
 
             /* direct handle temp set */
             case SHOW_DIRECT_SET_TEMP:
-                if (sFWG2_t.general_parameter.temp_uint == FAHRENHEIT)
+                if (sFWG2_t.Direct_handle_work_mode == NORMAL_MODE)
                 {
-                    sFWG2_t.Direct_handle_parameter.set_temp_f_display  = dwim->rx_buff[FRAME_VAL_H] * 256 + dwim->rx_buff[FRAME_VAL_L];
-                    sFWG2_t.Direct_handle_parameter.set_temp = (sFWG2_t.Direct_handle_parameter.set_temp - 32) * 5 / 9;
-                }
-                else
-                {
-                    sFWG2_t.Direct_handle_parameter.set_temp = dwim->rx_buff[FRAME_VAL_H] * 256 + dwim->rx_buff[FRAME_VAL_L];
-                    sFWG2_t.Direct_handle_parameter.set_temp_f_display  =  9 * sFWG2_t.Direct_handle_parameter.set_temp  / 5  + 32;
-                }
+                    if (sFWG2_t.general_parameter.temp_uint == FAHRENHEIT)
+                    {
+                        sFWG2_t.Direct_handle_parameter.set_temp_f_display  = dwim->rx_buff[FRAME_VAL_H] * 256 + dwim->rx_buff[FRAME_VAL_L];
+                        sFWG2_t.Direct_handle_parameter.set_temp = (sFWG2_t.Direct_handle_parameter.set_temp - 32) * 5 / 9;
+                    }
+                    else
+                    {
+                        sFWG2_t.Direct_handle_parameter.set_temp = dwim->rx_buff[FRAME_VAL_H] * 256 + dwim->rx_buff[FRAME_VAL_L];
+                        sFWG2_t.Direct_handle_parameter.set_temp_f_display  =  9 * sFWG2_t.Direct_handle_parameter.set_temp  / 5  + 32;
+                    }
 
-                if (sFWG2_t.Direct_handle_parameter.set_temp <= 100)
-                {
-                    sFWG2_t.Direct_handle_parameter.set_temp = 100;
-                }
+                    if (sFWG2_t.Direct_handle_parameter.set_temp <= 100)
+                    {
+                        sFWG2_t.Direct_handle_parameter.set_temp = 100;
+                    }
 
-                if (sFWG2_t.Direct_handle_parameter.set_temp >= 500)
-                {
-                    sFWG2_t.Direct_handle_parameter.set_temp = 100;
-                }
+                    if (sFWG2_t.Direct_handle_parameter.set_temp >= 500)
+                    {
+                        sFWG2_t.Direct_handle_parameter.set_temp = 100;
+                    }
 
-                if (sFWG2_t.Direct_handle_parameter.set_temp_f_display <= 212)
-                {
-                    sFWG2_t.Direct_handle_parameter.set_temp_f_display = 212;
-                }
+                    if (sFWG2_t.Direct_handle_parameter.set_temp_f_display <= 212)
+                    {
+                        sFWG2_t.Direct_handle_parameter.set_temp_f_display = 212;
+                    }
 
-                if (sFWG2_t.Direct_handle_parameter.set_temp_f_display >= 932)
-                {
-                    sFWG2_t.Direct_handle_parameter.set_temp_f_display = 932;
+                    if (sFWG2_t.Direct_handle_parameter.set_temp_f_display >= 932)
+                    {
+                        sFWG2_t.Direct_handle_parameter.set_temp_f_display = 932;
+                    }
                 }
 
                 break;
 
             /* direct handle wind set */
             case SHOW_DIRECT_SET_WIND:
-                if (sFWG2_t.Direct_handle_work_mode == NORMAL_MODE || sFWG2_t.Direct_handle_work_mode == EN_WORKING_MODE)
+                if (sFWG2_t.Direct_handle_work_mode == NORMAL_MODE)
                 {
                     sFWG2_t.Direct_handle_parameter.set_wind = dwim->rx_buff[FRAME_VAL_H] * 256 + dwim->rx_buff[FRAME_VAL_L];
 
@@ -190,7 +193,10 @@ static void RecvDataFromLCD(DwinObjectType *dwim)
 
             /* set handle channel */
             case SET_CHANNEL:
-                sFWG2_t.general_parameter.ch = dwim->rx_buff[FRAME_VAL_L];
+				
+			if (sFWG2_t.Direct_handle_work_mode == NORMAL_MODE)
+			{
+			    sFWG2_t.general_parameter.ch = dwim->rx_buff[FRAME_VAL_L];
 
                 if (sFWG2_t.general_parameter.fwg2_page == PAGE_MAIN || sFWG2_t.general_parameter.fwg2_page == PAGE_DIRECT_CURVE)
                 {
@@ -259,6 +265,8 @@ static void RecvDataFromLCD(DwinObjectType *dwim)
                 {
                     sFWG2_t.Direct_handle_parameter.set_temp_f_display  =  9 * sFWG2_t.Direct_handle_parameter.set_temp  / 5  + 32;
                 }
+			}
+            
 
                 break;
 
