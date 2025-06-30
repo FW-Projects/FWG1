@@ -225,6 +225,11 @@
           <WinNumber>1</WinNumber>
           <ItemText>\\AT32F415RBT7_WorkBench\../app/FWG2_handle.c\sFWG2_t.Direct_handle_parameter.actual_wind,0x0A</ItemText>
         </Ww>
+        <Ww>
+          <count>11</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>\\AT32F415RBT7_WorkBench\../app/FWG2_handle.c\sFWG2_t.Direct_handle_parameter.set_calibration_temp,0x0A</ItemText>
+        </Ww>
       </WatchWindow1>
       <WatchWindow2>
         <Ww>

@@ -391,7 +391,7 @@ uint16_t temp_get(void)
 uint16_t temp_get_filter_average(void)
 {
     static uint16_t temp;
-    temp = (get_adcval_average(ADC_CHANNEL, 80) >> 2);
+    temp = (get_adcval_average(ADC_CHANNEL, 10) >> 2);
     return temp;
 }
 

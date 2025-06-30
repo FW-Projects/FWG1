@@ -230,7 +230,6 @@ void SysTick_Handler(void)
     {
         sFWG2_t.Direct_handle_parameter.actual_wind = tmr3_ch1_readvalue;
         //printf("Direct actual_wind  = %d\r\n", sFWG2_t.Direct_handle_parameter.actual_wind);
-        
 		tmr3_ch1_readvalue = 0;
         time_out = TIME_1S;
     }
@@ -347,8 +346,9 @@ static void Direct_Handle_PWM_Out(void)
                     }
 
                     /* get Direct handle actual temp */
-                     sFWG2_t.Direct_handle_parameter.actual_temp = temp_get_filter_move_average(ADC_CHANNEL_10) +
-                        sFWG2_t.general_parameter.mcu_temp;//效果好
+					
+					sFWG2_t.Direct_handle_parameter.actual_temp = temp_get_filter_average() + sFWG2_t.general_parameter.mcu_temp;
+                     //sFWG2_t.Direct_handle_parameter.actual_temp = temp_get_filter_move_average(ADC_CHANNEL_10) + sFWG2_t.general_parameter.mcu_temp;//效果好
                     //sFWG2_t.Direct_handle_parameter.actual_temp  = (get_adcval(ADC_CHANNEL_10) >> 2) + sFWG2_t.general_parameter.mcu_temp;
 
                     /* when the set temp change over 30 will clea I val */
@@ -434,8 +434,8 @@ static void Direct_Handle_PWM_Out(void)
                     }
 
                     /* get Direct handle actual temp */
-                     sFWG2_t.Direct_handle_parameter.actual_temp = temp_get_filter_move_average(ADC_CHANNEL_10) +
-                        sFWG2_t.general_parameter.mcu_temp;//效果好
+					sFWG2_t.Direct_handle_parameter.actual_temp = temp_get_filter_average() + sFWG2_t.general_parameter.mcu_temp;
+                     //sFWG2_t.Direct_handle_parameter.actual_temp = temp_get_filter_move_average(ADC_CHANNEL_10) + sFWG2_t.general_parameter.mcu_temp;//效果好
                     //sFWG2_t.Direct_handle_parameter.actual_temp  = (get_adcval(ADC_CHANNEL_10) >> 2)  + sFWG2_t.general_parameter.mcu_temp ;
 
                     /* when the set temp change over 30 will clea I val */
@@ -511,7 +511,8 @@ static void Direct_Handle_PWM_Out(void)
                 if (sFWG2_t.general_parameter.relay_open_flag == true)
                 {
                     /* get Direct handle actual temp */
-                    sFWG2_t.Direct_handle_parameter.actual_temp = temp_get_filter_move_average(ADC_CHANNEL_10) + sFWG2_t.general_parameter.mcu_temp;//效果好
+					sFWG2_t.Direct_handle_parameter.actual_temp = temp_get_filter_average() + sFWG2_t.general_parameter.mcu_temp;
+                    //sFWG2_t.Direct_handle_parameter.actual_temp = temp_get_filter_move_average(ADC_CHANNEL_10) + sFWG2_t.general_parameter.mcu_temp;//效果好
                     //sFWG2_t.Direct_handle_parameter.actual_temp  = (get_adcval(ADC_CHANNEL_10) >> 2)  + sFWG2_t.general_parameter.mcu_temp;
 
                     /* run pid funtion */

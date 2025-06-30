@@ -274,7 +274,6 @@ extern DwinObjectType sdwin;
 extern uint16_t show_direct_set_temp_time ;
 extern uint16_t show_direct_set_wind_time ;
 
-
 void DwinInitialization(DwinObjectType *dwin);
 
 void Page_General_Heartbeat_Packet(void);
@@ -287,5 +286,53 @@ void Page_Cyclone_Curve_Heartbeat_Packet(void);
 void Page_Code_Heartbeat_Packet(void);
 
 void Page_Switch(void);
+
+
+
+typedef enum
+{
+    SHOW_SET_TEMP = 0,
+    SHOW_ACTUAL_TEMP,
+
+} show_temp_e;
+
+typedef enum
+{
+    SHOW_SET_WIND = 0,
+    SHOW_ACTUAL_WIND,
+    SHOW_SET_COLD_MODE_WIND,
+
+} show_wind_e;
+
+typedef struct
+{
+
+    show_temp_e show_temp;
+    show_wind_e show_wind;
+
+} show_state_t;
+
+extern show_state_t show_state;
+
+
+void show_temp_in_page_work(show_state_t *state);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #endif
 /*********** (C) COPYRIGHT 1999-2019 Moonan Technology *********END OF FILE****/
