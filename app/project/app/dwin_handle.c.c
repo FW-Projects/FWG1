@@ -966,7 +966,7 @@ static void RecvDataFromLCD(DwinObjectType *dwim)
 
                 if (sFWG2_t.general_parameter.temp_uint == FAHRENHEIT)
                 {
-                    cal_temp = (sFWG2_t.Direct_handle_parameter.set_calibration_temp - 32) *
+                    cal_temp = (cal_temp - 32) *
                                5 / 9;
                 }
 
