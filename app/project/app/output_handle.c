@@ -1,11 +1,18 @@
 #include "output_handle.h"
 #include "work_handle.h"
 #include "FWG2_handle.h"
-uint8_t off_set_buff[41] = {22, 21, 21, 21, 21, 21, 21, 21, 20, 20,
-                            21, 21, 21, 20, 19, 19, 19, 19, 18, 17,
-                            17, 16, 16, 15, 14, 13, 12, 11, 11, 10,
-                            9,  9,  8,  8,  7,  6,  5,  4,  3,  1, 0
-                           };
+int8_t direct_handle_temp_cal_buff[41] = {8, 2, 7, 6, 6, 5, 5, 4, 4, 4,
+                                           3, 3, 3, 2, 2, 2, 2, 2, 1, 1,
+                                           2, 2, 1, 1, 1, 0,-1,-1,(-1),-2,
+	                                      -2,-2,-2,-4, -5, -5, -6,-7,-8,-9,-15 
+                                        };
+
+
+int8_t direct_handle_wind_20_cal_buff[41] = {12, 7, 7, 6, 4, 4, 3, 2, 0, -1,
+                                             -2, -3, -4, -3, -3, -3, -4, -4, -4, -4,
+                                             -5, -9, -11, -11, -11, -13, -14, -16, (-18), -19,
+                                             -21, -22, -23, -24, -24, -24, -25, -27, -30, -33, -34
+                                            };
 
 /*
     Direct  handle FAN: TMR9 CH2
@@ -337,48 +344,92 @@ void hot_control(void)
     }
 }
 
-uint8_t linear_correction(uint16_t user_set_temp)
+
+int8_t direct_linear_correction(uint16_t user_set_temp)
 {
-    static uint8_t n = 0;
-    static uint16_t check_start = 0;
-    static uint8_t check_value = 0;
+    volatile uint8_t n = 0;
+    volatile uint16_t check_start = 0;
+    volatile uint8_t check_value = 0;
 
-    if (user_set_temp < 300)
+    if (sFWG2_t.Direct_handle_parameter.set_wind > 30)
     {
-        check_value = 0;
-        check_start = 100;
-
-        for (n = 0; n < 20; n++)
+        if (user_set_temp < 300)
         {
-            if (user_set_temp <= (check_start + check_value))
+            check_value = 0;
+            check_start = 100;
+
+            for (n = 0; n < 20; n++)
             {
-                return (off_set_buff[n]);
-            }
-            else
-            {
-                check_start += 10;
+                if (user_set_temp <= (check_start + check_value))
+                {
+                    return (direct_handle_temp_cal_buff[n]);
+                }
+                else
+                {
+                    check_start += 10;
+                }
             }
         }
-    }
-    else
-    {
-        check_value = 0;
-        check_start = 300;
-
-        for (n = 20; n < 42; n++)
+        else
         {
-            if (user_set_temp <= (check_start + check_value))
+            check_value = 0;
+            check_start = 300;
+
+            for (n = 20; n < 40; n++)
             {
-                return (off_set_buff[n]);
-            }
-            else
-            {
-                check_start += 10;
+                if (user_set_temp <= (check_start + check_value))
+                {
+                    return (direct_handle_temp_cal_buff[n]);
+                }
+                else
+                {
+                    check_start += 10;
+                }
             }
         }
+		return (direct_handle_temp_cal_buff[n]);
     }
+	
+	else if(sFWG2_t.Direct_handle_parameter.set_wind<=20 && sFWG2_t.Direct_handle_parameter.set_wind>0)
+	{
+        if (user_set_temp < 300)
+        {
+            check_value = 0;
+            check_start = 100;
 
-    return (off_set_buff[n]);
+            for (n = 0; n < 20; n++)
+            {
+                if (user_set_temp <= (check_start + check_value))
+                {
+                    return (direct_handle_wind_20_cal_buff[n]);
+                }
+                else
+                {
+                    check_start += 10;
+                }
+            }
+        }
+        else
+        {
+            check_value = 0;
+            check_start = 300;
+
+            for (n = 20; n < 40; n++)
+            {
+                if (user_set_temp <= (check_start + check_value))
+                {
+                    return (direct_handle_wind_20_cal_buff[n]);
+                }
+                else
+                {
+                    check_start += 10;
+                }
+            }
+			return (direct_handle_wind_20_cal_buff[n]);
+        }	    
+	}
+
+	return 0;
 }
 
 uint16_t temp_get(void)

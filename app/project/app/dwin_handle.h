@@ -174,7 +174,7 @@ typedef enum
     /* end the page 10 address of  */
 
     /* start the page 11 address of  */
-    SET_FN_KEY_MODE = 0x31,                 //设置加强、冷风模式   0：加强   1：冷风  2：倒计时
+    SET_FN_KEY_LONG_MODE = 0x31,                 //设置加强、冷风模式   0：加强   1：冷风  2：倒计时
 	SET_ADJUST_KEY,
     /* end the page 11 address of  */
 
@@ -233,6 +233,7 @@ typedef enum
 
 	 /* end the page 28 address of  */
 	 
+	 SET_FN_KEY_SHORT_MODE = 0x44,
 	 
      /* out of page value */
      SHOW_DIRECT_TEMP_COLOUR = 0x6003,
@@ -316,23 +317,6 @@ extern show_state_t show_state;
 
 
 void show_temp_in_page_work(show_state_t *state);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 #endif
 /*********** (C) COPYRIGHT 1999-2019 Moonan Technology *********END OF FILE****/

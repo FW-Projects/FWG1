@@ -20,11 +20,12 @@
   ..\..\libraries\drivers\inc\at32f415_pwc.h \
   ..\..\libraries\drivers\inc\at32f415_spi.h \
   ..\..\libraries\drivers\inc\at32f415_tmr.h \
-  ..\..\libraries\drivers\inc\at32f415_usart.h ..\app\FWG2_handle.h \
+  ..\..\libraries\drivers\inc\at32f415_usart.h \
+  ..\..\libraries\drivers\inc\at32f415_wdt.h ..\app\FWG2_handle.h \
   D:\Work\ Program\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdbool.h \
   ..\inc\wk_adc.h ..\inc\wk_debug.h ..\inc\wk_exint.h ..\inc\wk_spi.h \
-  ..\inc\wk_tmr.h ..\inc\wk_usart.h ..\inc\wk_dma.h ..\inc\wk_gpio.h \
-  ..\inc\wk_system.h ..\system\tmt.h \
+  ..\inc\wk_tmr.h ..\inc\wk_usart.h ..\inc\wk_wdt.h ..\inc\wk_dma.h \
+  ..\inc\wk_gpio.h ..\inc\wk_system.h ..\system\tmt.h \
   C:\Users\Administrator\AppData\Local\Arm\Packs\ARM\CMSIS-View\1.2.0\EventRecorder\Include\EventRecorder.h \
   ..\inc\iap.h ..\app\output_handle.h ..\device\adc.h \
   ..\app\beep_handle.h ..\device\beep.h ..\app\flash_handle.h \

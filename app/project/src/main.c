@@ -32,6 +32,7 @@
 #include "wk_spi.h"
 #include "wk_tmr.h"
 #include "wk_usart.h"
+#include "wk_wdt.h"
 #include "wk_dma.h"
 #include "wk_gpio.h"
 #include "wk_system.h"
@@ -70,7 +71,7 @@
 
 /* private variables ---------------------------------------------------------*/
 /* add user code begin private variables */
-uint8_t beep_flag = 0;
+
 
 
 /* add user code end private variables */
@@ -85,6 +86,8 @@ void dwin_task(void);
 void work_task(void);
 void flash_task(void);
 void output_task(void);
+void feed_dog_task(void);
+void record_task(void);
 /* add user code end function prototypes */
 
 /* private user code ---------------------------------------------------------*/
@@ -102,6 +105,7 @@ int main(void)
   /* add user code begin 1 */
   /* config vector table offset */
   nvic_vector_table_set(NVIC_VECTTAB_FLASH, 0x4000);
+
   /* add user code end 1 */
 
   /* system clock config. */
@@ -130,7 +134,7 @@ int main(void)
                         DMA1_CHANNEL1_PERIPHERAL_BASE_ADDR, 
                         DMA1_CHANNEL1_MEMORY_BASE_ADDR, 
                         DMA1_CHANNEL1_BUFFER_SIZE);
-  dma_channel_enable(DMA1_CHANNEL1, TRUE);
+  dma_channel_enable(DMA1_CHANNEL1, FALSE);
 
   /* init usart1 function. */
   wk_usart1_init();
@@ -165,26 +169,34 @@ int main(void)
   /* init tmr9 function. */
   wk_tmr9_init();
 
+  /* init wdt function. */
+  wk_wdt_init();
+
   /* add user code begin 2 */
     tmt_init();
     tmt.create(iap_task, IAP_HANDLE_TIME);
     tmt.create(key_task, KEY_HANDLE_TIME);
     tmt.create(adc_task, KEY_HANDLE_TIME);
     tmt.create(beep_task, BEEP_HANDLE_TIME);
+	tmt.create(dwin_task, DWIN_HANDLE_TIME);
     tmt.create(work_task, WORK_HANDLE_TIME);
     tmt.create(flash_task, FLASH_HANDLE_TIME);
     tmt.create(output_task, OUTPUT_HANDLE_TIME);
-	tmt.create(dwin_task, DWIN_HANDLE_TIME);
+	tmt.create(feed_dog_task, OUTPUT_HANDLE_TIME);
+	tmt.create(record_task, 60000);
+
     EventRecorderInitialize(0, 1);
     FWG2_Init(&sFWG2_t);
     DwinInitialization(&sdwin);
-    PID_Init(&direct_pid, 200, 0.5, 0.5, 59999);
+    PID_Init(&direct_pid, 200, 0.5, 1800, 35000);
     iap_init();
     spiflash_init();
     __IO uint32_t flash_id_index  = spiflash_read_id();
     BSP_UsartInit();
+	
     printf("system init ok\r\n");
     /* wait for system reday */
+
     wk_delay_ms(3000);
     /* add user code end 2 */
 
@@ -307,5 +319,25 @@ void output_task(void)
     fan_control();
     hot_control();
 }
+
+void feed_dog_task(void)
+{
+    static bool first_in = false;
+
+    if (first_in == false)
+    {
+        first_in = true;
+        /* if enabled, please feed the dog through wdt_counter_reload() function */
+        wdt_enable();
+    }
+
+    wdt_counter_reload();
+}
+
+void record_task(void)
+{
+     sFWG2_t.general_parameter.system_run_time_m ++;
+}
+
 
 /* add user code end 4 */

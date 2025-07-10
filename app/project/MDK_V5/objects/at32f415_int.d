@@ -19,7 +19,8 @@
   ..\..\libraries\drivers\inc\at32f415_pwc.h \
   ..\..\libraries\drivers\inc\at32f415_spi.h \
   ..\..\libraries\drivers\inc\at32f415_tmr.h \
-  ..\..\libraries\drivers\inc\at32f415_usart.h ..\inc\wk_system.h \
+  ..\..\libraries\drivers\inc\at32f415_usart.h \
+  ..\..\libraries\drivers\inc\at32f415_wdt.h ..\inc\wk_system.h \
   D:\Work\ Program\Keil_v5\ARM\ARMCLANG\Bin\..\include\math.h \
   ..\device\iap_usart.h ..\system\tmt.h ..\app\FWG2_handle.h \
   D:\Work\ Program\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdbool.h \

@@ -133,6 +133,14 @@
             <ParametersSub name="RealBaudRate" value="115207"/>
         </Parameters>
     </UART5>
+    <WDT>
+        <Mode>
+            <ModeSub name="WDT_State" value="TRUE"/>
+        </Mode>
+        <Parameters>
+            <ParametersSub name="Reload" value="3999"/>
+        </Parameters>
+    </WDT>
     <DMA>
         <MEMTOMEM0>
             <ParametersSub name="Instance" value="DMA1_Channel1"/>

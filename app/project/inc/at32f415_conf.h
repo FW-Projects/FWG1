@@ -70,7 +70,7 @@ extern "C" {
 #define TMR_MODULE_ENABLED
 #define USART_MODULE_ENABLED
 /*#define USB_MODULE_ENABLED----------------------*/
-/*#define WDT_MODULE_ENABLED----------------------*/
+#define WDT_MODULE_ENABLED
 /*#define WWDT_MODULE_ENABLED---------------------*/
 
 /* includes ------------------------------------------------------------------*/

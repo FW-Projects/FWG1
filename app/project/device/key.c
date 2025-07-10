@@ -1,5 +1,5 @@
 #include "key.h"
-extern uint8_t beep_flag;
+
 KEY_EVENT key_event_check(KEY *key, int interval)
 {
     static KEY_EVENT key_event = KE_NONE;
@@ -74,7 +74,7 @@ KEY_EVENT key_event_check(KEY *key, int interval)
 		key->key_cycle_time = KEY_CYCLE_TIME;
         key->status = KS_RELEASE;
 		key_event = KE_PRESS;
-        beep_flag = 1;
+       
     }
     break;
     }

@@ -37,7 +37,10 @@ uint8_t FWG2_Init(FWG2_Handle * FWG2)
 	FWG2->general_parameter.temp_uint                   = CELSIUS,
 	FWG2->general_parameter.speak_state                 = SPEAKER_OPEN ,
 	FWG2->general_parameter.display_lock_state          = UNLOCK,
-    FWG2->general_parameter.fn_key_set                  = SELECT_COLD_WIN_MODE,
+	
+    FWG2->general_parameter.fn_key_long_set             = L_COLD_WIN_MODE,
+	FWG2->general_parameter.fn_key_short_set            = S_QUICK_MODE,
+	
 	FWG2->general_parameter.adjust_key_temporary_set    = TEMPORARY_SELECT_NONE,
 	FWG2->general_parameter.ota_state                   = OTA_OFF,
 	FWG2->general_parameter.touch_key_set               = TOUCH_CLOSE,
@@ -164,10 +167,10 @@ uint8_t FWG2_Init(FWG2_Handle * FWG2)
 	FWG2->general_parameter.code4_time_3                = 10,
 	FWG2->general_parameter.code4_temp_4                = 200,
 	FWG2->general_parameter.code4_wind_4                = 50,
-	FWG2->general_parameter.code4_time_4                = 10,
+	FWG2->general_parameter.code4_time_4                = 10;
 
 	/* en working set */
-	FWG2->general_parameter.working_time                = 0;
+	
 	/* end the general init of*/
 
 	return 0;

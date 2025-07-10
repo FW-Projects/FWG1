@@ -31,7 +31,7 @@ typedef struct
 
 void fan_control(void);
 void hot_control(void);
-extern uint8_t linear_correction(uint16_t user_set_temp);
+int8_t direct_linear_correction(uint16_t user_set_temp);
 extern uint16_t temp_get(void);
 uint16_t temp_get_filter_move_average(adc_channel_select_type adc_channel);
 uint16_t temp_get_filter_middleValue(void);

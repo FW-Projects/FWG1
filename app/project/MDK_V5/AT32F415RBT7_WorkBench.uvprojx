@@ -328,7 +328,7 @@
             <uC99>1</uC99>
             <uGnu>0</uGnu>
             <useXO>0</useXO>
-            <v6Lang>4</v6Lang>
+            <v6Lang>6</v6Lang>
             <v6LangP>3</v6LangP>
             <vShortEn>1</vShortEn>
             <vShortWch>1</vShortWch>
@@ -453,6 +453,11 @@
               <FileType>1</FileType>
               <FilePath>..\src\wk_exint.c</FilePath>
             </File>
+            <File>
+              <FileName>wk_wdt.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\src\wk_wdt.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -517,6 +522,11 @@
               <FileName>at32f415_exint.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\src\at32f415_exint.c</FilePath>
+            </File>
+            <File>
+              <FileName>at32f415_wdt.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\src\at32f415_wdt.c</FilePath>
             </File>
           </Files>
         </Group>

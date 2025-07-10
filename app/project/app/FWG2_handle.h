@@ -98,15 +98,25 @@ typedef enum
 
 typedef enum
 {
-    SELECT_QUICK_MODE = 0,
-    SELECT_COLD_WIN_MODE,
-    SELECT_COUNTDOWN_MODE,
-} fwg2_fn_key_set_e;
+    L_QUICK_MODE = 0,
+    L_COLD_WIN_MODE,
+    L_COUNTDOWN_MODE,
+} fwg2_fn_key_long_set_e;
+
 
 typedef enum
 {
-    SELECT_TEMP = 0,
-    SELECT_WIND,
+    S_QUICK_MODE = 0,
+    S_CHANNEL_SWITCH,
+    S_COUNTDOWN_MODE,
+} fwg2_fn_key_short_set_e;
+
+
+typedef enum
+{
+	SELECT_WIND = 0,
+    SELECT_TEMP,
+	SELECT_CHANNEL,
 } fwg2_adjust_key_set_e;
 
 typedef enum
@@ -115,10 +125,6 @@ typedef enum
     TEMPORARY_SELECT_WIND,
 	TEMPORARY_SELECT_NONE,
 } fwg2_adjust_key_temporary_set_e;
-
-
-
-
 
 typedef enum
 {
@@ -165,7 +171,6 @@ typedef enum
     PAGE_SHOW_CODE_WORK,					
   
 } fwg2_page_e;
-
 
 typedef enum
 {
@@ -222,6 +227,8 @@ typedef struct
     int16_t  quick_work_time_display;
 
     int16_t set_calibration_temp;
+	int8_t linear_calibration_temp;
+	
 } handle_parameter_t;
 
 typedef struct
@@ -230,7 +237,10 @@ typedef struct
     fwg2_temp_unit_e                  temp_uint;
     fwg2_speaker_state_e              speak_state;
     fwg2_temp_lock_state_e            display_lock_state;
-    fwg2_fn_key_set_e                 fn_key_set;
+	
+    fwg2_fn_key_long_set_e   fn_key_long_set;
+    fwg2_fn_key_short_set_e  fn_key_short_set;
+	
 	fwg2_adjust_key_set_e             adjust_key_set;
 	fwg2_adjust_key_temporary_set_e   adjust_key_temporary_set;
     fwg2_ota_state_e                  ota_state;
@@ -249,9 +259,6 @@ typedef struct
 
     char  software_version[20];
     char  hardware_version[20];
-
-
-
 
     uint8_t  code_ch;
     uint8_t  ch;
@@ -389,7 +396,9 @@ typedef struct
     uint16_t code4_wind_4;
     uint16_t code4_time_4;
 
-    uint16_t working_time;
+    uint64_t system_run_time_m;
+	uint64_t direct_hot_work_time_m;
+
 
 
 } general_parameter_t;
