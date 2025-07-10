@@ -6,18 +6,18 @@
 [Found keyword]: ----------Execution Region----------
 [name]:  ER_IROM1 
 [Exec base]: 0x8004000
-[Size]: 0x169cc
+[Size]: 0x17a00
 [Max]: 0x20000
 [Found keyword]: ----------Execution Region----------
 [name]:  RW_IRAM1 
 [Exec base]: 0x20000000
-[Size]: 0x1968
+[Size]: 0x19a8
 [Max]: 0x8000
 [parse_keil_map over printf bar]: 
   RW_IRAM1 :0x20000000
-   32.00 KB :|¡ö¡ö¡ö_________________|   19.85 % (    6.35 KB /    32.00 KB) [26264 B]
+   32.00 KB :|¡ö¡ö¡ö¡ö________________|   20.04 % (    6.41 KB /    32.00 KB) [26200 B]
   ER_IROM1 :0x8004000
-  128.00 KB :|¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö______|   70.66 % (   90.45 KB /   128.00 KB) [38452 B]
+  128.00 KB :|¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö______|   73.83 % (   94.50 KB /   128.00 KB) [34304 B]
 [export csv]: ./AT32F415RBT7_WorkBench_sort_by_flash.csv
 [export csv]: ./AT32F415RBT7_WorkBench_sort_by_ram.csv
 [export xlsx]: AT32F415RBT7_WorkBench_analysis.xlsx

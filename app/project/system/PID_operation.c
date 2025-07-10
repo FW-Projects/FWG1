@@ -24,24 +24,12 @@ volatile float abs_limit(volatile float value, volatile float ABS_MAX)   //»ı·ÖÏ
 float PID_Position_Calc(PID *pid, float Target_val, float Actual_val)  //Î»ÖÃÊ½PID
 {
     pid->Error = Target_val - Actual_val;      //Óëpid PÏµÊıÏà³Ë¡£±ÈÀıÎó²îÖµ µ±Ç°²îÖµ=Ä¿±êÖµ-Êµ¼ÊÖµ
-    
-	#if 0
-
-	if (pid->SumError < 0)
-	    pid->SumError = 0;
-    else 
-    {
-        pid->SumError += pid->Error;    //Óëpid IÏµÊıÏà³Ë¡£ÎÈÌ¬Îó²îÖµ Îó²îÏà¼Ó×÷ÎªÎó²î×ÜºÍ£¬¸ø»ı·ÖÏî
-    }
-    #endif
-	
-	
-	
+    	
 	pid->SumError += pid->Error;    //Óëpid IÏµÊıÏà³Ë¡£ÎÈÌ¬Îó²îÖµ Îó²îÏà¼Ó×÷ÎªÎó²î×ÜºÍ£¬¸ø»ı·ÖÏî
     
-	if (pid->SumError >= 45000)
+	if (pid->SumError >= pid->Integralmax)
     {
-        pid->SumError = 45000;
+        pid->SumError = pid->Integralmax;
     }
 	
 	if (pid->SumError <= 0)
@@ -61,10 +49,16 @@ float PID_Position_Calc(PID *pid, float Target_val, float Actual_val)  //Î»ÖÃÊ½P
         pid->output = pid->outputmax;
     }
 
-    if (pid->output < - pid->outputmax)
+//    if (pid->output < - pid->outputmax)
+//    {
+//        pid->output = -pid->outputmax;
+//    }
+	
+	    if (pid->output < - pid->outputmax)
     {
-        pid->output = -pid->outputmax;
+        pid->output = 0;
     }
+
 
     return pid->output;   //Êä³öÎªpwmÖµ
 }

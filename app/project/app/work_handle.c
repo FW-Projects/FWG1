@@ -42,9 +42,9 @@ void Direct_handle_switch(void)
 
         case HANDLE_WORKING:
 #if 1
-            if (sFWG2_t.Direct_handle_work_mode == NORMAL_MODE || sFWG2_t.Direct_handle_work_mode == EN_WORKING_MODE)
+            if (sFWG2_t.Direct_handle_work_mode == NORMAL_MODE || sFWG2_t.Direct_handle_work_mode == QUICK_MODE)
             {
-                if (sFWG2_t.Direct_handle_work_mode == EN_WORKING_MODE && sFWG2_t.Direct_handle_position == IN_POSSITION)
+                if (sFWG2_t.Direct_handle_work_mode == QUICK_MODE && sFWG2_t.Direct_handle_position == IN_POSSITION)
                 {
                     sFWG2_t.Direct_handle_work_mode = NORMAL_MODE;
                 }

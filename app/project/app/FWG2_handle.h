@@ -8,17 +8,22 @@
  *     DIRECT  HANDLE FAN OUTPUT   (TMR9_CHANNEL_2)
  *     DIRECT  HANDLE HOT CHECK    (ADC_CHANNEL_10)
  */
-#define MAX_SET_TEMP_VAL 500
-#define MIN_SET_TEMP_VAL 100
-
+ 
 #define OVER_TEMP_VAL    650
 #define LOW_TEMP_VAL     45
-
-#define MAX_SET_WIND_VAL 200
-#define MIN_SET_WIND_VAL 1
-
+ 
 #define OVER_WIND_RATE   534
 #define LOW_WIND_RATE    150
+ 
+#define MAX_SET_TEMP_VAL 500
+#define MIN_SET_TEMP_VAL 100 
+
+#define MAX_SET_WIND_VAL 200
+#define MIN_SET_WIND_VAL 5
+
+#define MAX_SET_TIME_VAL 999
+#define MIN_SET_TIME_VAL 1
+
 
 #define ENHANCE_TEMP     50
 
@@ -55,7 +60,7 @@ typedef enum
 {
     NORMAL_MODE = 0,
     CODING_MODE,
-    EN_WORKING_MODE,
+    QUICK_MODE,
     COLD_WIND_MODE,
 } handle_work_mode_e;
 typedef enum

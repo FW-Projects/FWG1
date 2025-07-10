@@ -190,10 +190,10 @@ void KeyProc(void)
 					/* enter quick mode */
 					if(sFWG2_t.Direct_handle_work_mode == NORMAL_MODE)
 					{
-					    sFWG2_t.Direct_handle_work_mode = EN_WORKING_MODE;
+					    sFWG2_t.Direct_handle_work_mode = QUICK_MODE;
 					}
 					/* exit quick mode */
-					else if(sFWG2_t.Direct_handle_work_mode == EN_WORKING_MODE)
+					else if(sFWG2_t.Direct_handle_work_mode == QUICK_MODE)
 					{
 					    sFWG2_t.Direct_handle_work_mode = NORMAL_MODE;
 					}
@@ -366,10 +366,10 @@ void KeyProc(void)
 					/* enter quick mode */
 					if(sFWG2_t.Direct_handle_work_mode == NORMAL_MODE)
 					{
-					    sFWG2_t.Direct_handle_work_mode = EN_WORKING_MODE;
+					    sFWG2_t.Direct_handle_work_mode = QUICK_MODE;
 					}
 					/* exit quick mode */
-					else if(sFWG2_t.Direct_handle_work_mode == EN_WORKING_MODE)
+					else if(sFWG2_t.Direct_handle_work_mode == QUICK_MODE)
 					{
 					    sFWG2_t.Direct_handle_work_mode = NORMAL_MODE;
 					}

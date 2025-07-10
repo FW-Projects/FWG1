@@ -57,6 +57,8 @@ void FlashProc(void)
     static uint8_t  last_ota_state;
     static uint8_t  last_touch_key_set;
     static uint8_t  last_uart_state;
+	static uint8_t  last_enhance_state;
+	
     static uint16_t last_ch1_set_temp;
     static uint16_t last_ch1_set_wind;
     static uint16_t last_ch1_set_time;
@@ -185,6 +187,9 @@ void FlashProc(void)
                     sFWG2_t.general_parameter.ota_state            = flash_wred_halfword(A_LAST_OTA_STATE);
                     sFWG2_t.general_parameter.touch_key_set        = flash_wred_halfword(A_LAST_TOUCH_KEY_SET);
                     sFWG2_t.general_parameter.uart_state           = flash_wred_halfword(A_LAST_UART_STATE);
+					sFWG2_t.general_parameter.enhance_state        = flash_wred_halfword(A_LAST_ENHANCE_STATE);
+
+					
                     sFWG2_t.general_parameter.ch1_set_temp         = flash_wred_halfword(A_LAST_CH1_SET_TEMP);
                     sFWG2_t.general_parameter.ch1_set_wind         = flash_wred_halfword(A_LAST_CH1_SET_WIND);
                     sFWG2_t.general_parameter.ch1_set_time         = flash_wred_halfword(A_LAST_CH1_SET_TIME);
@@ -294,6 +299,7 @@ void FlashProc(void)
                     sFWG2_t.general_parameter.ota_state            = flash_wred_halfword(B_LAST_OTA_STATE);
                     sFWG2_t.general_parameter.touch_key_set        = flash_wred_halfword(B_LAST_TOUCH_KEY_SET);
                     sFWG2_t.general_parameter.uart_state           = flash_wred_halfword(B_LAST_UART_STATE);
+					sFWG2_t.general_parameter.enhance_state        = flash_wred_halfword(B_LAST_ENHANCE_STATE);
                     sFWG2_t.general_parameter.ch1_set_temp         = flash_wred_halfword(B_LAST_CH1_SET_TEMP);
                     sFWG2_t.general_parameter.ch1_set_wind         = flash_wred_halfword(B_LAST_CH1_SET_WIND);
                     sFWG2_t.general_parameter.ch1_set_time         = flash_wred_halfword(B_LAST_CH1_SET_TIME);
@@ -405,6 +411,8 @@ void FlashProc(void)
                 sFWG2_t.general_parameter.ota_state            = flash_wred_halfword(A_LAST_OTA_STATE);
                 sFWG2_t.general_parameter.touch_key_set        = flash_wred_halfword(A_LAST_TOUCH_KEY_SET);
                 sFWG2_t.general_parameter.uart_state           = flash_wred_halfword(A_LAST_UART_STATE);
+				sFWG2_t.general_parameter.enhance_state        = flash_wred_halfword(A_LAST_ENHANCE_STATE);
+				
                 sFWG2_t.general_parameter.ch1_set_temp         = flash_wred_halfword(A_LAST_CH1_SET_TEMP);
                 sFWG2_t.general_parameter.ch1_set_wind         = flash_wred_halfword(A_LAST_CH1_SET_WIND);
                 sFWG2_t.general_parameter.ch1_set_time         = flash_wred_halfword(A_LAST_CH1_SET_TIME);
@@ -515,6 +523,7 @@ void FlashProc(void)
                 sFWG2_t.general_parameter.ota_state            = flash_wred_halfword(B_LAST_OTA_STATE);
                 sFWG2_t.general_parameter.touch_key_set        = flash_wred_halfword(B_LAST_TOUCH_KEY_SET);
                 sFWG2_t.general_parameter.uart_state           = flash_wred_halfword(B_LAST_UART_STATE);
+				sFWG2_t.general_parameter.enhance_state        = flash_wred_halfword(B_LAST_ENHANCE_STATE);
                 sFWG2_t.general_parameter.ch1_set_temp         = flash_wred_halfword(B_LAST_CH1_SET_TEMP);
                 sFWG2_t.general_parameter.ch1_set_wind         = flash_wred_halfword(B_LAST_CH1_SET_WIND);
                 sFWG2_t.general_parameter.ch1_set_time         = flash_wred_halfword(B_LAST_CH1_SET_TIME);
@@ -737,12 +746,12 @@ void FlashProc(void)
                 sFWG2_t.Direct_handle_parameter.quick_work_temp = 50;
             }
 
-            if (sFWG2_t.Direct_handle_parameter.quick_work_time >= 999)
+            if (sFWG2_t.Direct_handle_parameter.quick_work_time >= MAX_SET_TIME_VAL)
             {
                 sFWG2_t.Direct_handle_parameter.quick_work_time = 60;
             }
 
-            if (sFWG2_t.Direct_handle_parameter.quick_work_time < 0)
+            if (sFWG2_t.Direct_handle_parameter.quick_work_time < MIN_SET_TIME_VAL)
             {
                 sFWG2_t.Direct_handle_parameter.quick_work_time = 60;
             }
@@ -809,7 +818,7 @@ void FlashProc(void)
                 sFWG2_t.Direct_handle_parameter.set_calibration_temp = 0;
             }
 
-            if (sFWG2_t.general_parameter.countdown_time > 999 || sFWG2_t.general_parameter.countdown_time < 0)
+            if (sFWG2_t.general_parameter.countdown_time > MAX_SET_TIME_VAL || sFWG2_t.general_parameter.countdown_time <= MIN_SET_TEMP_VAL)
             {
                 sFWG2_t.general_parameter.countdown_time = 20;
             }
@@ -826,7 +835,7 @@ void FlashProc(void)
                 sFWG2_t.general_parameter.ch1_set_wind = 80;
             }
 
-            if (sFWG2_t.general_parameter.ch1_set_time > 999 || sFWG2_t.general_parameter.ch1_set_time < 0)
+            if (sFWG2_t.general_parameter.ch1_set_time > MAX_SET_TIME_VAL || sFWG2_t.general_parameter.ch1_set_time < MIN_SET_TIME_VAL)
             {
                 sFWG2_t.general_parameter.ch1_set_time = 30;
             }
@@ -843,7 +852,7 @@ void FlashProc(void)
                 sFWG2_t.general_parameter.ch2_set_wind = 80;
             }
 
-            if (sFWG2_t.general_parameter.ch2_set_time > 999 || sFWG2_t.general_parameter.ch2_set_time < 0)
+            if (sFWG2_t.general_parameter.ch2_set_time > MAX_SET_TIME_VAL || sFWG2_t.general_parameter.ch2_set_time < MIN_SET_TIME_VAL)
             {
                 sFWG2_t.general_parameter.ch2_set_time = 30;
             }
@@ -860,7 +869,7 @@ void FlashProc(void)
                 sFWG2_t.general_parameter.ch3_set_wind = 80;
             }
 
-            if (sFWG2_t.general_parameter.ch3_set_time > 999 || sFWG2_t.general_parameter.ch3_set_time < 0)
+            if (sFWG2_t.general_parameter.ch3_set_time > MAX_SET_TIME_VAL || sFWG2_t.general_parameter.ch3_set_time < MIN_SET_TIME_VAL)
             {
                 sFWG2_t.general_parameter.ch3_set_time = 30;
             }
@@ -877,7 +886,7 @@ void FlashProc(void)
                 sFWG2_t.general_parameter.ch4_set_wind = 80;
             }
 
-            if (sFWG2_t.general_parameter.ch4_set_time > 999 || sFWG2_t.general_parameter.ch4_set_time < 0)
+            if (sFWG2_t.general_parameter.ch4_set_time > MAX_SET_TIME_VAL || sFWG2_t.general_parameter.ch4_set_time < MIN_SET_TIME_VAL)
             {
                 sFWG2_t.general_parameter.ch4_set_time = 30;
             }
@@ -895,7 +904,7 @@ void FlashProc(void)
                 sFWG2_t.general_parameter.code0_pre_wind = 20;
             }
 
-            if (sFWG2_t.general_parameter.code0_pre_time > 999 || sFWG2_t.general_parameter.code0_pre_time < 0)
+            if (sFWG2_t.general_parameter.code0_pre_time > MAX_SET_TIME_VAL || sFWG2_t.general_parameter.code0_pre_time < MIN_SET_TIME_VAL)
             {
                 sFWG2_t.general_parameter.code0_pre_time = 60;
             }
@@ -912,7 +921,7 @@ void FlashProc(void)
                 sFWG2_t.general_parameter.code0_wind_1 = 20;
             }
 
-            if (sFWG2_t.general_parameter.code0_time_1 > 999 || sFWG2_t.general_parameter.code0_time_1 < 0)
+            if (sFWG2_t.general_parameter.code0_time_1 > MAX_SET_TIME_VAL || sFWG2_t.general_parameter.code0_time_1 < MIN_SET_TIME_VAL)
             {
                 sFWG2_t.general_parameter.code0_time_1 = 60;
             }
@@ -929,7 +938,7 @@ void FlashProc(void)
                 sFWG2_t.general_parameter.code0_wind_2 = 20;
             }
 
-            if (sFWG2_t.general_parameter.code0_time_2 > 999 || sFWG2_t.general_parameter.code0_time_2 < 0)
+            if (sFWG2_t.general_parameter.code0_time_2 > MAX_SET_TIME_VAL || sFWG2_t.general_parameter.code0_time_2 < MIN_SET_TIME_VAL)
             {
                 sFWG2_t.general_parameter.code0_time_2 = 60;
             }
@@ -946,7 +955,7 @@ void FlashProc(void)
                 sFWG2_t.general_parameter.code0_wind_3 = 20;
             }
 
-            if (sFWG2_t.general_parameter.code0_time_3 > 999 || sFWG2_t.general_parameter.code0_time_3 < 0)
+            if (sFWG2_t.general_parameter.code0_time_3 > MAX_SET_TIME_VAL || sFWG2_t.general_parameter.code0_time_3 < MIN_SET_TIME_VAL)
             {
                 sFWG2_t.general_parameter.code0_time_3 = 60;
             }
@@ -963,7 +972,7 @@ void FlashProc(void)
                 sFWG2_t.general_parameter.code0_wind_4 = 20;
             }
 
-            if (sFWG2_t.general_parameter.code0_time_4 > 999 || sFWG2_t.general_parameter.code0_time_4 < 0)
+            if (sFWG2_t.general_parameter.code0_time_4 > MAX_SET_TIME_VAL || sFWG2_t.general_parameter.code0_time_4 < MIN_SET_TIME_VAL)
             {
                 sFWG2_t.general_parameter.code0_time_4 = 60;
             }
@@ -981,7 +990,7 @@ void FlashProc(void)
                 sFWG2_t.general_parameter.code1_pre_wind = 20;
             }
 
-            if (sFWG2_t.general_parameter.code1_pre_time > 999 || sFWG2_t.general_parameter.code1_pre_time < 0)
+            if (sFWG2_t.general_parameter.code1_pre_time > MAX_SET_TIME_VAL || sFWG2_t.general_parameter.code1_pre_time < MIN_SET_TIME_VAL)
             {
                 sFWG2_t.general_parameter.code1_pre_time = 60;
             }
@@ -998,7 +1007,7 @@ void FlashProc(void)
                 sFWG2_t.general_parameter.code1_wind_1 = 20;
             }
 
-            if (sFWG2_t.general_parameter.code1_time_1 > 999 || sFWG2_t.general_parameter.code1_time_1 < 0)
+            if (sFWG2_t.general_parameter.code1_time_1 > MAX_SET_TIME_VAL || sFWG2_t.general_parameter.code1_time_1 < MIN_SET_TIME_VAL)
             {
                 sFWG2_t.general_parameter.code1_time_1 = 60;
             }
@@ -1015,7 +1024,7 @@ void FlashProc(void)
                 sFWG2_t.general_parameter.code1_wind_2 = 20;
             }
 
-            if (sFWG2_t.general_parameter.code1_time_2 > 999 || sFWG2_t.general_parameter.code1_time_2 < 0)
+            if (sFWG2_t.general_parameter.code1_time_2 > MAX_SET_TIME_VAL || sFWG2_t.general_parameter.code1_time_2 < MIN_SET_TIME_VAL)
             {
                 sFWG2_t.general_parameter.code1_time_2 = 60;
             }
@@ -1032,7 +1041,7 @@ void FlashProc(void)
                 sFWG2_t.general_parameter.code1_wind_3 = 20;
             }
 
-            if (sFWG2_t.general_parameter.code1_time_3 > 999 || sFWG2_t.general_parameter.code1_time_3 < 0)
+            if (sFWG2_t.general_parameter.code1_time_3 > MAX_SET_TIME_VAL || sFWG2_t.general_parameter.code1_time_3 < MIN_SET_TIME_VAL)
             {
                 sFWG2_t.general_parameter.code1_time_3 = 60;
             }
@@ -1049,7 +1058,7 @@ void FlashProc(void)
                 sFWG2_t.general_parameter.code1_wind_4 = 20;
             }
 
-            if (sFWG2_t.general_parameter.code1_time_4 > 999 || sFWG2_t.general_parameter.code1_time_4 < 0)
+            if (sFWG2_t.general_parameter.code1_time_4 > MAX_SET_TIME_VAL || sFWG2_t.general_parameter.code1_time_4 < MIN_SET_TIME_VAL)
             {
                 sFWG2_t.general_parameter.code1_time_4 = 60;
             }
@@ -1067,7 +1076,7 @@ void FlashProc(void)
                 sFWG2_t.general_parameter.code2_pre_wind = 20;
             }
 
-            if (sFWG2_t.general_parameter.code2_pre_time > 999 || sFWG2_t.general_parameter.code2_pre_time < 0)
+            if (sFWG2_t.general_parameter.code2_pre_time > MAX_SET_TIME_VAL || sFWG2_t.general_parameter.code2_pre_time < MIN_SET_TIME_VAL)
             {
                 sFWG2_t.general_parameter.code2_pre_time = 60;
             }
@@ -1084,7 +1093,7 @@ void FlashProc(void)
                 sFWG2_t.general_parameter.code2_wind_1 = 20;
             }
 
-            if (sFWG2_t.general_parameter.code2_time_1 > 999 || sFWG2_t.general_parameter.code2_time_1 < 0)
+            if (sFWG2_t.general_parameter.code2_time_1 > MAX_SET_TIME_VAL || sFWG2_t.general_parameter.code2_time_1 < MIN_SET_TIME_VAL)
             {
                 sFWG2_t.general_parameter.code2_time_1 = 60;
             }
@@ -1101,7 +1110,7 @@ void FlashProc(void)
                 sFWG2_t.general_parameter.code2_wind_2 = 20;
             }
 
-            if (sFWG2_t.general_parameter.code2_time_2 > 999 || sFWG2_t.general_parameter.code2_time_1 < 0)
+            if (sFWG2_t.general_parameter.code2_time_2 > MAX_SET_TIME_VAL || sFWG2_t.general_parameter.code2_time_1 < MIN_SET_TIME_VAL)
             {
                 sFWG2_t.general_parameter.code2_time_2 = 60;
             }
@@ -1118,7 +1127,7 @@ void FlashProc(void)
                 sFWG2_t.general_parameter.code2_wind_3 = 20;
             }
 
-            if (sFWG2_t.general_parameter.code2_time_3 > 999 || sFWG2_t.general_parameter.code2_time_3 < 0)
+            if (sFWG2_t.general_parameter.code2_time_3 > MAX_SET_TIME_VAL || sFWG2_t.general_parameter.code2_time_3 < MIN_SET_TIME_VAL)
             {
                 sFWG2_t.general_parameter.code2_time_3 = 60;
             }
@@ -1135,7 +1144,7 @@ void FlashProc(void)
                 sFWG2_t.general_parameter.code2_wind_4 = 20;
             }
 
-            if (sFWG2_t.general_parameter.code2_time_4 > 999 || sFWG2_t.general_parameter.code2_time_4 < 0)
+            if (sFWG2_t.general_parameter.code2_time_4 > MAX_SET_TIME_VAL || sFWG2_t.general_parameter.code2_time_4 < MIN_SET_TIME_VAL)
             {
                 sFWG2_t.general_parameter.code2_time_4 = 60;
             }
@@ -1153,7 +1162,7 @@ void FlashProc(void)
                 sFWG2_t.general_parameter.code3_pre_wind = 20;
             }
 
-            if (sFWG2_t.general_parameter.code3_pre_time > 999 || sFWG2_t.general_parameter.code3_pre_time < 0)
+            if (sFWG2_t.general_parameter.code3_pre_time > MAX_SET_TIME_VAL || sFWG2_t.general_parameter.code3_pre_time < MIN_SET_TIME_VAL)
             {
                 sFWG2_t.general_parameter.code3_pre_time = 60;
             }
@@ -1170,7 +1179,7 @@ void FlashProc(void)
                 sFWG2_t.general_parameter.code3_wind_1 = 20;
             }
 
-            if (sFWG2_t.general_parameter.code3_time_1 > 999 || sFWG2_t.general_parameter.code3_time_1 < 0)
+            if (sFWG2_t.general_parameter.code3_time_1 > MAX_SET_TIME_VAL || sFWG2_t.general_parameter.code3_time_1 < MIN_SET_TIME_VAL)
             {
                 sFWG2_t.general_parameter.code3_time_1 = 60;
             }
@@ -1187,7 +1196,7 @@ void FlashProc(void)
                 sFWG2_t.general_parameter.code3_wind_2 = 20;
             }
 
-            if (sFWG2_t.general_parameter.code3_time_2 > 999 || sFWG2_t.general_parameter.code3_time_2 < 0)
+            if (sFWG2_t.general_parameter.code3_time_2 > MAX_SET_TIME_VAL || sFWG2_t.general_parameter.code3_time_2 < MIN_SET_TIME_VAL)
             {
                 sFWG2_t.general_parameter.code3_time_2 = 60;
             }
@@ -1204,7 +1213,7 @@ void FlashProc(void)
                 sFWG2_t.general_parameter.code3_wind_3 = 20;
             }
 
-            if (sFWG2_t.general_parameter.code3_time_3 > 999 || sFWG2_t.general_parameter.code3_time_3 < 0)
+            if (sFWG2_t.general_parameter.code3_time_3 > MAX_SET_TIME_VAL || sFWG2_t.general_parameter.code3_time_3 < MIN_SET_TIME_VAL)
             {
                 sFWG2_t.general_parameter.code3_time_3 = 60;
             }
@@ -1221,7 +1230,7 @@ void FlashProc(void)
                 sFWG2_t.general_parameter.code3_wind_4 = 20;
             }
 
-            if (sFWG2_t.general_parameter.code3_time_4 > 999 || sFWG2_t.general_parameter.code3_time_4 < 0)
+            if (sFWG2_t.general_parameter.code3_time_4 > MAX_SET_TIME_VAL || sFWG2_t.general_parameter.code3_time_4 < MIN_SET_TIME_VAL)
             {
                 sFWG2_t.general_parameter.code3_time_4 = 60;
             }
@@ -1239,7 +1248,7 @@ void FlashProc(void)
                 sFWG2_t.general_parameter.code4_pre_wind = 20;
             }
 
-            if (sFWG2_t.general_parameter.code4_pre_time > 999 || sFWG2_t.general_parameter.code4_pre_time < 0)
+            if (sFWG2_t.general_parameter.code4_pre_time > MAX_SET_TIME_VAL || sFWG2_t.general_parameter.code4_pre_time < MIN_SET_TIME_VAL)
             {
                 sFWG2_t.general_parameter.code4_pre_time = 60;
             }
@@ -1256,7 +1265,7 @@ void FlashProc(void)
                 sFWG2_t.general_parameter.code4_wind_1 = 20;
             }
 
-            if (sFWG2_t.general_parameter.code4_time_1 > 999 || sFWG2_t.general_parameter.code4_time_1 < 0)
+            if (sFWG2_t.general_parameter.code4_time_1 > MAX_SET_TIME_VAL || sFWG2_t.general_parameter.code4_time_1 < MIN_SET_TIME_VAL)
             {
                 sFWG2_t.general_parameter.code4_time_1 = 60;
             }
@@ -1273,7 +1282,7 @@ void FlashProc(void)
                 sFWG2_t.general_parameter.code4_wind_2 = 20;
             }
 
-            if (sFWG2_t.general_parameter.code4_time_2 > 999 || sFWG2_t.general_parameter.code4_time_2 < 0)
+            if (sFWG2_t.general_parameter.code4_time_2 > MAX_SET_TIME_VAL || sFWG2_t.general_parameter.code4_time_2 < MIN_SET_TIME_VAL)
             {
                 sFWG2_t.general_parameter.code4_time_2 = 60;
             }
@@ -1290,7 +1299,7 @@ void FlashProc(void)
                 sFWG2_t.general_parameter.code4_wind_3 = 20;
             }
 
-            if (sFWG2_t.general_parameter.code4_time_3 > 999 || sFWG2_t.general_parameter.code4_time_3 < 0)
+            if (sFWG2_t.general_parameter.code4_time_3 > MAX_SET_TIME_VAL || sFWG2_t.general_parameter.code4_time_3 < MIN_SET_TIME_VAL)
             {
                 sFWG2_t.general_parameter.code4_time_3 = 60;
             }
@@ -1307,7 +1316,7 @@ void FlashProc(void)
                 sFWG2_t.general_parameter.code4_wind_4 = 20;
             }
 
-            if (sFWG2_t.general_parameter.code4_time_4 > 999 || sFWG2_t.general_parameter.code4_time_4 < 0)
+            if (sFWG2_t.general_parameter.code4_time_4 > MAX_SET_TIME_VAL || sFWG2_t.general_parameter.code4_time_4 < MIN_SET_TIME_VAL)
             {
                 sFWG2_t.general_parameter.code4_time_4 = 60;
             }
@@ -1329,6 +1338,7 @@ void FlashProc(void)
             last_ota_state                        = sFWG2_t.general_parameter.ota_state;
             last_touch_key_set                    = sFWG2_t.general_parameter.touch_key_set;
             last_uart_state                       = sFWG2_t.general_parameter.uart_state;
+			last_enhance_state                    = sFWG2_t.general_parameter.enhance_state;
             last_ch1_set_temp                     = sFWG2_t.general_parameter.ch1_set_temp;
             last_ch1_set_wind                     = sFWG2_t.general_parameter.ch1_set_wind;
             last_ch1_set_time                     = sFWG2_t.general_parameter.ch1_set_time;
@@ -1449,6 +1459,8 @@ void FlashProc(void)
                 last_ota_state                        != sFWG2_t.general_parameter.ota_state || \
                 last_touch_key_set                    != sFWG2_t.general_parameter.touch_key_set || \
                 last_uart_state                       != sFWG2_t.general_parameter.uart_state || \
+		        last_enhance_state                       != sFWG2_t.general_parameter.enhance_state || \
+		
                 last_ch1_set_temp                     != sFWG2_t.general_parameter.ch1_set_temp || \
                 last_ch1_set_wind                     != sFWG2_t.general_parameter.ch1_set_wind || \
                 last_ch1_set_time                     != sFWG2_t.general_parameter.ch1_set_time || \
@@ -1583,6 +1595,7 @@ void FlashProc(void)
             flash_halfword_program(A_LAST_OTA_STATE, sFWG2_t.general_parameter.ota_state);
             flash_halfword_program(A_LAST_TOUCH_KEY_SET, sFWG2_t.general_parameter.touch_key_set);
             flash_halfword_program(A_LAST_UART_STATE, sFWG2_t.general_parameter.uart_state);
+			flash_halfword_program(A_LAST_ENHANCE_STATE, sFWG2_t.general_parameter.enhance_state);
             /* falsh ch data */
             flash_halfword_program(A_LAST_CH1_SET_TEMP, sFWG2_t.general_parameter.ch1_set_temp);
             flash_halfword_program(A_LAST_CH1_SET_WIND, sFWG2_t.general_parameter.ch1_set_wind);
@@ -1696,6 +1709,7 @@ void FlashProc(void)
             flash_halfword_program(B_LAST_OTA_STATE, sFWG2_t.general_parameter.ota_state);
             flash_halfword_program(B_LAST_TOUCH_KEY_SET, sFWG2_t.general_parameter.touch_key_set);
             flash_halfword_program(B_LAST_UART_STATE, sFWG2_t.general_parameter.uart_state);
+			flash_halfword_program(B_LAST_ENHANCE_STATE, sFWG2_t.general_parameter.enhance_state);
             /* falsh ch data */
             flash_halfword_program(B_LAST_CH1_SET_TEMP, sFWG2_t.general_parameter.ch1_set_temp);
             flash_halfword_program(B_LAST_CH1_SET_WIND, sFWG2_t.general_parameter.ch1_set_wind);
@@ -1808,6 +1822,9 @@ void FlashProc(void)
         last_ota_state                        = sFWG2_t.general_parameter.ota_state;
         last_touch_key_set                    = sFWG2_t.general_parameter.touch_key_set;
         last_uart_state                       = sFWG2_t.general_parameter.uart_state;
+		last_enhance_state                    = sFWG2_t.general_parameter.enhance_state;
+		
+		
         last_ch1_set_temp                     = sFWG2_t.general_parameter.ch1_set_temp;
         last_ch1_set_wind                     = sFWG2_t.general_parameter.ch1_set_wind;
         last_ch1_set_time                     = sFWG2_t.general_parameter.ch1_set_time;
