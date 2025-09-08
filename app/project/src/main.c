@@ -166,7 +166,7 @@ int main(void)
     EventRecorderInitialize(0, 1);
     FWG2_Init(&sFWG2_t);
     DwinInitialization(&sdwin);
-    PID_Init(&direct_pid, 200, 0.5, 1800, 59999);
+    PID_Init(&direct_pid, 800, 0.5, 80000, 59999);
     iap_init();
     spiflash_init();
     __IO uint32_t flash_id_index  = spiflash_read_id();
@@ -319,7 +319,7 @@ void feed_dog_task(void)
     {
         first_in = true;
         /* if enabled, please feed the dog through wdt_counter_reload() function */
-        wdt_enable();
+       // wdt_enable();
     }
     wdt_counter_reload();
 }

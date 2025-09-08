@@ -11,8 +11,8 @@
 #define RED_COLOR              0xE000
 
 
-#define SHOW_DIRECT_HANDLE_SET_TEMP_TIME         100
-#define SHOW_DIRECT_HANDLE_SET_WIND_TIME         100
+#define SHOW_DIRECT_HANDLE_SET_TEMP_TIME         50
+#define SHOW_DIRECT_HANDLE_SET_WIND_TIME         50
 
 
 

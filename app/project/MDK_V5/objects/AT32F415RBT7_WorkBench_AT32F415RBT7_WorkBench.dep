@@ -1,11 +1,11 @@
 Dependencies for Project 'AT32F415RBT7_WorkBench', Target 'AT32F415RBT7_WorkBench': (DO NOT MODIFY !)
 CompilerVersion: 6180000::V6.18::ARMCLANG
-F (..\src\main.c)(0x686F8C13)(-xc -std=gnu11 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=none -mfloat-abi=soft -c-fno-rtti -flto -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../../libraries/drivers/inc -I ../../libraries/cmsis/cm4/core_support -I ../../libraries/cmsis/cm4/device_support -I ../inc -I ../system -I ../app -I ../device-I./RTE/CMSIS-View-I./RTE/_AT32F415RBT7_WorkBench-IC:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS-Compiler/2.1.0/include-IC:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS-View/1.2.0/EventRecorder/Include-IC:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS/6.1.0/CMSIS/Core/Include-IC:/Users/Administrator/AppData/Local/Arm/Packs/ArteryTek/AT32F415_DFP/2.1.6/Device/Include-D__UVISION_VERSION="538" -D_RTE_ -DAT32F415RBT7 -D_RTE_ -DAT32F415RBT7 -DUSE_STDPERIPH_DRIVER-o ./objects/main.o -MD)
+F (..\src\main.c)(0x68BBEB57)(-xc -std=gnu11 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=none -mfloat-abi=soft -c-fno-rtti -flto -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../../libraries/drivers/inc -I ../../libraries/cmsis/cm4/core_support -I ../../libraries/cmsis/cm4/device_support -I ../inc -I ../system -I ../app -I ../device-I./RTE/CMSIS-View-I./RTE/_AT32F415RBT7_WorkBench-IC:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS-Compiler/2.1.0/include-IC:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS-View/1.2.0/EventRecorder/Include-IC:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS/6.1.0/CMSIS/Core/Include-IC:/Users/Administrator/AppData/Local/Arm/Packs/ArteryTek/AT32F415_DFP/2.1.6/Device/Include-D__UVISION_VERSION="538" -D_RTE_ -DAT32F415RBT7 -D_RTE_ -DAT32F415RBT7 -DUSE_STDPERIPH_DRIVER-o ./objects/main.o -MD)
 I (..\inc\at32f415_wk_config.h)(0x686CC5B2)
 I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x625260D6)
 I (..\..\libraries\cmsis\cm4\device_support\at32f415.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\core_cm4.h)(0x6861F97D)
-I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x625260D8)
+I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x68B81870)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_version.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_compiler.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_armclang.h)(0x6861F97D)
@@ -49,7 +49,7 @@ I (..\app\flash_handle.h)(0x686F2EC4)
 I (..\device\flash.h)(0x6861F97D)
 I (..\app\key_handle.h)(0x686CC10F)
 I (..\device\key.h)(0x6861F97D)
-I (..\app\dwin_handle.h)(0x686CC3F0)
+I (..\app\dwin_handle.h)(0x68BAB23A)
 I (..\device\at32_Usart.h)(0x6861F97D)
 I (..\app\work_handle.h)(0x6861F97D)
 I (..\device\at32_spiflash.h)(0x6861F97D)
@@ -59,7 +59,7 @@ I (..\inc\at32f415_wk_config.h)(0x686CC5B2)
 I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x625260D6)
 I (..\..\libraries\cmsis\cm4\device_support\at32f415.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\core_cm4.h)(0x6861F97D)
-I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x625260D8)
+I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x68B81870)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_version.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_compiler.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_armclang.h)(0x6861F97D)
@@ -82,11 +82,11 @@ I (..\..\libraries\drivers\inc\at32f415_usart.h)(0x6861F97D)
 I (..\..\libraries\drivers\inc\at32f415_wdt.h)(0x6861F97D)
 I (..\app\FWG2_handle.h)(0x686F5A91)
 I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x625260D6)
-F (..\src\at32f415_int.c)(0x686F678A)(-xc -std=gnu11 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=none -mfloat-abi=soft -c-fno-rtti -flto -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../../libraries/drivers/inc -I ../../libraries/cmsis/cm4/core_support -I ../../libraries/cmsis/cm4/device_support -I ../inc -I ../system -I ../app -I ../device-I./RTE/CMSIS-View-I./RTE/_AT32F415RBT7_WorkBench-IC:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS-Compiler/2.1.0/include-IC:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS-View/1.2.0/EventRecorder/Include-IC:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS/6.1.0/CMSIS/Core/Include-IC:/Users/Administrator/AppData/Local/Arm/Packs/ArteryTek/AT32F415_DFP/2.1.6/Device/Include-D__UVISION_VERSION="538" -D_RTE_ -DAT32F415RBT7 -D_RTE_ -DAT32F415RBT7 -DUSE_STDPERIPH_DRIVER-o ./objects/at32f415_int.o -MD)
+F (..\src\at32f415_int.c)(0x68B8EF62)(-xc -std=gnu11 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=none -mfloat-abi=soft -c-fno-rtti -flto -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../../libraries/drivers/inc -I ../../libraries/cmsis/cm4/core_support -I ../../libraries/cmsis/cm4/device_support -I ../inc -I ../system -I ../app -I ../device-I./RTE/CMSIS-View-I./RTE/_AT32F415RBT7_WorkBench-IC:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS-Compiler/2.1.0/include-IC:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS-View/1.2.0/EventRecorder/Include-IC:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS/6.1.0/CMSIS/Core/Include-IC:/Users/Administrator/AppData/Local/Arm/Packs/ArteryTek/AT32F415_DFP/2.1.6/Device/Include-D__UVISION_VERSION="538" -D_RTE_ -DAT32F415RBT7 -D_RTE_ -DAT32F415RBT7 -DUSE_STDPERIPH_DRIVER-o ./objects/at32f415_int.o -MD)
 I (..\inc\at32f415_int.h)(0x686CC5B2)
 I (..\..\libraries\cmsis\cm4\device_support\at32f415.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\core_cm4.h)(0x6861F97D)
-I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x625260D8)
+I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x68B81870)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_version.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_compiler.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_armclang.h)(0x6861F97D)
@@ -125,7 +125,7 @@ F (..\src\wk_system.c)(0x686CC5B2)(-xc -std=gnu11 --target=arm-arm-none-eabi -mc
 I (..\inc\wk_system.h)(0x686CC5B2)
 I (..\..\libraries\cmsis\cm4\device_support\at32f415.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\core_cm4.h)(0x6861F97D)
-I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x625260D8)
+I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x68B81870)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_version.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_compiler.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_armclang.h)(0x6861F97D)
@@ -152,7 +152,7 @@ I (..\inc\at32f415_wk_config.h)(0x686CC5B2)
 I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x625260D6)
 I (..\..\libraries\cmsis\cm4\device_support\at32f415.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\core_cm4.h)(0x6861F97D)
-I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x625260D8)
+I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x68B81870)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_version.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_compiler.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_armclang.h)(0x6861F97D)
@@ -181,7 +181,7 @@ I (..\inc\at32f415_wk_config.h)(0x686CC5B2)
 I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x625260D6)
 I (..\..\libraries\cmsis\cm4\device_support\at32f415.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\core_cm4.h)(0x6861F97D)
-I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x625260D8)
+I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x68B81870)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_version.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_compiler.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_armclang.h)(0x6861F97D)
@@ -208,7 +208,7 @@ F (..\src\iap.c)(0x686F13E9)(-xc -std=gnu11 --target=arm-arm-none-eabi -mcpu=cor
 I (..\inc\iap.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\device_support\at32f415.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\core_cm4.h)(0x6861F97D)
-I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x625260D8)
+I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x68B81870)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_version.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_compiler.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_armclang.h)(0x6861F97D)
@@ -236,7 +236,7 @@ I (..\inc\at32f415_wk_config.h)(0x686CC5B2)
 I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x625260D6)
 I (..\..\libraries\cmsis\cm4\device_support\at32f415.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\core_cm4.h)(0x6861F97D)
-I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x625260D8)
+I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x68B81870)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_version.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_compiler.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_armclang.h)(0x6861F97D)
@@ -266,7 +266,7 @@ I (..\inc\at32f415_wk_config.h)(0x686CC5B2)
 I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x625260D6)
 I (..\..\libraries\cmsis\cm4\device_support\at32f415.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\core_cm4.h)(0x6861F97D)
-I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x625260D8)
+I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x68B81870)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_version.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_compiler.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_armclang.h)(0x6861F97D)
@@ -295,7 +295,7 @@ I (..\inc\at32f415_wk_config.h)(0x686CC5B2)
 I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x625260D6)
 I (..\..\libraries\cmsis\cm4\device_support\at32f415.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\core_cm4.h)(0x6861F97D)
-I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x625260D8)
+I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x68B81870)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_version.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_compiler.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_armclang.h)(0x6861F97D)
@@ -324,7 +324,7 @@ I (..\inc\at32f415_wk_config.h)(0x686CC5B2)
 I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x625260D6)
 I (..\..\libraries\cmsis\cm4\device_support\at32f415.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\core_cm4.h)(0x6861F97D)
-I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x625260D8)
+I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x68B81870)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_version.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_compiler.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_armclang.h)(0x6861F97D)
@@ -353,7 +353,7 @@ I (..\inc\at32f415_wk_config.h)(0x686CC5B2)
 I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x625260D6)
 I (..\..\libraries\cmsis\cm4\device_support\at32f415.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\core_cm4.h)(0x6861F97D)
-I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x625260D8)
+I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x68B81870)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_version.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_compiler.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_armclang.h)(0x6861F97D)
@@ -382,7 +382,7 @@ I (..\inc\at32f415_wk_config.h)(0x686CC5B2)
 I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x625260D6)
 I (..\..\libraries\cmsis\cm4\device_support\at32f415.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\core_cm4.h)(0x6861F97D)
-I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x625260D8)
+I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x68B81870)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_version.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_compiler.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_armclang.h)(0x6861F97D)
@@ -411,7 +411,7 @@ I (..\inc\at32f415_wk_config.h)(0x686CC5B2)
 I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x625260D6)
 I (..\..\libraries\cmsis\cm4\device_support\at32f415.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\core_cm4.h)(0x6861F97D)
-I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x625260D8)
+I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x68B81870)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_version.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_compiler.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_armclang.h)(0x6861F97D)
@@ -439,7 +439,7 @@ I (..\inc\at32f415_conf.h)(0x686CC5B2)
 I (..\..\libraries\drivers\inc\at32f415_adc.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\device_support\at32f415.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\core_cm4.h)(0x6861F97D)
-I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x625260D8)
+I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x68B81870)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_version.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_compiler.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_armclang.h)(0x6861F97D)
@@ -463,7 +463,7 @@ I (..\inc\at32f415_conf.h)(0x686CC5B2)
 I (..\..\libraries\drivers\inc\at32f415_adc.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\device_support\at32f415.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\core_cm4.h)(0x6861F97D)
-I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x625260D8)
+I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x68B81870)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_version.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_compiler.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_armclang.h)(0x6861F97D)
@@ -487,7 +487,7 @@ I (..\inc\at32f415_conf.h)(0x686CC5B2)
 I (..\..\libraries\drivers\inc\at32f415_adc.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\device_support\at32f415.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\core_cm4.h)(0x6861F97D)
-I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x625260D8)
+I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x68B81870)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_version.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_compiler.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_armclang.h)(0x6861F97D)
@@ -511,7 +511,7 @@ I (..\inc\at32f415_conf.h)(0x686CC5B2)
 I (..\..\libraries\drivers\inc\at32f415_adc.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\device_support\at32f415.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\core_cm4.h)(0x6861F97D)
-I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x625260D8)
+I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x68B81870)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_version.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_compiler.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_armclang.h)(0x6861F97D)
@@ -535,7 +535,7 @@ I (..\inc\at32f415_conf.h)(0x686CC5B2)
 I (..\..\libraries\drivers\inc\at32f415_adc.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\device_support\at32f415.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\core_cm4.h)(0x6861F97D)
-I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x625260D8)
+I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x68B81870)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_version.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_compiler.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_armclang.h)(0x6861F97D)
@@ -559,7 +559,7 @@ I (..\inc\at32f415_conf.h)(0x686CC5B2)
 I (..\..\libraries\drivers\inc\at32f415_adc.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\device_support\at32f415.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\core_cm4.h)(0x6861F97D)
-I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x625260D8)
+I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x68B81870)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_version.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_compiler.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_armclang.h)(0x6861F97D)
@@ -583,7 +583,7 @@ I (..\inc\at32f415_conf.h)(0x686CC5B2)
 I (..\..\libraries\drivers\inc\at32f415_adc.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\device_support\at32f415.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\core_cm4.h)(0x6861F97D)
-I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x625260D8)
+I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x68B81870)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_version.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_compiler.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_armclang.h)(0x6861F97D)
@@ -607,7 +607,7 @@ I (..\inc\at32f415_conf.h)(0x686CC5B2)
 I (..\..\libraries\drivers\inc\at32f415_adc.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\device_support\at32f415.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\core_cm4.h)(0x6861F97D)
-I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x625260D8)
+I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x68B81870)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_version.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_compiler.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_armclang.h)(0x6861F97D)
@@ -631,7 +631,7 @@ I (..\inc\at32f415_conf.h)(0x686CC5B2)
 I (..\..\libraries\drivers\inc\at32f415_adc.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\device_support\at32f415.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\core_cm4.h)(0x6861F97D)
-I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x625260D8)
+I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x68B81870)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_version.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_compiler.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_armclang.h)(0x6861F97D)
@@ -655,7 +655,7 @@ I (..\inc\at32f415_conf.h)(0x686CC5B2)
 I (..\..\libraries\drivers\inc\at32f415_adc.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\device_support\at32f415.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\core_cm4.h)(0x6861F97D)
-I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x625260D8)
+I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x68B81870)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_version.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_compiler.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_armclang.h)(0x6861F97D)
@@ -679,7 +679,7 @@ I (..\inc\at32f415_conf.h)(0x686CC5B2)
 I (..\..\libraries\drivers\inc\at32f415_adc.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\device_support\at32f415.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\core_cm4.h)(0x6861F97D)
-I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x625260D8)
+I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x68B81870)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_version.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_compiler.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_armclang.h)(0x6861F97D)
@@ -703,7 +703,7 @@ I (..\inc\at32f415_conf.h)(0x686CC5B2)
 I (..\..\libraries\drivers\inc\at32f415_adc.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\device_support\at32f415.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\core_cm4.h)(0x6861F97D)
-I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x625260D8)
+I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x68B81870)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_version.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_compiler.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_armclang.h)(0x6861F97D)
@@ -727,7 +727,7 @@ I (..\inc\at32f415_conf.h)(0x686CC5B2)
 I (..\..\libraries\drivers\inc\at32f415_adc.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\device_support\at32f415.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\core_cm4.h)(0x6861F97D)
-I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x625260D8)
+I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x68B81870)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_version.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_compiler.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_armclang.h)(0x6861F97D)
@@ -749,7 +749,7 @@ I (..\..\libraries\drivers\inc\at32f415_wdt.h)(0x6861F97D)
 F (..\..\libraries\cmsis\cm4\device_support\system_at32f415.c)(0x6861F97D)(-xc -std=gnu11 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=none -mfloat-abi=soft -c-fno-rtti -flto -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../../libraries/drivers/inc -I ../../libraries/cmsis/cm4/core_support -I ../../libraries/cmsis/cm4/device_support -I ../inc -I ../system -I ../app -I ../device-I./RTE/CMSIS-View-I./RTE/_AT32F415RBT7_WorkBench-IC:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS-Compiler/2.1.0/include-IC:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS-View/1.2.0/EventRecorder/Include-IC:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS/6.1.0/CMSIS/Core/Include-IC:/Users/Administrator/AppData/Local/Arm/Packs/ArteryTek/AT32F415_DFP/2.1.6/Device/Include-D__UVISION_VERSION="538" -D_RTE_ -DAT32F415RBT7 -D_RTE_ -DAT32F415RBT7 -DUSE_STDPERIPH_DRIVER-o ./objects/system_at32f415.o -MD)
 I (..\..\libraries\cmsis\cm4\device_support\at32f415.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\core_cm4.h)(0x6861F97D)
-I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x625260D8)
+I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x68B81870)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_version.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_compiler.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_armclang.h)(0x6861F97D)
@@ -775,7 +775,7 @@ F (..\system\tmt.c)(0x6861F97D)(-xc -std=gnu11 --target=arm-arm-none-eabi -mcpu=
 I (..\system\tmt.h)(0x686CC51B)
 I (..\..\libraries\cmsis\cm4\device_support\at32f415.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\core_cm4.h)(0x6861F97D)
-I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x625260D8)
+I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x68B81870)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_version.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_compiler.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_armclang.h)(0x6861F97D)
@@ -800,7 +800,7 @@ F (..\system\PID_operation.c)(0x686F4DDC)(-xc -std=gnu11 --target=arm-arm-none-e
 I (..\system\PID_operation.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\device_support\at32f415.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\core_cm4.h)(0x6861F97D)
-I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x625260D8)
+I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x68B81870)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_version.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_compiler.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_armclang.h)(0x6861F97D)
@@ -827,7 +827,7 @@ I (..\device\beep.h)(0x6861F97D)
 I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x625260D6)
 I (..\..\libraries\cmsis\cm4\device_support\at32f415.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\core_cm4.h)(0x6861F97D)
-I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x625260D8)
+I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x68B81870)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_version.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_compiler.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_armclang.h)(0x6861F97D)
@@ -853,7 +853,7 @@ I (..\app\flash_handle.h)(0x686F2EC4)
 I (..\device\flash.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\device_support\at32f415.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\core_cm4.h)(0x6861F97D)
-I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x625260D8)
+I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x68B81870)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_version.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_compiler.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_armclang.h)(0x6861F97D)
@@ -882,7 +882,7 @@ I (..\device\key.h)(0x6861F97D)
 I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x625260D6)
 I (..\..\libraries\cmsis\cm4\device_support\at32f415.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\core_cm4.h)(0x6861F97D)
-I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x625260D8)
+I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x68B81870)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_version.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_compiler.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_armclang.h)(0x6861F97D)
@@ -906,7 +906,7 @@ I (..\..\libraries\drivers\inc\at32f415_wdt.h)(0x6861F97D)
 I (..\app\work_handle.h)(0x6861F97D)
 I (..\app\beep_handle.h)(0x6861F97D)
 I (..\device\beep.h)(0x6861F97D)
-I (..\app\dwin_handle.h)(0x686CC3F0)
+I (..\app\dwin_handle.h)(0x68BAB23A)
 I (..\device\at32_Usart.h)(0x6861F97D)
 I (..\app\FWG2_handle.h)(0x686F5A91)
 I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x625260D6)
@@ -916,7 +916,7 @@ I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x625260D6)
 I (..\device\adc.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\device_support\at32f415.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\core_cm4.h)(0x6861F97D)
-I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x625260D8)
+I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x68B81870)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_version.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_compiler.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_armclang.h)(0x6861F97D)
@@ -940,11 +940,11 @@ I (..\..\libraries\drivers\inc\at32f415_wdt.h)(0x6861F97D)
 I (..\inc\wk_system.h)(0x686CC5B2)
 I (..\app\work_handle.h)(0x6861F97D)
 I (..\app\FWG2_handle.h)(0x686F5A91)
-F (..\app\work_handle.c)(0x686F219B)(-xc -std=gnu11 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=none -mfloat-abi=soft -c-fno-rtti -flto -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../../libraries/drivers/inc -I ../../libraries/cmsis/cm4/core_support -I ../../libraries/cmsis/cm4/device_support -I ../inc -I ../system -I ../app -I ../device-I./RTE/CMSIS-View-I./RTE/_AT32F415RBT7_WorkBench-IC:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS-Compiler/2.1.0/include-IC:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS-View/1.2.0/EventRecorder/Include-IC:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS/6.1.0/CMSIS/Core/Include-IC:/Users/Administrator/AppData/Local/Arm/Packs/ArteryTek/AT32F415_DFP/2.1.6/Device/Include-D__UVISION_VERSION="538" -D_RTE_ -DAT32F415RBT7 -D_RTE_ -DAT32F415RBT7 -DUSE_STDPERIPH_DRIVER-o ./objects/work_handle.o -MD)
+F (..\app\work_handle.c)(0x68BAB239)(-xc -std=gnu11 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=none -mfloat-abi=soft -c-fno-rtti -flto -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../../libraries/drivers/inc -I ../../libraries/cmsis/cm4/core_support -I ../../libraries/cmsis/cm4/device_support -I ../inc -I ../system -I ../app -I ../device-I./RTE/CMSIS-View-I./RTE/_AT32F415RBT7_WorkBench-IC:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS-Compiler/2.1.0/include-IC:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS-View/1.2.0/EventRecorder/Include-IC:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS/6.1.0/CMSIS/Core/Include-IC:/Users/Administrator/AppData/Local/Arm/Packs/ArteryTek/AT32F415_DFP/2.1.6/Device/Include-D__UVISION_VERSION="538" -D_RTE_ -DAT32F415RBT7 -D_RTE_ -DAT32F415RBT7 -DUSE_STDPERIPH_DRIVER-o ./objects/work_handle.o -MD)
 I (..\app\work_handle.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\device_support\at32f415.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\core_cm4.h)(0x6861F97D)
-I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x625260D8)
+I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x68B81870)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_version.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_compiler.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_armclang.h)(0x6861F97D)
@@ -971,9 +971,9 @@ I (..\system\PID_operation.h)(0x6861F97D)
 I (..\app\beep_handle.h)(0x6861F97D)
 I (..\device\beep.h)(0x6861F97D)
 I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x625260D6)
-F (..\app\dwin_handle.c.c)(0x686F9371)(-xc -std=gnu11 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=none -mfloat-abi=soft -c-fno-rtti -flto -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../../libraries/drivers/inc -I ../../libraries/cmsis/cm4/core_support -I ../../libraries/cmsis/cm4/device_support -I ../inc -I ../system -I ../app -I ../device-I./RTE/CMSIS-View-I./RTE/_AT32F415RBT7_WorkBench-IC:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS-Compiler/2.1.0/include-IC:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS-View/1.2.0/EventRecorder/Include-IC:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS/6.1.0/CMSIS/Core/Include-IC:/Users/Administrator/AppData/Local/Arm/Packs/ArteryTek/AT32F415_DFP/2.1.6/Device/Include-D__UVISION_VERSION="538" -D_RTE_ -DAT32F415RBT7 -D_RTE_ -DAT32F415RBT7 -DUSE_STDPERIPH_DRIVER-o ./objects/dwin_handle.c.o -MD)
-I (..\app\dwin_handle.h)(0x686CC3F0)
-I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x625260D8)
+F (..\app\dwin_handle.c.c)(0x6870AE4F)(-xc -std=gnu11 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=none -mfloat-abi=soft -c-fno-rtti -flto -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../../libraries/drivers/inc -I ../../libraries/cmsis/cm4/core_support -I ../../libraries/cmsis/cm4/device_support -I ../inc -I ../system -I ../app -I ../device-I./RTE/CMSIS-View-I./RTE/_AT32F415RBT7_WorkBench-IC:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS-Compiler/2.1.0/include-IC:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS-View/1.2.0/EventRecorder/Include-IC:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS/6.1.0/CMSIS/Core/Include-IC:/Users/Administrator/AppData/Local/Arm/Packs/ArteryTek/AT32F415_DFP/2.1.6/Device/Include-D__UVISION_VERSION="538" -D_RTE_ -DAT32F415RBT7 -D_RTE_ -DAT32F415RBT7 -DUSE_STDPERIPH_DRIVER-o ./objects/dwin_handle.c.o -MD)
+I (..\app\dwin_handle.h)(0x68BAB23A)
+I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x68B81870)
 I (..\device\at32_Usart.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\device_support\at32f415.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\core_cm4.h)(0x6861F97D)
@@ -1004,7 +1004,7 @@ F (..\app\FWG2_handle.c)(0x686CC4AD)(-xc -std=gnu11 --target=arm-arm-none-eabi -
 I (..\app\FWG2_handle.h)(0x686F5A91)
 I (..\..\libraries\cmsis\cm4\device_support\at32f415.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\core_cm4.h)(0x6861F97D)
-I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x625260D8)
+I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x68B81870)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_version.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_compiler.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_armclang.h)(0x6861F97D)
@@ -1030,7 +1030,7 @@ F (..\device\iap_usart.c)(0x6861F97D)(-xc -std=gnu11 --target=arm-arm-none-eabi 
 I (..\device\iap_usart.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\device_support\at32f415.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\core_cm4.h)(0x6861F97D)
-I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x625260D8)
+I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x68B81870)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_version.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_compiler.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_armclang.h)(0x6861F97D)
@@ -1053,13 +1053,13 @@ I (..\..\libraries\drivers\inc\at32f415_usart.h)(0x6861F97D)
 I (..\..\libraries\drivers\inc\at32f415_wdt.h)(0x6861F97D)
 F (..\device\util_queue.c)(0x6861F97D)(-xc -std=gnu11 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=none -mfloat-abi=soft -c-fno-rtti -flto -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../../libraries/drivers/inc -I ../../libraries/cmsis/cm4/core_support -I ../../libraries/cmsis/cm4/device_support -I ../inc -I ../system -I ../app -I ../device-I./RTE/CMSIS-View-I./RTE/_AT32F415RBT7_WorkBench-IC:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS-Compiler/2.1.0/include-IC:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS-View/1.2.0/EventRecorder/Include-IC:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS/6.1.0/CMSIS/Core/Include-IC:/Users/Administrator/AppData/Local/Arm/Packs/ArteryTek/AT32F415_DFP/2.1.6/Device/Include-D__UVISION_VERSION="538" -D_RTE_ -DAT32F415RBT7 -D_RTE_ -DAT32F415RBT7 -DUSE_STDPERIPH_DRIVER-o ./objects/util_queue.o -MD)
 I (..\device\util_queue.h)(0x6861F97D)
-I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x625260D8)
+I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x68B81870)
 I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x625260D6)
 F (..\device\at32_Usart.c)(0x6861F97D)(-xc -std=gnu11 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=none -mfloat-abi=soft -c-fno-rtti -flto -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../../libraries/drivers/inc -I ../../libraries/cmsis/cm4/core_support -I ../../libraries/cmsis/cm4/device_support -I ../inc -I ../system -I ../app -I ../device-I./RTE/CMSIS-View-I./RTE/_AT32F415RBT7_WorkBench-IC:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS-Compiler/2.1.0/include-IC:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS-View/1.2.0/EventRecorder/Include-IC:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS/6.1.0/CMSIS/Core/Include-IC:/Users/Administrator/AppData/Local/Arm/Packs/ArteryTek/AT32F415_DFP/2.1.6/Device/Include-D__UVISION_VERSION="538" -D_RTE_ -DAT32F415RBT7 -D_RTE_ -DAT32F415RBT7 -DUSE_STDPERIPH_DRIVER-o ./objects/at32_usart.o -MD)
 I (..\device\at32_usart.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\device_support\at32f415.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\core_cm4.h)(0x6861F97D)
-I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x625260D8)
+I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x68B81870)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_version.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_compiler.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_armclang.h)(0x6861F97D)
@@ -1086,7 +1086,7 @@ F (..\device\adc.c)(0x686F5357)(-xc -std=gnu11 --target=arm-arm-none-eabi -mcpu=
 I (..\device\adc.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\device_support\at32f415.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\core_cm4.h)(0x6861F97D)
-I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x625260D8)
+I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x68B81870)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_version.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_compiler.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_armclang.h)(0x6861F97D)
@@ -1115,7 +1115,7 @@ F (..\device\at32_spiflash.c)(0x6861F97D)(-xc -std=gnu11 --target=arm-arm-none-e
 I (..\device\at32_spiflash.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\device_support\at32f415.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\core_cm4.h)(0x6861F97D)
-I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x625260D8)
+I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x68B81870)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_version.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_compiler.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_armclang.h)(0x6861F97D)
@@ -1141,7 +1141,7 @@ I (..\device\beep.h)(0x6861F97D)
 I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x625260D6)
 I (..\..\libraries\cmsis\cm4\device_support\at32f415.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\core_cm4.h)(0x6861F97D)
-I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x625260D8)
+I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x68B81870)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_version.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_compiler.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_armclang.h)(0x6861F97D)
@@ -1167,7 +1167,7 @@ F (..\device\flash.c)(0x6861F97D)(-xc -std=gnu11 --target=arm-arm-none-eabi -mcp
 I (..\device\flash.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\device_support\at32f415.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\core_cm4.h)(0x6861F97D)
-I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x625260D8)
+I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x68B81870)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_version.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_compiler.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_armclang.h)(0x6861F97D)
@@ -1193,7 +1193,7 @@ I (..\device\key.h)(0x6861F97D)
 I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x625260D6)
 I (..\..\libraries\cmsis\cm4\device_support\at32f415.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\core_cm4.h)(0x6861F97D)
-I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x625260D8)
+I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x68B81870)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_version.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_compiler.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_armclang.h)(0x6861F97D)
@@ -1216,7 +1216,7 @@ I (..\..\libraries\drivers\inc\at32f415_usart.h)(0x6861F97D)
 I (..\..\libraries\drivers\inc\at32f415_wdt.h)(0x6861F97D)
 F (C:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS-Compiler/2.1.0/source/armcc/retarget_io.c)(0x6645612C)(-xc -std=gnu11 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=none -mfloat-abi=soft -c-fno-rtti -flto -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../../libraries/drivers/inc -I ../../libraries/cmsis/cm4/core_support -I ../../libraries/cmsis/cm4/device_support -I ../inc -I ../system -I ../app -I ../device-I./RTE/CMSIS-View-I./RTE/_AT32F415RBT7_WorkBench-IC:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS-Compiler/2.1.0/include-IC:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS-View/1.2.0/EventRecorder/Include-IC:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS/6.1.0/CMSIS/Core/Include-IC:/Users/Administrator/AppData/Local/Arm/Packs/ArteryTek/AT32F415_DFP/2.1.6/Device/Include-D__UVISION_VERSION="538" -D_RTE_ -DAT32F415RBT7 -D_RTE_ -DAT32F415RBT7 -DUSE_STDPERIPH_DRIVER-o ./objects/retarget_io.o -MD)
 I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\string.h)(0x625260D6)
-I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x625260D8)
+I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x68B81870)
 I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x625260D6)
 I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdlib.h)(0x625260D6)
 I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\assert.h)(0x625260D6)
@@ -1224,14 +1224,14 @@ I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\rt_sys.h)(0x625260D8)
 I (RTE\_AT32F415RBT7_WorkBench\RTE_Components.h)(0x68622232)
 I (C:\Users\Administrator\AppData\Local\Arm\Packs\ARM\CMSIS-Compiler\2.1.0\include\retarget_stdout.h)(0x6645612C)
 F (C:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS-Compiler/2.1.0/source/stdout_evr.c)(0x6645612C)(-xc -std=gnu11 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=none -mfloat-abi=soft -c-fno-rtti -flto -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../../libraries/drivers/inc -I ../../libraries/cmsis/cm4/core_support -I ../../libraries/cmsis/cm4/device_support -I ../inc -I ../system -I ../app -I ../device-I./RTE/CMSIS-View-I./RTE/_AT32F415RBT7_WorkBench-IC:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS-Compiler/2.1.0/include-IC:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS-View/1.2.0/EventRecorder/Include-IC:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS/6.1.0/CMSIS/Core/Include-IC:/Users/Administrator/AppData/Local/Arm/Packs/ArteryTek/AT32F415_DFP/2.1.6/Device/Include-D__UVISION_VERSION="538" -D_RTE_ -DAT32F415RBT7 -D_RTE_ -DAT32F415RBT7 -DUSE_STDPERIPH_DRIVER-o ./objects/stdout_evr.o -MD)
-I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x625260D8)
+I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x68B81870)
 I (C:\Users\Administrator\AppData\Local\Arm\Packs\ARM\CMSIS-Compiler\2.1.0\include\retarget_stdout.h)(0x6645612C)
 I (C:\Users\Administrator\AppData\Local\Arm\Packs\ARM\CMSIS-View\1.2.0\EventRecorder\Include\EventRecorder.h)(0x6645596A)
 F (C:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS-View/1.2.0/EventRecorder/Source/EventRecorder.c)(0x6645596A)(-xc -std=gnu11 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=none -mfloat-abi=soft -c-fno-rtti -flto -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../../libraries/drivers/inc -I ../../libraries/cmsis/cm4/core_support -I ../../libraries/cmsis/cm4/device_support -I ../inc -I ../system -I ../app -I ../device-I./RTE/CMSIS-View-I./RTE/_AT32F415RBT7_WorkBench-IC:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS-Compiler/2.1.0/include-IC:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS-View/1.2.0/EventRecorder/Include-IC:/Users/Administrator/AppData/Local/Arm/Packs/ARM/CMSIS/6.1.0/CMSIS/Core/Include-IC:/Users/Administrator/AppData/Local/Arm/Packs/ArteryTek/AT32F415_DFP/2.1.6/Device/Include-D__UVISION_VERSION="538" -D_RTE_ -DAT32F415RBT7 -D_RTE_ -DAT32F415RBT7 -DUSE_STDPERIPH_DRIVER-o ./objects/eventrecorder.o -MD)
 I (RTE\_AT32F415RBT7_WorkBench\RTE_Components.h)(0x68622232)
 I (..\..\libraries\cmsis\cm4\device_support\at32f415.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\core_cm4.h)(0x6861F97D)
-I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x625260D8)
+I (D:\Work Program\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x68B81870)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_version.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_compiler.h)(0x6861F97D)
 I (..\..\libraries\cmsis\cm4\core_support\cmsis_armclang.h)(0x6861F97D)

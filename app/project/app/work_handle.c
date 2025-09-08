@@ -72,7 +72,7 @@ void Direct_handle_switch(void)
                         }
                     }
 
-                    if (sFWG2_t.Direct_handle_parameter.error_time >= ERROR_TIME_OUT)
+                    if (sFWG2_t.Direct_handle_parameter.error_time >= ERROR_TIME_OUT * 5)
                     {
 //                        if (sFWG2_t.Direct_handle_parameter.actual_temp <= LOW_TEMP_VAL && \
 //                                sFWG2_t.Direct_handle_parameter.actual_wind >= LOW_WIND_RATE)
@@ -162,7 +162,7 @@ void Direct_handle_switch(void)
                     }
                 }
 
-                if (sFWG2_t.Direct_handle_parameter.error_time >= ERROR_TIME_OUT)
+                if (sFWG2_t.Direct_handle_parameter.error_time >= ERROR_TIME_OUT * 5)
                 {
                     if (sFWG2_t.Direct_handle_parameter.actual_temp <= LOW_TEMP_VAL && \
                             sFWG2_t.Direct_handle_parameter.actual_wind >= LOW_WIND_RATE)
