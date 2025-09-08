@@ -81,6 +81,7 @@
   *         - pll_ns              = 150
   *         - pll_ms              = 1
   *         - pll_fr              = 4
+  *         - flash_wtcyc         = 4 cycle
   * @param  none
   * @retval none
   */
@@ -164,6 +165,9 @@ void wk_periph_clock_config(void)
   /* enable dma1 periph clock */
   crm_periph_clock_enable(CRM_DMA1_PERIPH_CLOCK, TRUE);
 
+  /* enable crc periph clock */
+  crm_periph_clock_enable(CRM_CRC_PERIPH_CLOCK, TRUE);
+
   /* enable iomux periph clock */
   crm_periph_clock_enable(CRM_IOMUX_PERIPH_CLOCK, TRUE);
 
@@ -231,8 +235,11 @@ void wk_nvic_config(void)
   NVIC_SetPriority(SysTick_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(), 15, 0));
   nvic_irq_enable(TMR3_GLOBAL_IRQn, 0, 0);
   nvic_irq_enable(USART1_IRQn, 0, 0);
+  nvic_irq_enable(USART2_IRQn, 0, 0);
   nvic_irq_enable(USART3_IRQn, 0, 0);
   nvic_irq_enable(EXINT15_10_IRQn, 0, 0);
+  nvic_irq_enable(UART4_IRQn, 0, 0);
+  nvic_irq_enable(UART5_IRQn, 0, 0);
 }
 
 /* add user code begin 1 */

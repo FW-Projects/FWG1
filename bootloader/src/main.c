@@ -21,13 +21,17 @@
   *
   **************************************************************************
   */
-
+#include <stdint.h>
+#include <stdbool.h>
+#include <string.h>
 #include "at32f415_board.h"
 #include "at32f415_clock.h"
 #include "tmr.h"
 #include "usart.h"
 #include "flash.h"
 #include "iap.h"
+
+extern bool iap_done;
 
 /** @addtogroup UTILITIES_examples
   * @{
@@ -44,42 +48,57 @@
   */
 int main(void)
 {
-  system_clock_config();
-  at32_board_init();
+    system_clock_config();
+    at32_board_init();
+    /* enable crc periph clock */
+    crm_periph_clock_enable(CRM_CRC_PERIPH_CLOCK, TRUE);
+    /* config nvic priority group */
+    nvic_priority_group_config(NVIC_PRIORITY_GROUP_4);
 
-  /* config nvic priority group */
-  nvic_priority_group_config(NVIC_PRIORITY_GROUP_4);
+    /* check iap_upgrade_flag flag */
+    if (flash_upgrade_flag_read() == RESET)
+    {
+        /* check app starting address whether 0x08xxxxxx */
+        if (((*(uint32_t *)(APP_START_ADDR + 4)) & 0xFF000000) == 0x08000000)
+        {
+            app_load(APP_START_ADDR);
+        }
+    }
 
-  /* check iap_upgrade_flag flag */
-  if(flash_upgrade_flag_read() == RESET)
-  {
-    /* check app starting address whether 0x08xxxxxx */
-    if(((*(uint32_t*)(APP_START_ADDR + 4)) & 0xFF000000) == 0x08000000)
-	{
-	    app_load(APP_START_ADDR); 
-	}
-	
-  }
+    /* init usart used for app update */
+    uart_init(115200);
 
-  /* init usart used for app update */
-  uart_init(115200);
+    /* check whether need to upgrade, if yes, response ok to pc-tool */
+    if (flash_upgrade_flag_read() != RESET)
+        /* send ok mes */
+    {
+        usart1_send_ok();
+    }
 
-  /* check whether need to upgrade, if yes, response ok to pc-tool */
-  if(flash_upgrade_flag_read() != RESET)
-    back_ok();
+    /* init tmr used for show code running state(led cycle toggle) */
+    tmr_init();
 
-  /* init tmr used for show code running state(led cycle toggle) */
-  tmr_init();
+    while (1)
+    {
+        /* upgrade handle */
+        if (iap_done)
+        {
+            iap_done = FALSE;
+            /* check app starting address whether 0x08xxxxxx */
+            if (((*(uint32_t *)(APP_START_ADDR + 4)) & 0xFF000000) == 0x08000000)
+            {
+                crm_reset();
+                /* jump and run in app */
+                app_load(APP_START_ADDR);
+            }
+        }
 
-  while(1)
-  {
-    /* upgrade handle */
-    iap_upgrade_app_handle();
-  }
+    }
 }
 
+
 /**
-  * @}
+  * @}x
   */
 
 /**

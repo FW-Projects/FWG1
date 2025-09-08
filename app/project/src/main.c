@@ -27,6 +27,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "at32f415_wk_config.h"
 #include "wk_adc.h"
+#include "wk_crc.h"
 #include "wk_debug.h"
 #include "wk_exint.h"
 #include "wk_spi.h"
@@ -50,13 +51,17 @@
 #include "dwin_handle.h"
 #include "work_handle.h"
 #include "output_handle.h"
+#include "PC_comm_handle.h"
+#include "UART4_comm_handle.h"
+#include "UART5_comm_handle.h"
 #include "at32_spiflash.h"
 #include "PID_operation.h"
 /* add user code end private includes */
 
 /* private typedef -----------------------------------------------------------*/
 /* add user code begin private typedef */
-
+#define RECORD_HANDLE_TIME     60000
+#define FEED_DOG_HANDLE_TIME   10
 /* add user code end private typedef */
 
 /* private define ------------------------------------------------------------*/
@@ -88,6 +93,9 @@ void flash_task(void);
 void output_task(void);
 void feed_dog_task(void);
 void record_task(void);
+void pc_comm_task(void);
+void uart4_comm_task(void);
+void uart5_comm_task(void);
 /* add user code end function prototypes */
 
 /* private user code ---------------------------------------------------------*/
@@ -118,6 +126,8 @@ int main(void)
     wk_timebase_init();
     /* init gpio function. */
     wk_gpio_config();
+    /* init adc1 function. */
+    wk_adc1_init();
     /* init dma1 channel1 */
     wk_dma1_channel1_init();
     /* config dma channel transfer parameter */
@@ -126,7 +136,7 @@ int main(void)
                           DMA1_CHANNEL1_PERIPHERAL_BASE_ADDR,
                           DMA1_CHANNEL1_MEMORY_BASE_ADDR,
                           DMA1_CHANNEL1_BUFFER_SIZE);
-    dma_channel_enable(DMA1_CHANNEL1, FALSE);
+    dma_channel_enable(DMA1_CHANNEL1, TRUE);
     /* init usart1 function. */
     wk_usart1_init();
     /* init usart2 function. */
@@ -139,8 +149,6 @@ int main(void)
     wk_uart5_init();
     /* init spi1 function. */
     wk_spi1_init();
-    /* init adc1 function. */
-    wk_adc1_init();
     /* init exint function. */
     wk_exint_config();
     /* init tmr2 function. */
@@ -149,24 +157,29 @@ int main(void)
     wk_tmr3_init();
     /* init tmr9 function. */
     wk_tmr9_init();
+    /* init crc function. */
+    wk_crc_init();
     /* init wdt function. */
     wk_wdt_init();
     /* add user code begin 2 */
     tmt_init();
-    tmt.create(iap_task, IAP_HANDLE_TIME);
-    tmt.create(key_task, KEY_HANDLE_TIME);
-    tmt.create(adc_task, KEY_HANDLE_TIME);
-    tmt.create(beep_task, BEEP_HANDLE_TIME);
-    tmt.create(dwin_task, DWIN_HANDLE_TIME);
-    tmt.create(work_task, WORK_HANDLE_TIME);
-    tmt.create(flash_task, FLASH_HANDLE_TIME);
-    tmt.create(output_task, OUTPUT_HANDLE_TIME);
-    tmt.create(feed_dog_task, OUTPUT_HANDLE_TIME);
-    tmt.create(record_task, 60000);
+    tmt.create(iap_task,        IAP_HANDLE_TIME);
+    tmt.create(key_task,        KEY_HANDLE_TIME);
+    tmt.create(adc_task,        KEY_HANDLE_TIME);
+    tmt.create(beep_task,       BEEP_HANDLE_TIME);
+    tmt.create(dwin_task,       DWIN_HANDLE_TIME);
+    tmt.create(work_task,       WORK_HANDLE_TIME);
+    tmt.create(flash_task,      FLASH_HANDLE_TIME);
+    tmt.create(output_task,     OUTPUT_HANDLE_TIME);
+    tmt.create(feed_dog_task,   FEED_DOG_HANDLE_TIME);
+    tmt.create(pc_comm_task,    PC_HANDLE_TIME);
+    tmt.create(uart4_comm_task, UART4_HANDLE_TIME);
+    tmt.create(uart5_comm_task, UART5_HANDLE_TIME);
+    tmt.create(record_task,     RECORD_HANDLE_TIME);
     EventRecorderInitialize(0, 1);
     FWG2_Init(&sFWG2_t);
     DwinInitialization(&sdwin);
-    PID_Init(&direct_pid, 800, 0.5, 80000, 59999);
+    PID_Init(&direct_pid, 1000, 0.8, 21000, 60000);
     iap_init();
     spiflash_init();
     __IO uint32_t flash_id_index  = spiflash_read_id();
@@ -198,8 +211,8 @@ void key_task(void)
 
 void beep_task()
 {
-	static uint8_t time = 0;
-	
+    static uint8_t time = 0;
+
     if (sFWG2_t.general_parameter.speak_state == SPEAKER_OPEN)
     {
         BeepProc(&sbeep);
@@ -209,18 +222,17 @@ void beep_task()
         sbeep.off();
         sbeep.status = BEEP_OFF;
     }
-	
-	if(sFWG2_t.Direct_handle_error_state != HANDLE_OK)
-	{
-		time++;
-		if(time>=80)
-		{ 
-			time = 0;
-			sbeep.status = BEEP_LONG;
-		    
-		}
-	   
-	}
+
+    if (sFWG2_t.Direct_handle_error_state != HANDLE_OK)
+    {
+        time++;
+
+        if (time >= 80)
+        {
+            time = 0;
+            sbeep.status = BEEP_LONG;
+        }
+    }
 }
 
 void adc_task(void)
@@ -319,8 +331,9 @@ void feed_dog_task(void)
     {
         first_in = true;
         /* if enabled, please feed the dog through wdt_counter_reload() function */
-       // wdt_enable();
+        // wdt_enable();
     }
+
     wdt_counter_reload();
 }
 
@@ -329,5 +342,19 @@ void record_task(void)
     sFWG2_t.general_parameter.system_run_time_m ++;
 }
 
+void pc_comm_task(void)
+{
+    pc_comm_handle();
+}
+
+void uart4_comm_task(void)
+{
+    uart4_comm_handle();
+}
+
+void uart5_comm_task(void)
+{
+    uart5_comm_handle();
+}
 
 /* add user code end 4 */

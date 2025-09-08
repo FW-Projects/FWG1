@@ -94,7 +94,7 @@ typedef  unsigned int   uint16_t; /*!< 16 bits */
  *            determine the maximum number of tasks that TMT
  *            needs to schedule.
 **/
-#define 	  TMT_TASK_NUM  	 (10)
+#define 	  TMT_TASK_NUM  	 (13)
 
 
 /*-----------------------------------------------------------------------

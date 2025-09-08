@@ -1,4 +1,5 @@
 .\objects\usart.o: ..\src\usart.c
+.\objects\usart.o: D:\Work Program\Keil_v5\ARM\ARM_Compiler_5.06u7\Bin\..\include\stdbool.h
 .\objects\usart.o: ..\inc\usart.h
 .\objects\usart.o: ..\at32f415_board\at32f415_board.h
 .\objects\usart.o: D:\Work Program\Keil_v5\ARM\ARM_Compiler_5.06u7\Bin\..\include\stdio.h
@@ -34,4 +35,7 @@
 .\objects\usart.o: ..\libraries\drivers\inc\at32f415_sdio.h
 .\objects\usart.o: ..\libraries\drivers\inc\at32f415_misc.h
 .\objects\usart.o: ..\libraries\drivers\inc\at32f415_usb.h
+.\objects\usart.o: ..\inc\flash.h
 .\objects\usart.o: ..\inc\tmr.h
+.\objects\usart.o: ..\inc\wk_crc.h
+.\objects\usart.o: ..\inc\iap.h

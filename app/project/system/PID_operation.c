@@ -1,8 +1,6 @@
 #include "PID_operation.h"
 
-//´´½¨½á¹¹Ìå
 PID direct_pid;
-
 //ÎªÁË·ÀÖ¹»ý·ÖÏî¹ý¶ÈÀÛ»ý£¬ÒýÈë»ý·ÖÏîµÄÏÞ·ùÊÇÒ»ÖÖ³£¼ûµÄ×ö·¨¡£
 //ÏÞÖÆ»ý·ÖÏîµÄ·ùÖµ¿ÉÒÔ·ÀÖ¹»ý·ÖÏî¹ý¶ÈÔö¼Ó£¬´Ó¶øÏÞÖÆÁËÏµÍ³µÄÀÛ»ýÎó²î¡£ÕâÑù¿ÉÒÔ±ÜÃâÏµÍ³¹ý¶ÈÏìÓ¦»òÕß²»ÎÈ¶¨¡£
 volatile float abs_limit(volatile float value, volatile float ABS_MAX)   //»ý·ÖÏÞ·ù£¬ÉèÖÃ×î´óÖµ¡£
@@ -24,12 +22,24 @@ volatile float abs_limit(volatile float value, volatile float ABS_MAX)   //»ý·ÖÏ
 float PID_Position_Calc(PID *pid, float Target_val, float Actual_val)  //Î»ÖÃÊ½PID
 {
     pid->Error = Target_val - Actual_val;      //Óëpid PÏµÊýÏà³Ë¡£±ÈÀýÎó²îÖµ µ±Ç°²îÖµ=Ä¿±êÖµ-Êµ¼ÊÖµ
-    	
-	pid->SumError += pid->Error;    //Óëpid IÏµÊýÏà³Ë¡£ÎÈÌ¬Îó²îÖµ Îó²îÏà¼Ó×÷ÎªÎó²î×ÜºÍ£¬¸ø»ý·ÖÏî
     
-	if (pid->SumError >= pid->Integralmax)
+	#if 0
+    if (pid->SumError >= pid->outputmax)
     {
-        pid->SumError = pid->Integralmax;
+        pid->SumError = pid->outputmax;
+    }
+	if (pid->SumError < 0)
+	    pid->SumError = 0;
+    else 
+    {
+        pid->SumError += pid->Error;    //Óëpid IÏµÊýÏà³Ë¡£ÎÈÌ¬Îó²îÖµ Îó²îÏà¼Ó×÷ÎªÎó²î×ÜºÍ£¬¸ø»ý·ÖÏî
+    }
+    #endif
+	pid->SumError += pid->Error;    //Óëpid IÏµÊýÏà³Ë¡£ÎÈÌ¬Îó²îÖµ Îó²îÏà¼Ó×÷ÎªÎó²î×ÜºÍ£¬¸ø»ý·ÖÏî
+	
+	if (pid->SumError >=  45000)
+    {
+        pid->SumError =  45000;
     }
 	
 	if (pid->SumError <= 0)
@@ -37,7 +47,7 @@ float PID_Position_Calc(PID *pid, float Target_val, float Actual_val)  //Î»ÖÃÊ½P
         pid->SumError = 0;
     }
 	
-	pid->DError = pid->Error - pid->LastError;   //Óëpid DÏµÊýÏà³Ë¡£ Î¢·ÖÏî-Ïû³ýÕðµ´
+    pid->DError = pid->Error - pid->LastError;   //Óëpid DÏµÊýÏà³Ë¡£ Î¢·ÖÏî-Ïû³ýÕðµ´
     pid->output =   pid->Kp * pid->Error +
                     abs_limit(pid->Ki * pid->SumError, pid->Integralmax) +
                     pid->Kd * pid->DError ;
@@ -53,13 +63,12 @@ float PID_Position_Calc(PID *pid, float Target_val, float Actual_val)  //Î»ÖÃÊ½P
 //    {
 //        pid->output = -pid->outputmax;
 //    }
-	
+
 	    if (pid->output < - pid->outputmax)
     {
         pid->output = 0;
     }
-
-
+	
     return pid->output;   //Êä³öÎªpwmÖµ
 }
 
@@ -70,15 +79,15 @@ void PID_Init(PID *pid, float Kp, float Ki, float Kd, float Limit_value)
     pid->Ki = Ki;
     pid->Kd = Kd;
     pid->PrevError = pid->LastError = pid->Error = pid->SumError = pid->output =  0;
-    pid->Integralmax = Limit_value;
+    pid->Integralmax = 35000;
     pid->outputmax  = Limit_value;
 }
-//Çå³ýPIDÊý¾Ý
+
 void PID_Clear(PID *pid)
 {
     pid->PrevError = pid->LastError = pid->Error = pid->SumError = pid->output =  0;
 }
-//Çå³ý»ý·ÖÏî
+
 void PID_Clear_I(PID *pid)
 {
     pid->SumError = 0;

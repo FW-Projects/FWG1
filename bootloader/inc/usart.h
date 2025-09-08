@@ -75,7 +75,8 @@ extern usart_group_type usart_group_struct;
   */
 
 void uart_init(uint32_t baudrate);
-
+void usart1_send_ok(void);
+void usart1_send_error(void);
 /**
   * @}
   */

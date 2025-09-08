@@ -56,6 +56,23 @@ void flash_2kb_write(uint32_t write_addr, uint8_t *pbuffer)
   flash_lock();
 }
 
+
+void flash_1kb_write(uint32_t write_addr, uint8_t *pbuffer)
+{
+  uint16_t index;
+  flash_unlock();
+  flash_sector_erase(write_addr);
+  if(FLASH_SIZE < 0x100)  /* less than 256kb, 1kb/sector */
+    flash_sector_erase(write_addr + 0x400);
+  
+  for(index = 0; index < 1024; index ++)
+  {
+    flash_byte_program(write_addr, pbuffer[index]);
+    write_addr += sizeof(uint8_t);
+  }
+  flash_lock();
+}
+
 /**
   * @brief  check flash upgrade flag.
   * @param  none

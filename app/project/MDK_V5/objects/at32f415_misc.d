@@ -9,6 +9,7 @@
   ..\..\libraries\cmsis\cm4\core_support\mpu_armv7.h \
   ..\..\libraries\cmsis\cm4\device_support\system_at32f415.h \
   ..\..\libraries\drivers\inc\at32f415_def.h \
+  ..\..\libraries\drivers\inc\at32f415_crc.h \
   ..\..\libraries\drivers\inc\at32f415_crm.h \
   ..\..\libraries\drivers\inc\at32f415_debug.h \
   ..\..\libraries\drivers\inc\at32f415_dma.h \

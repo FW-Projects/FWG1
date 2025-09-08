@@ -1,9 +1,11 @@
 .\objects\main.o: ..\src\main.c
+.\objects\main.o: D:\Work Program\Keil_v5\ARM\ARM_Compiler_5.06u7\Bin\..\include\stdint.h
+.\objects\main.o: D:\Work Program\Keil_v5\ARM\ARM_Compiler_5.06u7\Bin\..\include\stdbool.h
+.\objects\main.o: D:\Work Program\Keil_v5\ARM\ARM_Compiler_5.06u7\Bin\..\include\string.h
 .\objects\main.o: ..\at32f415_board\at32f415_board.h
 .\objects\main.o: D:\Work Program\Keil_v5\ARM\ARM_Compiler_5.06u7\Bin\..\include\stdio.h
 .\objects\main.o: ..\libraries\cmsis\cm4\device_support\at32f415.h
 .\objects\main.o: ..\libraries\cmsis\cm4\core_support\core_cm4.h
-.\objects\main.o: D:\Work Program\Keil_v5\ARM\ARM_Compiler_5.06u7\Bin\..\include\stdint.h
 .\objects\main.o: ..\libraries\cmsis\cm4\core_support\cmsis_version.h
 .\objects\main.o: ..\libraries\cmsis\cm4\core_support\cmsis_compiler.h
 .\objects\main.o: ..\libraries\cmsis\cm4\core_support\cmsis_armcc.h

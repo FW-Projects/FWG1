@@ -57,6 +57,7 @@ void wk_adc1_init(void)
   gpio_init_struct.gpio_pins = HOT_ADC1_PIN;
   gpio_init(HOT_ADC1_GPIO_PORT, &gpio_init_struct);
 
+  adc_reset(ADC1);
   crm_adc_clock_div_set(CRM_ADC_DIV_4);
 
   adc_tempersensor_vintrv_enable(TRUE);

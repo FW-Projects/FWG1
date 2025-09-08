@@ -9,6 +9,7 @@
   ..\..\libraries\cmsis\cm4\device_support\system_at32f415.h \
   ..\..\libraries\drivers\inc\at32f415_def.h ..\inc\at32f415_conf.h \
   ..\..\libraries\drivers\inc\at32f415_adc.h \
+  ..\..\libraries\drivers\inc\at32f415_crc.h \
   ..\..\libraries\drivers\inc\at32f415_crm.h \
   ..\..\libraries\drivers\inc\at32f415_debug.h \
   ..\..\libraries\drivers\inc\at32f415_dma.h \
@@ -20,5 +21,6 @@
   ..\..\libraries\drivers\inc\at32f415_spi.h \
   ..\..\libraries\drivers\inc\at32f415_tmr.h \
   ..\..\libraries\drivers\inc\at32f415_usart.h \
-  ..\..\libraries\drivers\inc\at32f415_wdt.h ..\device\util_queue.h \
-  ..\device\userconfig.h
+  ..\..\libraries\drivers\inc\at32f415_wdt.h \
+  D:\Work\ Program\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdio.h \
+  ..\device\util_queue.h ..\device\userconfig.h

@@ -55,6 +55,7 @@ extern "C" {
   */
 
 void flash_2kb_write(uint32_t write_addr, uint8_t *pbuffer);
+void flash_1kb_write(uint32_t write_addr, uint8_t *pbuffer); 
 flag_status flash_upgrade_flag_read(void);
 
 /**

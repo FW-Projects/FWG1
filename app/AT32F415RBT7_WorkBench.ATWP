@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Root>
     <WorkBenchVersion>
-        <Version>V1.1.09</Version>
+        <Version>V1.2.00</Version>
     </WorkBenchVersion>
     <MCUInfo>
         <MCUSerials>AT32F415</MCUSerials>
@@ -17,8 +17,14 @@
             <ParametersSub name="OrdinaryTriggerSource" value="ADC12_ORDINARY_TRIG_SOFTWARE"/>
             <ParametersSub name="Channel_OrdinarySequence_1" value="ADC_CHANNEL_10"/>
             <ParametersSub name="SamplingTime_OrdinarySequence_1" value="ADC_SAMPLETIME_239_5"/>
+            <ParametersSub name="SamplingRate_OrdinarySequence_1" value="0.074"/>
         </Parameters>
     </ADC1>
+    <CRC>
+        <Mode>
+            <ModeSub name="CRC_State" value="TRUE"/>
+        </Mode>
+    </CRC>
     <CRM>
         <Mode>
             <ModeSub name="HEXT" value="HEXT-External-Oscillator"/>
@@ -48,7 +54,7 @@
             <ParametersSub name="TransmissionMode" value="SPI_TRANSMIT_FULL_DUPLEX"/>
             <ParametersSub name="Mode" value="SPI_MODE_MASTER"/>
             <ParametersSub name="FirstBit" value="SPI_FIRST_BIT_MSB"/>
-            <ParametersSub name="ClkDivision" value="SPI_MCLK_DIV_2"/>
+            <ParametersSub name="ClockFrequency" value="18750000"/>
             <ParametersSub name="CLKPolarity" value="SPI_CLOCK_POLARITY_HIGH"/>
             <ParametersSub name="CLKPhase" value="SPI_CLOCK_PHASE_2EDGE"/>
         </Parameters>
@@ -157,11 +163,11 @@
         <TMR3_GLOBAL_IRQHandler>1;0;0;0;0</TMR3_GLOBAL_IRQHandler>
         <SPI1_IRQHandler>0;0;0;0;0</SPI1_IRQHandler>
         <USART1_IRQHandler>1;0;0;0;0</USART1_IRQHandler>
-        <USART2_IRQHandler>0;0;0;0;0</USART2_IRQHandler>
+        <USART2_IRQHandler>1;0;0;0;0</USART2_IRQHandler>
         <USART3_IRQHandler>1;0;0;0;0</USART3_IRQHandler>
         <EXINT15_10_IRQHandler>1;0;0;0;0</EXINT15_10_IRQHandler>
-        <UART4_IRQHandler>0;0;0;0;0</UART4_IRQHandler>
-        <UART5_IRQHandler>0;0;0;0;0</UART5_IRQHandler>
+        <UART4_IRQHandler>1;0;0;0;0</UART4_IRQHandler>
+        <UART5_IRQHandler>1;0;0;0;0</UART5_IRQHandler>
     </NVIC>
     <GPIO>
         <Signal SignalName="ADC1_IN10" PinName="PC0">

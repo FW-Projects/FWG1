@@ -74,10 +74,9 @@ void KeyProc(void)
     static bool direct_set_wind_flag = false;
     static bool set_done = false;
 
-    if (    get_key_up()         == K_RELEASE     && \
-            get_key_down()         == K_RELEASE && \
-            get_key_ch()         == K_RELEASE    && \
-            get_key_touch() == K_RELEASE)
+    if (    get_key_up()         == K_RELEASE && \
+            get_key_down()       == K_RELEASE && \
+            get_key_ch()         == K_RELEASE)
     {
         set_done = false;
     }
@@ -86,7 +85,7 @@ void KeyProc(void)
     key_ch  = key_event_check(&keys[0], LONG_PRESS_TIME);
     key_up   = key_event_check(&keys[1], LONG_PRESS_TIME);
     key_down   = key_event_check(&keys[2], LONG_PRESS_TIME);
-    key_touch = key_event_check(&keys[3], LONG_PRESS_TIME);
+//    key_touch = key_event_check(&keys[3], LONG_PRESS_TIME);
 
     /* scan key end */
 
@@ -962,9 +961,8 @@ void key_handle(void)
 #if 1
 
     if (get_key_up()         == K_PRESS || \
-            get_key_down()         == K_PRESS || \
-            get_key_ch()         == K_PRESS || \
-            get_key_touch() == K_PRESS)
+            get_key_down()   == K_PRESS || \
+            get_key_ch()     == K_PRESS)
     {
         if (sFWG2_t.Direct_handle_state == HANDLE_SLEEP)
         {

@@ -16,8 +16,8 @@
 
 
 
-#define DIRECT_TEMP_REFIRSH_TIME                 5
-#define DIRECT_WIND_REFIRSH_TIME                 5
+#define DIRECT_TEMP_REFIRSH_TIME                 6
+#define DIRECT_WIND_REFIRSH_TIME                 6
 
 
 #define CURVE_REFIRSH_TIME                       1
@@ -314,7 +314,7 @@ typedef struct
 } show_state_t;
 
 extern show_state_t show_state;
-
+extern uint8_t page_switch[10];
 
 void show_temp_in_page_work(show_state_t *state);
 
