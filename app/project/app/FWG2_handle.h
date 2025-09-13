@@ -141,9 +141,16 @@ typedef enum
 typedef enum
 {
     UART_CLOSE = 0,
-    UART_OPEN = 0,
+    UART_OPEN,
 
 } fwg2_uart_state_e;
+
+typedef enum
+{
+    SLEEP_CLOSE = 0,
+    SLEEP_OPEN,
+
+} fwg2_sleep_state_e;
 
 typedef enum
 {
@@ -231,7 +238,7 @@ typedef struct
     uint16_t quick_work_time;
     int16_t  quick_work_time_display;
 
-    int16_t set_calibration_temp;
+    int8_t set_calibration_temp;
 	int8_t linear_calibration_temp;
 	
 } handle_parameter_t;
@@ -250,6 +257,8 @@ typedef struct
 	fwg2_adjust_key_temporary_set_e   adjust_key_temporary_set;
     fwg2_ota_state_e                  ota_state;
     fwg2_touch_key_set_e              touch_key_set;
+	
+	fwg2_sleep_state_e                fwg2_sleep_state;
     fwg2_uart_state_e                 uart_state;
 	fwg2_enhance_state_e              enhance_state;
     fwg2_page_e                       fwg2_page;

@@ -7,45 +7,62 @@ uint8_t FWG2_Init(FWG2_Handle * FWG2)
 	FWG2->FWG2_STATE                                    = FWG2_INIT,
 
 	/* start the Direct handle init of  */
-	FWG2->Direct_handle_parameter.actual_temp           = 0,      
-	FWG2->Direct_handle_parameter.actual_wind           = 0,	      
+	FWG2->Direct_handle_parameter.actual_temp           = 0,     
+    FWG2->Direct_handle_parameter.actual_temp_f_display = 0,     	
+	FWG2->Direct_handle_parameter.actual_wind           = 0,	 
+	
 	FWG2->Direct_handle_parameter.set_temp              = 200, 
+	FWG2->Direct_handle_parameter.last_set_temp         = 0,
+	FWG2->Direct_handle_parameter.set_temp_f_display    = 0,
 	FWG2->Direct_handle_parameter.set_wind              = 50, 
-    FWG2->Direct_handle_parameter.cold_mode_set_wind    = 50,   
-	FWG2->Direct_handle_parameter.set_time              = 40,      
+	FWG2->Direct_handle_parameter.last_set_wind         = 0,
+	
+    FWG2->Direct_handle_parameter.cold_mode_set_wind    = 50,  
+    FWG2->Direct_handle_parameter.stop_set_wind	        = 0,
+	FWG2->Direct_handle_parameter.set_time              = 40, 
 	FWG2->Direct_handle_parameter.sleep_time            = 0,		      
 	FWG2->Direct_handle_parameter.error_time            = 0,      
-	FWG2->Direct_handle_parameter.last_state            = HANDLE_SLEEP,      
-                                                     
+	FWG2->Direct_handle_parameter.last_state            = HANDLE_SLEEP,     	
+                                     
+    FWG2->Direct_handle_parameter.quick_work_temp       = 0,
+	FWG2->Direct_handle_parameter.quick_work_time       = 0,
+	FWG2->Direct_handle_parameter.quick_work_time_display = 0,
+	
+	FWG2->Direct_handle_parameter.set_calibration_temp  = 0,
+	FWG2->Direct_handle_parameter.linear_calibration_temp = 0,
+
+
+
+/* end the  Direct handle init of*/   
+
+
 	FWG2->Direct_handle_state                           = HANDLE_WORKING,      
 	FWG2->Direct_handle_position                        = NOT_IN_POSSITION,      
 	FWG2->Direct_handle_error_state                     = HANDLE_OK,    
+    FWG2->Direct_handle_work_mode                       = NORMAL_MODE,
 
-    FWG2->Direct_handle_parameter.quick_work_temp          = 50;
-    FWG2->Direct_handle_parameter.quick_work_time          = 60; 
-    FWG2->Direct_handle_parameter.quick_work_time_display  = 0;	
-	/* end the  Direct handle init of*/              
-                                                     
-	/* start the fwg2  init of  */                   
-	FWG2->general_parameter.fwg2_page                   = PAGE_MAIN,      
-	FWG2->general_parameter.code_mode_step              = CODE_PRE_HEAT,      
-	FWG2->general_parameter.work_mode                   = NORMAL,      
-	/* end the fwg2 page init of  */
-	
-	
-	/* start the general init of  */
+
+                                        
+/* start the general init of  */    
+	FWG2->general_parameter.work_mode                   = NORMAL,    
 	FWG2->general_parameter.temp_uint                   = CELSIUS,
 	FWG2->general_parameter.speak_state                 = SPEAKER_OPEN ,
 	FWG2->general_parameter.display_lock_state          = UNLOCK,
-	
     FWG2->general_parameter.fn_key_long_set             = L_COLD_WIN_MODE,
-	FWG2->general_parameter.fn_key_short_set            = S_QUICK_MODE,
-	
-	FWG2->general_parameter.adjust_key_temporary_set    = TEMPORARY_SELECT_NONE,
+	FWG2->general_parameter.fn_key_short_set            = S_QUICK_MODE,	
+	FWG2->general_parameter.adjust_key_set              = SELECT_WIND,
+    FWG2->general_parameter.adjust_key_temporary_set    = TEMPORARY_SELECT_NONE,	
 	FWG2->general_parameter.ota_state                   = OTA_OFF,
 	FWG2->general_parameter.touch_key_set               = TOUCH_CLOSE,
+	FWG2->general_parameter.fwg2_sleep_state            = SLEEP_CLOSE,
 	FWG2->general_parameter.uart_state                  = UART_CLOSE,
+	FWG2->general_parameter.enhance_state               = ENHANCE_CLOSE,
+	FWG2->general_parameter.fwg2_page                   = PAGE_MAIN,
+	FWG2->general_parameter.code_mode_step              = CODE_PRE_HEAT, 
+	FWG2->general_parameter.code_mode_state             = CODE_MODE_STOP,
+	FWG2->general_parameter.code_mode_handle_select     = SELECT_DIRECT_HANDLE,
 	
+
 	FWG2->general_parameter.reset_fwg2_flag	            = false;
 	FWG2->general_parameter.relay_open_flag             = false;
 	FWG2->general_parameter.countdown_flag              = false;
@@ -68,6 +85,8 @@ uint8_t FWG2_Init(FWG2_Handle * FWG2)
 	FWG2->general_parameter.code_ch                     = 0,
 	FWG2->general_parameter.ch                          = 0,
     FWG2->general_parameter.countdown_time              = 10,
+	FWG2->general_parameter.countdown_time_display      = 0,
+	FWG2->general_parameter.code_mode_countdown_time_display = 0,
 	FWG2->general_parameter.mcu_temp                    = 0,
 
 	/* ch set */

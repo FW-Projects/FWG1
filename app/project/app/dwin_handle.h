@@ -235,6 +235,8 @@ typedef enum
 	 
 	 SET_FN_KEY_SHORT_MODE = 0x44,
 	 
+	 SET_SLEEP_MODE = 0x45,
+	 
      /* out of page value */
      SHOW_DIRECT_TEMP_COLOUR = 0x6003,
      SHOW_DIRECT_WIND_COLOUR = 0x6063,

@@ -66,7 +66,7 @@ float PID_Position_Calc(PID *pid, float Target_val, float Actual_val)  //位置式P
 
 	    if (pid->output < - pid->outputmax)
     {
-        pid->output = 0;
+        pid->output = -pid->outputmax;
     }
 	
     return pid->output;   //输出为pwm值

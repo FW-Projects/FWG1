@@ -1,21 +1,21 @@
 #ifndef __OUTPUT_H
 #define __OUTPUT_H
 #include "flash.h"
-#define FLASH_HANDLE_TIME          2
+#define FLASH_HANDLE_TIME          40
 #define DATA_SIZE                  2
-#define FLASH_MENBER               109
+#define FLASH_MENBER               110
 
 
 
 /* a area data address */
-#define A_LAST_DIRECT_SET_TEMP_ADDRESS           	       (0x08000000 + 1024 * 125)
+#define A_LAST_DIRECT_SET_TEMP_ADDRESS           	       (0x08000000 + 1024 * 123)
 #define A_LAST_DIRECT_SET_WIND_ADDRESS                     A_LAST_DIRECT_SET_TEMP_ADDRESS + DATA_SIZE          
 #define A_LAST_DIRECT_SET_COLD_MODE_WIND_ADDRESS           A_LAST_DIRECT_SET_WIND_ADDRESS + DATA_SIZE            
 #define A_LAST_DIRECT_SET_CALIBRATION_TEMP                 A_LAST_DIRECT_SET_COLD_MODE_WIND_ADDRESS + DATA_SIZE 
 #define A_LAST_DIRECT_SET_QUICK_TEMP                       A_LAST_DIRECT_SET_CALIBRATION_TEMP + DATA_SIZE
 #define A_LAST_DIRECT_SET_QUICK_TIME                       A_LAST_DIRECT_SET_QUICK_TEMP+ DATA_SIZE
 #define A_LAST_SET_COUNTDOWN_TIME                          A_LAST_DIRECT_SET_QUICK_TIME + DATA_SIZE
-#define A_LAST_TEMP_UINT                                   A_LAST_DIRECT_SET_QUICK_TIME + DATA_SIZE               
+#define A_LAST_TEMP_UINT                                   A_LAST_SET_COUNTDOWN_TIME + DATA_SIZE               
 #define A_LAST_SPEAK_STATE                                 A_LAST_TEMP_UINT + DATA_SIZE                          
 #define A_LAST_DISPLAY_LOCK_STATE                          A_LAST_SPEAK_STATE + DATA_SIZE           
 #define A_LAST_FN_KEY_LONG_SET                             A_LAST_DISPLAY_LOCK_STATE + DATA_SIZE   
@@ -23,7 +23,8 @@
 #define A_LAST_ADJUST_KEY_SET                              A_LAST_FN_KEY_SHORT_SET + DATA_SIZE  
 #define A_LAST_OTA_STATE                                   A_LAST_ADJUST_KEY_SET + DATA_SIZE 
 #define A_LAST_TOUCH_KEY_SET                               A_LAST_OTA_STATE + DATA_SIZE 
-#define A_LAST_UART_STATE                                  A_LAST_TOUCH_KEY_SET + DATA_SIZE 
+#define A_LAST_SLEEP_STATE                                 A_LAST_TOUCH_KEY_SET + DATA_SIZE 
+#define A_LAST_UART_STATE                                  A_LAST_SLEEP_STATE + DATA_SIZE 
 #define A_LAST_ENHANCE_STATE                               A_LAST_UART_STATE + DATA_SIZE
 #define A_LAST_CH1_SET_TEMP                                A_LAST_ENHANCE_STATE + DATA_SIZE 
 #define A_LAST_CH1_SET_WIND                                A_LAST_CH1_SET_TEMP + DATA_SIZE 
@@ -118,14 +119,9 @@
 #define A_LAST_DIRECT_HOT_WORK_TIME                        A_LAST_SYSTEM_RUN_TIME + DATA_SIZE
 #define A_FLASH_VERSION_ADDRESS                            A_LAST_DIRECT_HOT_WORK_TIME + DATA_SIZE   
 
-
-
-
-
-
-                                                                            
+                                                              
 /* b area data address */      
-#define B_LAST_DIRECT_SET_TEMP_ADDRESS           	       (0x08000000 + 1024 * 126)
+#define B_LAST_DIRECT_SET_TEMP_ADDRESS           	       (0x08000000 + 1024 * 120)
 #define B_LAST_DIRECT_SET_WIND_ADDRESS                     B_LAST_DIRECT_SET_TEMP_ADDRESS + DATA_SIZE           
 #define B_LAST_DIRECT_SET_COLD_MODE_WIND_ADDRESS           B_LAST_DIRECT_SET_WIND_ADDRESS + DATA_SIZE                                                                 
 #define B_LAST_DIRECT_SET_CALIBRATION_TEMP                 B_LAST_DIRECT_SET_COLD_MODE_WIND_ADDRESS + DATA_SIZE
@@ -140,7 +136,8 @@
 #define B_LAST_ADJUST_KEY_SET                              B_LAST_FN_KEY_SHORT_SET + DATA_SIZE
 #define B_LAST_OTA_STATE                                   B_LAST_ADJUST_KEY_SET + DATA_SIZE
 #define B_LAST_TOUCH_KEY_SET                               B_LAST_OTA_STATE + DATA_SIZE
-#define B_LAST_UART_STATE                                  B_LAST_TOUCH_KEY_SET + DATA_SIZE      
+#define B_LAST_SLEEP_STATE                                 B_LAST_TOUCH_KEY_SET + DATA_SIZE
+#define B_LAST_UART_STATE                                  B_LAST_SLEEP_STATE + DATA_SIZE      
 #define B_LAST_ENHANCE_STATE                               B_LAST_UART_STATE + DATA_SIZE     
 #define B_LAST_CH1_SET_TEMP                                B_LAST_ENHANCE_STATE + DATA_SIZE
 #define B_LAST_CH1_SET_WIND                                B_LAST_CH1_SET_TEMP + DATA_SIZE

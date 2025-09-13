@@ -98,7 +98,7 @@ void Direct_handle_switch(void)
                     sFWG2_t.Direct_handle_parameter.error_time = 0;
                 }
 
-                if (sFWG2_t.Direct_handle_position == IN_POSSITION)
+                if (sFWG2_t.Direct_handle_position == IN_POSSITION && sFWG2_t.general_parameter.fwg2_sleep_state == SLEEP_OPEN)
                 {
                     if (sFWG2_t.Direct_handle_parameter.actual_temp <= 70)
                     {

@@ -1432,7 +1432,11 @@ static void RecvDataFromLCD(DwinObjectType *dwim)
             case SET_TOUCH_FUNCTION:
                 sFWG2_t.general_parameter.touch_key_set = (fwg2_touch_key_set_e)dwim->rx_buff[FRAME_VAL_L];
                 break;
-
+			
+			  case SET_SLEEP_MODE:
+                sFWG2_t.general_parameter.fwg2_sleep_state = (fwg2_sleep_state_e)dwim->rx_buff[FRAME_VAL_L];
+			
+			break;
             case SET_UART_FUNCTION:
                 sFWG2_t.general_parameter.uart_state = (fwg2_uart_state_e)dwim->rx_buff[FRAME_VAL_L];
                 break;
@@ -1458,6 +1462,7 @@ static void RecvDataFromLCD(DwinObjectType *dwim)
                     sFWG2_t.general_parameter.fn_key_short_set            = S_QUICK_MODE;
                     sFWG2_t.general_parameter.ota_state                   = OTA_OFF;
                     sFWG2_t.general_parameter.touch_key_set               = TOUCH_CLOSE;
+					sFWG2_t.general_parameter.fwg2_sleep_state            = SLEEP_OPEN;
                     sFWG2_t.general_parameter.uart_state                  = UART_CLOSE;
                     sFWG2_t.general_parameter.enhance_state               = ENHANCE_CLOSE;
                     sFWG2_t.general_parameter.countdown_time              = 30;
@@ -1584,6 +1589,9 @@ void Page_Direct_Work_Heartbeat_Packet(void)
     static uint8_t time = 0;
     static bool first_in = false;
     static bool first_in_cold_mode = false;
+	
+
+	
     static uint8_t direct_temp_refirsh_time = DIRECT_TEMP_REFIRSH_TIME;
     static uint8_t direct_wind_refirsh_time = DIRECT_WIND_REFIRSH_TIME;
     static uint16_t last_direct_handle_set_temp_f_display = 0;
@@ -1596,6 +1604,17 @@ void Page_Direct_Work_Heartbeat_Packet(void)
     static handle_state_e last_direct_handle_state = HANDLE_SLEEP;
     time++;
 
+		static uint8_t output_bar = 0;
+					if(output_bar <(direct_handle_pid_out / 599))
+				{
+				    output_bar++;
+				}
+				if(output_bar>(direct_handle_pid_out / 599))
+				{
+				    output_bar--;
+				}
+	
+	
     if (sFWG2_t.general_parameter.fwg2_page == PAGE_MAIN)
     {
         if (first_in == false)
@@ -1803,7 +1822,7 @@ void Page_Direct_Work_Heartbeat_Packet(void)
                                 last_direct_handle_current_temp = sFWG2_t.Direct_handle_parameter.actual_temp;
                                 last_direct_handle_current_temp_f_display = sFWG2_t.Direct_handle_parameter.actual_temp_f_display;
 
-                                if (sFWG2_t.Direct_handle_position == IN_POSSITION)
+                                if (sFWG2_t.Direct_handle_position == IN_POSSITION && sFWG2_t.general_parameter.fwg2_sleep_state != SLEEP_CLOSE)
                                 {
 									if(sFWG2_t.general_parameter.temp_uint == CELSIUS)
 									{
@@ -2114,12 +2133,13 @@ void Page_Direct_Work_Heartbeat_Packet(void)
 #if 1
             if (time % DIRECT_TEMP_REFIRSH_TIME == 0)
             {
+
                 /* show direct handle's outpot value */
                 sdwin.send_data(&sdwin, (DWIN_BASE_ADDRESS + SHOW_DIRECT_TPME_OUTPUT_POWER), DWIN_DATA_BITS,
-                                (direct_handle_pid_out / 599));
+                                output_bar);
                 /* show direct handle's outpot bar */
                 sdwin.send_data(&sdwin, (DWIN_BASE_ADDRESS + SHOW_DIRECT_TPME_OUTPUT_POWER_BAR), DWIN_DATA_BITS,
-                                (direct_handle_pid_out / 599));
+                                output_bar);
             }
 
 #endif
@@ -3146,7 +3166,7 @@ void Page_Direct_Curve_Heartbeat_Packet(void)
                                 last_direct_handle_current_temp = sFWG2_t.Direct_handle_parameter.actual_temp;
                                 last_direct_handle_current_temp_f_display = sFWG2_t.Direct_handle_parameter.actual_temp_f_display;
 
-                                if (sFWG2_t.Direct_handle_position == IN_POSSITION)
+                                if (sFWG2_t.Direct_handle_position == IN_POSSITION && sFWG2_t.general_parameter.fwg2_sleep_state != SLEEP_CLOSE)
                                 {
                                     if(sFWG2_t.general_parameter.temp_uint == CELSIUS)
 									{

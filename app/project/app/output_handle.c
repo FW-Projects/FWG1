@@ -2,10 +2,10 @@
 #include "work_handle.h"
 #include "FWG2_handle.h"
 int8_t direct_handle_temp_cal_buff[41] = {8, 2, 7, 6, 6, 5, 5, 4, 4, 4,
-                                           3, 3, 3, 2, 2, 2, 2, 2, 1, 1,
-                                           2, 2, 1, 1, 1, 0,-1,-1,(-1),-2,
-	                                      -2,-2,-2,-4, -5, -5, -6,-7,-8,-9,-15 
-                                        };
+                                          3, 3, 3, 2, 2, 2, 2, 2, 1, 1,
+                                          2, 2, 1, 1, 1, 0, -1, -1, (-1), -2,
+                                          -2, -2, -2, -4, -5, -5, -6, -7, -8, -9, -15
+                                         };
 
 
 int8_t direct_handle_wind_20_cal_buff[41] = {12, 7, 7, 6, 4, 4, 3, 2, 0, -1,
@@ -33,22 +33,21 @@ void fan_control(void)
         {
             if (sFWG2_t.Direct_handle_state == HANDLE_SLEEP)
             {
-//				if (sFWG2_t.Direct_handle_parameter.actual_temp >= 250)
-//                {
-//                    sFWG2_t.Direct_handle_parameter.stop_set_wind = 100;
-//                    /* open fan output with a half of max set val*/
-//                    tmr_channel_value_set(TMR9, TMR_SELECT_CHANNEL_2, MAX_SET_WIND_VAL / 2 * 1.13 + 30);
-//                }
-//                else if (sFWG2_t.Direct_handle_parameter.actual_temp >= 70 && sFWG2_t.Direct_handle_parameter.actual_temp < 250)
-//                {
-//                    /* open fan output with actual temp change*/
-//                    sFWG2_t.Direct_handle_parameter.stop_set_wind = sFWG2_t.Direct_handle_parameter.actual_temp * 0.4;
-//                    tmr_channel_value_set(TMR9, TMR_SELECT_CHANNEL_2, sFWG2_t.Direct_handle_parameter.stop_set_wind * 1.13 + 30);
-//                }
-				
-				
+                //				if (sFWG2_t.Direct_handle_parameter.actual_temp >= 250)
+                //                {
+                //                    sFWG2_t.Direct_handle_parameter.stop_set_wind = 100;
+                //                    /* open fan output with a half of max set val*/
+                //                    tmr_channel_value_set(TMR9, TMR_SELECT_CHANNEL_2, MAX_SET_WIND_VAL / 2 * 1.13 + 30);
+                //                }
+                //                else if (sFWG2_t.Direct_handle_parameter.actual_temp >= 70 && sFWG2_t.Direct_handle_parameter.actual_temp < 250)
+                //                {
+                //                    /* open fan output with actual temp change*/
+                //                    sFWG2_t.Direct_handle_parameter.stop_set_wind = sFWG2_t.Direct_handle_parameter.actual_temp * 0.4;
+                //                    tmr_channel_value_set(TMR9, TMR_SELECT_CHANNEL_2, sFWG2_t.Direct_handle_parameter.stop_set_wind * 1.13 + 30);
+                //                }
+
                 /* keep fan output until the temp below 60 */
-                 if (sFWG2_t.Direct_handle_parameter.actual_temp >= 60 && sFWG2_t.Direct_handle_parameter.actual_temp < 70)
+                if (sFWG2_t.Direct_handle_parameter.actual_temp >= 60 && sFWG2_t.Direct_handle_parameter.actual_temp < 70)
                 {
                     tmr_channel_value_set(TMR9, TMR_SELECT_CHANNEL_2, 20 * 1.13 + 30);
                 }
@@ -58,7 +57,7 @@ void fan_control(void)
                     tmr_channel_value_set(TMR9, TMR_SELECT_CHANNEL_2, 0);
                 }
             }
-            else if (sFWG2_t.Direct_handle_state == HANDLE_WORKING && sFWG2_t.Direct_handle_position == IN_POSSITION)
+            else if (sFWG2_t.Direct_handle_state == HANDLE_WORKING && sFWG2_t.Direct_handle_position == IN_POSSITION && sFWG2_t.general_parameter.fwg2_sleep_state == SLEEP_OPEN)
             {
                 if (sFWG2_t.Direct_handle_parameter.actual_temp >= 250)
                 {
@@ -78,12 +77,11 @@ void fan_control(void)
                     tmr_channel_value_set(TMR9, TMR_SELECT_CHANNEL_2, 0);
                 }
             }
-            else if (sFWG2_t.Direct_handle_state == HANDLE_WORKING && sFWG2_t.Direct_handle_position == NOT_IN_POSSITION)
+            else if ((sFWG2_t.Direct_handle_state == HANDLE_WORKING && sFWG2_t.Direct_handle_position == NOT_IN_POSSITION) ||  sFWG2_t.general_parameter.fwg2_sleep_state == SLEEP_CLOSE)
             {
                 /* open fan output with user set val */
                 tmr_channel_value_set(TMR9, TMR_SELECT_CHANNEL_2, sFWG2_t.Direct_handle_parameter.set_wind * 1.13 + 30);
             }
-            
         }
         else if (sFWG2_t.Direct_handle_work_mode == COLD_WIND_MODE)
         {
@@ -188,7 +186,7 @@ void fan_control(void)
                     tmr_channel_value_set(TMR9, TMR_SELECT_CHANNEL_2, sFWG2_t.Direct_handle_parameter.stop_set_wind * 1.13 + 30);
                 }
                 /* keep fan output until the temp below 60 */
-                else if (sFWG2_t.Direct_handle_parameter.actual_temp >= 60&& sFWG2_t.Direct_handle_parameter.actual_temp < 70 )
+                else if (sFWG2_t.Direct_handle_parameter.actual_temp >= 60 && sFWG2_t.Direct_handle_parameter.actual_temp < 70)
                 {
                     tmr_channel_value_set(TMR9, TMR_SELECT_CHANNEL_2, 20 * 1.13 + 30);
                 }
@@ -197,8 +195,6 @@ void fan_control(void)
                     /* close fan output */
                     tmr_channel_value_set(TMR9, TMR_SELECT_CHANNEL_2, 0);
                 }
-				
-				
             }
         }
         else
@@ -222,11 +218,11 @@ void fan_control(void)
             }
         }
     }
-	else if (sFWG2_t.Direct_handle_error_state != HANDLE_OK)
-            {
-                /* open fan output with max set val */
-                tmr_channel_value_set(TMR9, TMR_SELECT_CHANNEL_2, MAX_SET_WIND_VAL * 1.13 + 30);
-            }
+    else if (sFWG2_t.Direct_handle_error_state != HANDLE_OK)
+    {
+        /* open fan output with max set val */
+        tmr_channel_value_set(TMR9, TMR_SELECT_CHANNEL_2, MAX_SET_WIND_VAL * 1.13 + 30);
+    }
 
     /* end the Direct handle fan output of  */
 }
@@ -250,14 +246,13 @@ void hot_control(void)
                 /* close Direct handle pwm output */
                 tmr_counter_enable(TMR2, FALSE);
                 tmr_channel_value_set(TMR2, TMR_SELECT_CHANNEL_1, 0);
- 
                 /* reset relay open flag */
                 sFWG2_t.general_parameter.relay_open_flag = false;
                 relay_open_delay = RELAY_OPEN_TIME;
             }
-            else if ((sFWG2_t.Direct_handle_state == HANDLE_WORKING) && 
-				(sFWG2_t.Direct_handle_error_state == HANDLE_OK  && 
-				sFWG2_t.Direct_handle_position == NOT_IN_POSSITION))
+            else if ((sFWG2_t.Direct_handle_state == HANDLE_WORKING) &&
+                     (sFWG2_t.Direct_handle_error_state == HANDLE_OK  &&
+                      sFWG2_t.Direct_handle_position == NOT_IN_POSSITION))
             {
                 /* open relay */
                 gpio_bits_set(GPIOB, GPIO_PINS_14);
@@ -285,7 +280,6 @@ void hot_control(void)
             /* close Direct handle pwm output */
             tmr_counter_enable(TMR2, FALSE);
             tmr_channel_value_set(TMR2, TMR_SELECT_CHANNEL_1, 0);
-
             /* reset relay open flag */
             sFWG2_t.general_parameter.relay_open_flag = false;
             relay_open_delay = RELAY_OPEN_TIME;
@@ -320,7 +314,6 @@ void hot_control(void)
                 /* close Direct handle pwm output */
                 tmr_counter_enable(TMR2, FALSE);
                 tmr_channel_value_set(TMR2, TMR_SELECT_CHANNEL_1, 0);
-  
                 /* reset relay open flag */
                 sFWG2_t.general_parameter.relay_open_flag = false;
                 relay_open_delay = RELAY_OPEN_TIME;
@@ -328,18 +321,17 @@ void hot_control(void)
         }
         else if (sFWG2_t.general_parameter.code_mode_state == CODE_MODE_STOP)
         {
-			if(sFWG2_t.Direct_handle_parameter.actual_temp <70)
-			{
-			    /* close relay */
+            if (sFWG2_t.Direct_handle_parameter.actual_temp < 70)
+            {
+                /* close relay */
                 gpio_bits_reset(GPIOB, GPIO_PINS_14);
                 /* close Direct handle pwm output */
                 tmr_counter_enable(TMR2, FALSE);
                 tmr_channel_value_set(TMR2, TMR_SELECT_CHANNEL_1, 0);
-                
                 /* reset relay open flag */
                 sFWG2_t.general_parameter.relay_open_flag = false;
                 relay_open_delay = RELAY_OPEN_TIME;
-			}
+            }
         }
     }
 }
@@ -387,11 +379,11 @@ int8_t direct_linear_correction(uint16_t user_set_temp)
                 }
             }
         }
-		return (direct_handle_temp_cal_buff[n]);
+
+        return (direct_handle_temp_cal_buff[n]);
     }
-	
-	else if(sFWG2_t.Direct_handle_parameter.set_wind<=20 && sFWG2_t.Direct_handle_parameter.set_wind>0)
-	{
+    else if (sFWG2_t.Direct_handle_parameter.set_wind <= 20 && sFWG2_t.Direct_handle_parameter.set_wind > 0)
+    {
         if (user_set_temp < 300)
         {
             check_value = 0;
@@ -425,11 +417,12 @@ int8_t direct_linear_correction(uint16_t user_set_temp)
                     check_start += 10;
                 }
             }
-			return (direct_handle_wind_20_cal_buff[n]);
-        }	    
-	}
 
-	return 0;
+            return (direct_handle_wind_20_cal_buff[n]);
+        }
+    }
+
+    return 0;
 }
 
 uint16_t temp_get(void)

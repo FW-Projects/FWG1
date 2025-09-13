@@ -136,7 +136,7 @@ int main(void)
                           DMA1_CHANNEL1_PERIPHERAL_BASE_ADDR,
                           DMA1_CHANNEL1_MEMORY_BASE_ADDR,
                           DMA1_CHANNEL1_BUFFER_SIZE);
-    dma_channel_enable(DMA1_CHANNEL1, TRUE);
+    dma_channel_enable(DMA1_CHANNEL1, FALSE);
     /* init usart1 function. */
     wk_usart1_init();
     /* init usart2 function. */
@@ -169,19 +169,24 @@ int main(void)
     tmt.create(beep_task,       BEEP_HANDLE_TIME);
     tmt.create(dwin_task,       DWIN_HANDLE_TIME);
     tmt.create(work_task,       WORK_HANDLE_TIME);
-    tmt.create(flash_task,      FLASH_HANDLE_TIME);
     tmt.create(output_task,     OUTPUT_HANDLE_TIME);
     tmt.create(feed_dog_task,   FEED_DOG_HANDLE_TIME);
     tmt.create(pc_comm_task,    PC_HANDLE_TIME);
     tmt.create(uart4_comm_task, UART4_HANDLE_TIME);
     tmt.create(uart5_comm_task, UART5_HANDLE_TIME);
     tmt.create(record_task,     RECORD_HANDLE_TIME);
+	tmt.create(flash_task,      FLASH_HANDLE_TIME);
     EventRecorderInitialize(0, 1);
     FWG2_Init(&sFWG2_t);
     DwinInitialization(&sdwin);
-    PID_Init(&direct_pid, 1000, 0.8, 21000, 60000);
+    //PID_Init(&direct_pid, 600, 1, 8000, 50000);
+	
+	PID_Init(&direct_pid, 490, 0.8, 70000, 50000);
+	
     iap_init();
+	
     spiflash_init();
+	
     __IO uint32_t flash_id_index  = spiflash_read_id();
     BSP_UsartInit();
     printf("system init ok\r\n");
@@ -261,7 +266,6 @@ void dwin_task(void)
     static uint16_t time_count;
     static bool first_in = false;
     static uint8_t state = 0;
-
     if (sFWG2_t.FWG2_STATE == FWG2_WORKING)
     {
         if (first_in == false)

@@ -22,4 +22,5 @@
   ..\..\libraries\drivers\inc\at32f415_tmr.h \
   ..\..\libraries\drivers\inc\at32f415_usart.h \
   ..\..\libraries\drivers\inc\at32f415_wdt.h ..\app\FWG2_handle.h \
-  D:\Work\ Program\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdbool.h
+  D:\Work\ Program\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdbool.h \
+  C:\Users\Administrator\AppData\Local\Arm\Packs\ARM\CMSIS-View\1.2.0\EventRecorder\Include\EventRecorder.h
