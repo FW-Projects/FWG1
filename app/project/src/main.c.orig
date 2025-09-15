@@ -61,7 +61,8 @@
 /* private typedef -----------------------------------------------------------*/
 /* add user code begin private typedef */
 #define RECORD_HANDLE_TIME     60000
-#define FEED_DOG_HANDLE_TIME   10
+#define FEED_DOG_HANDLE_TIME   80
+#define ADC_HANDLE_TIME        5
 /* add user code end private typedef */
 
 /* private define ------------------------------------------------------------*/
@@ -144,7 +145,7 @@ int main(void)
                         DMA1_CHANNEL1_PERIPHERAL_BASE_ADDR, 
                         DMA1_CHANNEL1_MEMORY_BASE_ADDR, 
                         DMA1_CHANNEL1_BUFFER_SIZE);
-  dma_channel_enable(DMA1_CHANNEL1, TRUE);
+  dma_channel_enable(DMA1_CHANNEL1, FALSE);
 
   /* init usart1 function. */
   wk_usart1_init();
@@ -186,28 +187,30 @@ int main(void)
     tmt_init();
     tmt.create(iap_task,        IAP_HANDLE_TIME);
     tmt.create(key_task,        KEY_HANDLE_TIME);
-    tmt.create(adc_task,        KEY_HANDLE_TIME);
+    tmt.create(adc_task,        ADC_HANDLE_TIME);
     tmt.create(beep_task,       BEEP_HANDLE_TIME);
     tmt.create(dwin_task,       DWIN_HANDLE_TIME);
     tmt.create(work_task,       WORK_HANDLE_TIME);
-    tmt.create(flash_task,      FLASH_HANDLE_TIME);
     tmt.create(output_task,     OUTPUT_HANDLE_TIME);
     tmt.create(feed_dog_task,   FEED_DOG_HANDLE_TIME);
-	tmt.create(pc_comm_task,    PC_HANDLE_TIME);
-	tmt.create(uart4_comm_task, UART4_HANDLE_TIME);
-	tmt.create(uart5_comm_task, UART5_HANDLE_TIME);
+    tmt.create(pc_comm_task,    PC_HANDLE_TIME);
+    tmt.create(uart4_comm_task, UART4_HANDLE_TIME);
+    tmt.create(uart5_comm_task, UART5_HANDLE_TIME);
     tmt.create(record_task,     RECORD_HANDLE_TIME);
+    tmt.create(flash_task,      FLASH_HANDLE_TIME);
     EventRecorderInitialize(0, 1);
     FWG2_Init(&sFWG2_t);
     DwinInitialization(&sdwin);
-    PID_Init(&direct_pid, 1220, 0.2, 34000, 59999);
+    //PID_Init(&direct_pid, 600, 1, 8000, 50000);
+    PID_Init(&direct_pid, 900, 1, 260000, 50000);
     iap_init();
     spiflash_init();
     __IO uint32_t flash_id_index  = spiflash_read_id();
     BSP_UsartInit();
-    printf("system init ok\r\n");
+    //printf("system init ok\r\n");
     /* wait for system reday */
     wk_delay_ms(3000);
+
     /* add user code end 2 */
 
   while(1)
@@ -232,8 +235,8 @@ void key_task(void)
 
 void beep_task()
 {
-	static uint8_t time = 0;
-	
+    static uint8_t time = 0;
+
     if (sFWG2_t.general_parameter.speak_state == SPEAKER_OPEN)
     {
         BeepProc(&sbeep);
@@ -243,18 +246,17 @@ void beep_task()
         sbeep.off();
         sbeep.status = BEEP_OFF;
     }
-	
-	if(sFWG2_t.Direct_handle_error_state != HANDLE_OK)
-	{
-		time++;
-		if(time>=80)
-		{ 
-			time = 0;
-			sbeep.status = BEEP_LONG;
-		    
-		}
-	   
-	}
+
+    if (sFWG2_t.Direct_handle_error_state != HANDLE_OK)
+    {
+        time++;
+
+        if (time >= 80)
+        {
+            time = 0;
+            sbeep.status = BEEP_LONG;
+        }
+    }
 }
 
 void adc_task(void)
@@ -353,8 +355,9 @@ void feed_dog_task(void)
     {
         first_in = true;
         /* if enabled, please feed the dog through wdt_counter_reload() function */
-       // wdt_enable();
+        wdt_enable();
     }
+
     wdt_counter_reload();
 }
 
@@ -367,12 +370,15 @@ void pc_comm_task(void)
 {
     pc_comm_handle();
 }
+
 void uart4_comm_task(void)
 {
     uart4_comm_handle();
 }
+
 void uart5_comm_task(void)
 {
     uart5_comm_handle();
 }
+
 /* add user code end 4 */

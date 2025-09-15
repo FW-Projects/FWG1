@@ -54,7 +54,7 @@ uint8_t FWG2_Init(FWG2_Handle * FWG2)
     FWG2->general_parameter.adjust_key_temporary_set    = TEMPORARY_SELECT_NONE,	
 	FWG2->general_parameter.ota_state                   = OTA_OFF,
 	FWG2->general_parameter.touch_key_set               = TOUCH_CLOSE,
-	FWG2->general_parameter.fwg2_sleep_state            = SLEEP_CLOSE,
+	FWG2->general_parameter.fwg2_sleep_state            = SLEEP_OPEN,
 	FWG2->general_parameter.uart_state                  = UART_CLOSE,
 	FWG2->general_parameter.enhance_state               = ENHANCE_CLOSE,
 	FWG2->general_parameter.fwg2_page                   = PAGE_MAIN,

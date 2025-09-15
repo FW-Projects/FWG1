@@ -1,9 +1,9 @@
 #ifndef __OUTPUT_H
 #define __OUTPUT_H
 #include "flash.h"
-#define FLASH_HANDLE_TIME          40
+#define FLASH_HANDLE_TIME          5
 #define DATA_SIZE                  2
-#define FLASH_MENBER               110
+#define FLASH_MENBER               109
 
 
 
@@ -23,8 +23,7 @@
 #define A_LAST_ADJUST_KEY_SET                              A_LAST_FN_KEY_SHORT_SET + DATA_SIZE  
 #define A_LAST_OTA_STATE                                   A_LAST_ADJUST_KEY_SET + DATA_SIZE 
 #define A_LAST_TOUCH_KEY_SET                               A_LAST_OTA_STATE + DATA_SIZE 
-#define A_LAST_SLEEP_STATE                                 A_LAST_TOUCH_KEY_SET + DATA_SIZE 
-#define A_LAST_UART_STATE                                  A_LAST_SLEEP_STATE + DATA_SIZE 
+#define A_LAST_UART_STATE                                  A_LAST_TOUCH_KEY_SET + DATA_SIZE 
 #define A_LAST_ENHANCE_STATE                               A_LAST_UART_STATE + DATA_SIZE
 #define A_LAST_CH1_SET_TEMP                                A_LAST_ENHANCE_STATE + DATA_SIZE 
 #define A_LAST_CH1_SET_WIND                                A_LAST_CH1_SET_TEMP + DATA_SIZE 
@@ -136,8 +135,7 @@
 #define B_LAST_ADJUST_KEY_SET                              B_LAST_FN_KEY_SHORT_SET + DATA_SIZE
 #define B_LAST_OTA_STATE                                   B_LAST_ADJUST_KEY_SET + DATA_SIZE
 #define B_LAST_TOUCH_KEY_SET                               B_LAST_OTA_STATE + DATA_SIZE
-#define B_LAST_SLEEP_STATE                                 B_LAST_TOUCH_KEY_SET + DATA_SIZE
-#define B_LAST_UART_STATE                                  B_LAST_SLEEP_STATE + DATA_SIZE      
+#define B_LAST_UART_STATE                                  B_LAST_TOUCH_KEY_SET + DATA_SIZE      
 #define B_LAST_ENHANCE_STATE                               B_LAST_UART_STATE + DATA_SIZE     
 #define B_LAST_CH1_SET_TEMP                                B_LAST_ENHANCE_STATE + DATA_SIZE
 #define B_LAST_CH1_SET_WIND                                B_LAST_CH1_SET_TEMP + DATA_SIZE

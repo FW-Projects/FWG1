@@ -16,11 +16,12 @@
 
 
 
-#define DIRECT_TEMP_REFIRSH_TIME                 6
-#define DIRECT_WIND_REFIRSH_TIME                 6
+#define DIRECT_TEMP_REFIRSH_TIME                 8
+#define DIRECT_WIND_REFIRSH_TIME                 8
 
 
-#define CURVE_REFIRSH_TIME                       1
+
+#define CURVE_REFIRSH_TIME        1
 
 #define DWIN_HANDLE_TIME          1
 

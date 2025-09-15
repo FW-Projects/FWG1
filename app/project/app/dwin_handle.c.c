@@ -195,6 +195,8 @@ static void RecvDataFromLCD(DwinObjectType *dwim)
             case SET_CHANNEL:
                 if (sFWG2_t.Direct_handle_work_mode == NORMAL_MODE)
                 {
+					sFWG2_t.Direct_handle_parameter.last_set_temp = 0;
+	                sFWG2_t.Direct_handle_parameter.last_set_wind = 0;
                     sFWG2_t.general_parameter.ch = dwim->rx_buff[FRAME_VAL_L];
 
                     if (sFWG2_t.general_parameter.fwg2_page == PAGE_MAIN || sFWG2_t.general_parameter.fwg2_page == PAGE_DIRECT_CURVE)
@@ -1458,8 +1460,9 @@ static void RecvDataFromLCD(DwinObjectType *dwim)
                     sFWG2_t.general_parameter.temp_uint                   = CELSIUS;
                     sFWG2_t.general_parameter.speak_state                 = SPEAKER_OPEN;
                     sFWG2_t.general_parameter.display_lock_state          = LOCK;
-                    sFWG2_t.general_parameter.fn_key_long_set             = L_QUICK_MODE;
-                    sFWG2_t.general_parameter.fn_key_short_set            = S_QUICK_MODE;
+                    sFWG2_t.general_parameter.fn_key_long_set             = L_COLD_WIN_MODE;
+                    sFWG2_t.general_parameter.fn_key_short_set            = S_CHANNEL_SWITCH;
+					sFWG2_t.general_parameter.adjust_key_set              = SELECT_TEMP;
                     sFWG2_t.general_parameter.ota_state                   = OTA_OFF;
                     sFWG2_t.general_parameter.touch_key_set               = TOUCH_CLOSE;
 					sFWG2_t.general_parameter.fwg2_sleep_state            = SLEEP_OPEN;
@@ -1470,10 +1473,10 @@ static void RecvDataFromLCD(DwinObjectType *dwim)
                     sFWG2_t.general_parameter.ch1_set_wind                = 40;
                     sFWG2_t.general_parameter.ch1_set_time                = 30;
                     sFWG2_t.general_parameter.ch2_set_temp                = 320;
-                    sFWG2_t.general_parameter.ch2_set_wind                = 50;
+                    sFWG2_t.general_parameter.ch2_set_wind                = 45;
                     sFWG2_t.general_parameter.ch2_set_time                = 40;
                     sFWG2_t.general_parameter.ch3_set_temp                = 350;
-                    sFWG2_t.general_parameter.ch3_set_wind                = 60;
+                    sFWG2_t.general_parameter.ch3_set_wind                = 50;
                     sFWG2_t.general_parameter.ch3_set_time                = 50;
                     sFWG2_t.general_parameter.ch4_set_temp                = 380;
                     sFWG2_t.general_parameter.ch4_set_wind                = 80;
@@ -1530,7 +1533,6 @@ static void RecvDataFromLCD(DwinObjectType *dwim)
                     sFWG2_t.general_parameter.code3_temp_3                = 100;
                     sFWG2_t.general_parameter.code3_wind_3                = 150;
                     sFWG2_t.general_parameter.code3_time_3                = 180;
-                    
 #endif
                 }
 
@@ -2131,7 +2133,7 @@ void Page_Direct_Work_Heartbeat_Packet(void)
 
         case 3:
 #if 1
-            if (time % DIRECT_TEMP_REFIRSH_TIME == 0)
+            if (time % 20  == 0)
             {
 
                 /* show direct handle's outpot value */
@@ -2917,7 +2919,7 @@ void Page_General_Heartbeat_Packet(void)
 
 *   case 6:show countdown time
 *   case 7:show handle touch select
-*   case 8:show uart function select
+*   case 8:show uart function select / show sleep state
 *   case 9:show software version
 *   case 10:show ota function select
 
@@ -3017,6 +3019,9 @@ void Page_Set_Heartbeat_Packet(void)
             /* show handle touch select */
             sdwin.send_data(&sdwin, (DWIN_BASE_ADDRESS + SET_TOUCH_FUNCTION), DWIN_DATA_BITS,
                             sFWG2_t.general_parameter.touch_key_set);
+		
+
+		
             state ++;
             break;
 
@@ -3024,6 +3029,11 @@ void Page_Set_Heartbeat_Packet(void)
             /* show uart function select */
             sdwin.send_data(&sdwin, (DWIN_BASE_ADDRESS + SET_UART_FUNCTION), DWIN_DATA_BITS,
                             sFWG2_t.general_parameter.uart_state);
+		
+            /* show uart function select */
+            sdwin.send_data(&sdwin, (DWIN_BASE_ADDRESS + SET_SLEEP_MODE), DWIN_DATA_BITS,
+                            sFWG2_t.general_parameter.fwg2_sleep_state);
+		
             state ++;
             break;
 
@@ -3072,8 +3082,8 @@ void Page_Direct_Curve_Heartbeat_Packet(void)
     static uint16_t delay_time = CURVE_REFIRSH_TIME;
     delay_time--;
 
-    if (!delay_time)
-    {
+   // if (!delay_time)
+    //{
         delay_time = CURVE_REFIRSH_TIME;
 
         if (sFWG2_t.general_parameter.fwg2_page == PAGE_DIRECT_CURVE)
@@ -3526,7 +3536,7 @@ void Page_Direct_Curve_Heartbeat_Packet(void)
         {
             first_in = false;
         }
-    }
+    //}
 }
 
 

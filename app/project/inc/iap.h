@@ -42,7 +42,7 @@ extern "C" {
 /** @defgroup app_led3_definition
   * @{
   */
-#define IAP_HANDLE_TIME          10
+#define IAP_HANDLE_TIME          85
 /* app starting address */
 #define APP_START_ADDR          0x08004000
 

@@ -3,8 +3,8 @@
 #include <stdbool.h>
 #include "adc.h"
 
-#define OUTPUT_HANDLE_TIME          10
-#define RELAY_OPEN_TIME             60
+#define OUTPUT_HANDLE_TIME          50
+#define RELAY_OPEN_TIME             10
 typedef enum
 {
     FAN_STOP = 0,

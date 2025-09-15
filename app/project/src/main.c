@@ -61,7 +61,8 @@
 /* private typedef -----------------------------------------------------------*/
 /* add user code begin private typedef */
 #define RECORD_HANDLE_TIME     60000
-#define FEED_DOG_HANDLE_TIME   10
+#define FEED_DOG_HANDLE_TIME   80
+#define ADC_HANDLE_TIME        5
 /* add user code end private typedef */
 
 /* private define ------------------------------------------------------------*/
@@ -165,7 +166,7 @@ int main(void)
     tmt_init();
     tmt.create(iap_task,        IAP_HANDLE_TIME);
     tmt.create(key_task,        KEY_HANDLE_TIME);
-    tmt.create(adc_task,        KEY_HANDLE_TIME);
+    tmt.create(adc_task,        ADC_HANDLE_TIME);
     tmt.create(beep_task,       BEEP_HANDLE_TIME);
     tmt.create(dwin_task,       DWIN_HANDLE_TIME);
     tmt.create(work_task,       WORK_HANDLE_TIME);
@@ -175,23 +176,20 @@ int main(void)
     tmt.create(uart4_comm_task, UART4_HANDLE_TIME);
     tmt.create(uart5_comm_task, UART5_HANDLE_TIME);
     tmt.create(record_task,     RECORD_HANDLE_TIME);
-	tmt.create(flash_task,      FLASH_HANDLE_TIME);
+    tmt.create(flash_task,      FLASH_HANDLE_TIME);
     EventRecorderInitialize(0, 1);
     FWG2_Init(&sFWG2_t);
     DwinInitialization(&sdwin);
     //PID_Init(&direct_pid, 600, 1, 8000, 50000);
-	
-	PID_Init(&direct_pid, 490, 0.8, 70000, 50000);
-	
+    PID_Init(&direct_pid, 900, 1, 260000, 50000);
     iap_init();
-	
     spiflash_init();
-	
     __IO uint32_t flash_id_index  = spiflash_read_id();
     BSP_UsartInit();
-    printf("system init ok\r\n");
+    //printf("system init ok\r\n");
     /* wait for system reday */
     wk_delay_ms(3000);
+
     /* add user code end 2 */
 
     while (1)
@@ -266,6 +264,7 @@ void dwin_task(void)
     static uint16_t time_count;
     static bool first_in = false;
     static uint8_t state = 0;
+
     if (sFWG2_t.FWG2_STATE == FWG2_WORKING)
     {
         if (first_in == false)
@@ -335,7 +334,7 @@ void feed_dog_task(void)
     {
         first_in = true;
         /* if enabled, please feed the dog through wdt_counter_reload() function */
-        // wdt_enable();
+        wdt_enable();
     }
 
     wdt_counter_reload();

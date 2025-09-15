@@ -11,7 +11,7 @@ I (..\libraries\cmsis\cm4\core_support\cmsis_armcc.h)(0x675A6FD4)
 I (..\libraries\cmsis\cm4\core_support\mpu_armv7.h)(0x675A6FD3)
 I (..\libraries\cmsis\cm4\device_support\system_at32f415.h)(0x675A6FD3)
 I (..\libraries\drivers\inc\at32f415_def.h)(0x675A6FCC)
-I (..\inc\at32f415_conf.h)(0x675A7026)
+I (..\inc\at32f415_conf.h)(0x68C77BB3)
 I (..\libraries\drivers\inc\at32f415_crm.h)(0x675A6FCC)
 I (..\libraries\drivers\inc\at32f415_cmp.h)(0x675A6FCC)
 I (..\libraries\drivers\inc\at32f415_tmr.h)(0x675A6FCC)
@@ -44,7 +44,7 @@ I (..\libraries\cmsis\cm4\core_support\cmsis_armcc.h)(0x675A6FD4)
 I (..\libraries\cmsis\cm4\core_support\mpu_armv7.h)(0x675A6FD3)
 I (..\libraries\cmsis\cm4\device_support\system_at32f415.h)(0x675A6FD3)
 I (..\libraries\drivers\inc\at32f415_def.h)(0x675A6FCC)
-I (..\inc\at32f415_conf.h)(0x675A7026)
+I (..\inc\at32f415_conf.h)(0x68C77BB3)
 I (..\libraries\drivers\inc\at32f415_crm.h)(0x675A6FCC)
 I (..\libraries\drivers\inc\at32f415_cmp.h)(0x675A6FCC)
 I (..\libraries\drivers\inc\at32f415_tmr.h)(0x675A6FCC)
@@ -79,7 +79,7 @@ I (..\libraries\cmsis\cm4\core_support\cmsis_armcc.h)(0x675A6FD4)
 I (..\libraries\cmsis\cm4\core_support\mpu_armv7.h)(0x675A6FD3)
 I (..\libraries\cmsis\cm4\device_support\system_at32f415.h)(0x675A6FD3)
 I (..\libraries\drivers\inc\at32f415_def.h)(0x675A6FCC)
-I (..\inc\at32f415_conf.h)(0x675A7026)
+I (..\inc\at32f415_conf.h)(0x68C77BB3)
 I (..\libraries\drivers\inc\at32f415_crm.h)(0x675A6FCC)
 I (..\libraries\drivers\inc\at32f415_cmp.h)(0x675A6FCC)
 I (..\libraries\drivers\inc\at32f415_tmr.h)(0x675A6FCC)
@@ -116,7 +116,7 @@ I (..\libraries\cmsis\cm4\core_support\cmsis_armcc.h)(0x675A6FD4)
 I (..\libraries\cmsis\cm4\core_support\mpu_armv7.h)(0x675A6FD3)
 I (..\libraries\cmsis\cm4\device_support\system_at32f415.h)(0x675A6FD3)
 I (..\libraries\drivers\inc\at32f415_def.h)(0x675A6FCC)
-I (..\inc\at32f415_conf.h)(0x675A7026)
+I (..\inc\at32f415_conf.h)(0x68C77BB3)
 I (..\libraries\drivers\inc\at32f415_crm.h)(0x675A6FCC)
 I (..\libraries\drivers\inc\at32f415_cmp.h)(0x675A6FCC)
 I (..\libraries\drivers\inc\at32f415_tmr.h)(0x675A6FCC)
@@ -155,7 +155,7 @@ I (..\libraries\cmsis\cm4\core_support\cmsis_armcc.h)(0x675A6FD4)
 I (..\libraries\cmsis\cm4\core_support\mpu_armv7.h)(0x675A6FD3)
 I (..\libraries\cmsis\cm4\device_support\system_at32f415.h)(0x675A6FD3)
 I (..\libraries\drivers\inc\at32f415_def.h)(0x675A6FCC)
-I (..\inc\at32f415_conf.h)(0x675A7026)
+I (..\inc\at32f415_conf.h)(0x68C77BB3)
 I (..\libraries\drivers\inc\at32f415_crm.h)(0x675A6FCC)
 I (..\libraries\drivers\inc\at32f415_cmp.h)(0x675A6FCC)
 I (..\libraries\drivers\inc\at32f415_tmr.h)(0x675A6FCC)
@@ -193,7 +193,7 @@ I (..\libraries\cmsis\cm4\core_support\cmsis_armcc.h)(0x675A6FD4)
 I (..\libraries\cmsis\cm4\core_support\mpu_armv7.h)(0x675A6FD3)
 I (..\libraries\cmsis\cm4\device_support\system_at32f415.h)(0x675A6FD3)
 I (..\libraries\drivers\inc\at32f415_def.h)(0x675A6FCC)
-I (..\inc\at32f415_conf.h)(0x675A7026)
+I (..\inc\at32f415_conf.h)(0x68C77BB3)
 I (..\libraries\drivers\inc\at32f415_crm.h)(0x675A6FCC)
 I (..\libraries\drivers\inc\at32f415_cmp.h)(0x675A6FCC)
 I (..\libraries\drivers\inc\at32f415_tmr.h)(0x675A6FCC)
@@ -231,7 +231,7 @@ I (..\libraries\cmsis\cm4\core_support\cmsis_armcc.h)(0x675A6FD4)
 I (..\libraries\cmsis\cm4\core_support\mpu_armv7.h)(0x675A6FD3)
 I (..\libraries\cmsis\cm4\device_support\system_at32f415.h)(0x675A6FD3)
 I (..\libraries\drivers\inc\at32f415_def.h)(0x675A6FCC)
-I (..\inc\at32f415_conf.h)(0x675A7026)
+I (..\inc\at32f415_conf.h)(0x68C77BB3)
 I (..\libraries\drivers\inc\at32f415_crm.h)(0x675A6FCC)
 I (..\libraries\drivers\inc\at32f415_cmp.h)(0x675A6FCC)
 I (..\libraries\drivers\inc\at32f415_tmr.h)(0x675A6FCC)
@@ -269,7 +269,7 @@ I (..\libraries\cmsis\cm4\core_support\cmsis_armcc.h)(0x675A6FD4)
 I (..\libraries\cmsis\cm4\core_support\mpu_armv7.h)(0x675A6FD3)
 I (..\libraries\cmsis\cm4\device_support\system_at32f415.h)(0x675A6FD3)
 I (..\libraries\drivers\inc\at32f415_def.h)(0x675A6FCC)
-I (..\inc\at32f415_conf.h)(0x675A7026)
+I (..\inc\at32f415_conf.h)(0x68C77BB3)
 I (..\libraries\drivers\inc\at32f415_crm.h)(0x675A6FCC)
 I (..\libraries\drivers\inc\at32f415_cmp.h)(0x675A6FCC)
 I (..\libraries\drivers\inc\at32f415_tmr.h)(0x675A6FCC)
@@ -303,7 +303,7 @@ I (..\libraries\cmsis\cm4\core_support\cmsis_armcc.h)(0x675A6FD4)
 I (..\libraries\cmsis\cm4\core_support\mpu_armv7.h)(0x675A6FD3)
 I (..\libraries\cmsis\cm4\device_support\system_at32f415.h)(0x675A6FD3)
 I (..\libraries\drivers\inc\at32f415_def.h)(0x675A6FCC)
-I (..\inc\at32f415_conf.h)(0x675A7026)
+I (..\inc\at32f415_conf.h)(0x68C77BB3)
 I (..\libraries\drivers\inc\at32f415_crm.h)(0x675A6FCC)
 I (..\libraries\drivers\inc\at32f415_cmp.h)(0x675A6FCC)
 I (..\libraries\drivers\inc\at32f415_tmr.h)(0x675A6FCC)
@@ -326,7 +326,7 @@ I (..\libraries\drivers\inc\at32f415_sdio.h)(0x675A6FCC)
 I (..\libraries\drivers\inc\at32f415_misc.h)(0x675A6FCC)
 I (..\libraries\drivers\inc\at32f415_usb.h)(0x675A6FCC)
 F (..\libraries\drivers\src\at32f415_crm.c)(0x675A6FCD)(--c99 -c --cpu Cortex-M4 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\libraries\drivers\inc -I ..\libraries\cmsis\cm4\core_support -I ..\libraries\cmsis\cm4\device_support -I ..\inc -I ..\at32f415_board-IC:\Users\Administrator\AppData\Local\Arm\Packs\ArteryTek\AT32F415_DFP\2.1.6\Device\Include-D__UVISION_VERSION="538" -DAT32F415RBT7 -DAT32F415RBT7 -DUSE_STDPERIPH_DRIVER -DAT_START_F415_V1-o .\objects\at32f415_crm.o --omf_browse .\objects\at32f415_crm.crf --depend .\objects\at32f415_crm.d)
-I (..\inc\at32f415_conf.h)(0x675A7026)
+I (..\inc\at32f415_conf.h)(0x68C77BB3)
 I (..\libraries\drivers\inc\at32f415_crm.h)(0x675A6FCC)
 I (..\libraries\cmsis\cm4\device_support\at32f415.h)(0x675A753D)
 I (..\libraries\cmsis\cm4\core_support\core_cm4.h)(0x675A6FD3)
@@ -358,7 +358,7 @@ I (..\libraries\drivers\inc\at32f415_sdio.h)(0x675A6FCC)
 I (..\libraries\drivers\inc\at32f415_misc.h)(0x675A6FCC)
 I (..\libraries\drivers\inc\at32f415_usb.h)(0x675A6FCC)
 F (..\libraries\drivers\src\at32f415_flash.c)(0x675A6FCD)(--c99 -c --cpu Cortex-M4 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\libraries\drivers\inc -I ..\libraries\cmsis\cm4\core_support -I ..\libraries\cmsis\cm4\device_support -I ..\inc -I ..\at32f415_board-IC:\Users\Administrator\AppData\Local\Arm\Packs\ArteryTek\AT32F415_DFP\2.1.6\Device\Include-D__UVISION_VERSION="538" -DAT32F415RBT7 -DAT32F415RBT7 -DUSE_STDPERIPH_DRIVER -DAT_START_F415_V1-o .\objects\at32f415_flash.o --omf_browse .\objects\at32f415_flash.crf --depend .\objects\at32f415_flash.d)
-I (..\inc\at32f415_conf.h)(0x675A7026)
+I (..\inc\at32f415_conf.h)(0x68C77BB3)
 I (..\libraries\drivers\inc\at32f415_crm.h)(0x675A6FCC)
 I (..\libraries\cmsis\cm4\device_support\at32f415.h)(0x675A753D)
 I (..\libraries\cmsis\cm4\core_support\core_cm4.h)(0x675A6FD3)
@@ -390,7 +390,7 @@ I (..\libraries\drivers\inc\at32f415_sdio.h)(0x675A6FCC)
 I (..\libraries\drivers\inc\at32f415_misc.h)(0x675A6FCC)
 I (..\libraries\drivers\inc\at32f415_usb.h)(0x675A6FCC)
 F (..\libraries\drivers\src\at32f415_gpio.c)(0x675A6FCD)(--c99 -c --cpu Cortex-M4 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\libraries\drivers\inc -I ..\libraries\cmsis\cm4\core_support -I ..\libraries\cmsis\cm4\device_support -I ..\inc -I ..\at32f415_board-IC:\Users\Administrator\AppData\Local\Arm\Packs\ArteryTek\AT32F415_DFP\2.1.6\Device\Include-D__UVISION_VERSION="538" -DAT32F415RBT7 -DAT32F415RBT7 -DUSE_STDPERIPH_DRIVER -DAT_START_F415_V1-o .\objects\at32f415_gpio.o --omf_browse .\objects\at32f415_gpio.crf --depend .\objects\at32f415_gpio.d)
-I (..\inc\at32f415_conf.h)(0x675A7026)
+I (..\inc\at32f415_conf.h)(0x68C77BB3)
 I (..\libraries\drivers\inc\at32f415_crm.h)(0x675A6FCC)
 I (..\libraries\cmsis\cm4\device_support\at32f415.h)(0x675A753D)
 I (..\libraries\cmsis\cm4\core_support\core_cm4.h)(0x675A6FD3)
@@ -422,7 +422,7 @@ I (..\libraries\drivers\inc\at32f415_sdio.h)(0x675A6FCC)
 I (..\libraries\drivers\inc\at32f415_misc.h)(0x675A6FCC)
 I (..\libraries\drivers\inc\at32f415_usb.h)(0x675A6FCC)
 F (..\libraries\drivers\src\at32f415_usart.c)(0x675A6FCC)(--c99 -c --cpu Cortex-M4 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\libraries\drivers\inc -I ..\libraries\cmsis\cm4\core_support -I ..\libraries\cmsis\cm4\device_support -I ..\inc -I ..\at32f415_board-IC:\Users\Administrator\AppData\Local\Arm\Packs\ArteryTek\AT32F415_DFP\2.1.6\Device\Include-D__UVISION_VERSION="538" -DAT32F415RBT7 -DAT32F415RBT7 -DUSE_STDPERIPH_DRIVER -DAT_START_F415_V1-o .\objects\at32f415_usart.o --omf_browse .\objects\at32f415_usart.crf --depend .\objects\at32f415_usart.d)
-I (..\inc\at32f415_conf.h)(0x675A7026)
+I (..\inc\at32f415_conf.h)(0x68C77BB3)
 I (..\libraries\drivers\inc\at32f415_crm.h)(0x675A6FCC)
 I (..\libraries\cmsis\cm4\device_support\at32f415.h)(0x675A753D)
 I (..\libraries\cmsis\cm4\core_support\core_cm4.h)(0x675A6FD3)
@@ -454,7 +454,7 @@ I (..\libraries\drivers\inc\at32f415_sdio.h)(0x675A6FCC)
 I (..\libraries\drivers\inc\at32f415_misc.h)(0x675A6FCC)
 I (..\libraries\drivers\inc\at32f415_usb.h)(0x675A6FCC)
 F (..\libraries\drivers\src\at32f415_tmr.c)(0x675A6FCD)(--c99 -c --cpu Cortex-M4 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\libraries\drivers\inc -I ..\libraries\cmsis\cm4\core_support -I ..\libraries\cmsis\cm4\device_support -I ..\inc -I ..\at32f415_board-IC:\Users\Administrator\AppData\Local\Arm\Packs\ArteryTek\AT32F415_DFP\2.1.6\Device\Include-D__UVISION_VERSION="538" -DAT32F415RBT7 -DAT32F415RBT7 -DUSE_STDPERIPH_DRIVER -DAT_START_F415_V1-o .\objects\at32f415_tmr.o --omf_browse .\objects\at32f415_tmr.crf --depend .\objects\at32f415_tmr.d)
-I (..\inc\at32f415_conf.h)(0x675A7026)
+I (..\inc\at32f415_conf.h)(0x68C77BB3)
 I (..\libraries\drivers\inc\at32f415_crm.h)(0x675A6FCC)
 I (..\libraries\cmsis\cm4\device_support\at32f415.h)(0x675A753D)
 I (..\libraries\cmsis\cm4\core_support\core_cm4.h)(0x675A6FD3)
@@ -486,7 +486,7 @@ I (..\libraries\drivers\inc\at32f415_sdio.h)(0x675A6FCC)
 I (..\libraries\drivers\inc\at32f415_misc.h)(0x675A6FCC)
 I (..\libraries\drivers\inc\at32f415_usb.h)(0x675A6FCC)
 F (..\libraries\drivers\src\at32f415_misc.c)(0x675A6FCC)(--c99 -c --cpu Cortex-M4 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\libraries\drivers\inc -I ..\libraries\cmsis\cm4\core_support -I ..\libraries\cmsis\cm4\device_support -I ..\inc -I ..\at32f415_board-IC:\Users\Administrator\AppData\Local\Arm\Packs\ArteryTek\AT32F415_DFP\2.1.6\Device\Include-D__UVISION_VERSION="538" -DAT32F415RBT7 -DAT32F415RBT7 -DUSE_STDPERIPH_DRIVER -DAT_START_F415_V1-o .\objects\at32f415_misc.o --omf_browse .\objects\at32f415_misc.crf --depend .\objects\at32f415_misc.d)
-I (..\inc\at32f415_conf.h)(0x675A7026)
+I (..\inc\at32f415_conf.h)(0x68C77BB3)
 I (..\libraries\drivers\inc\at32f415_crm.h)(0x675A6FCC)
 I (..\libraries\cmsis\cm4\device_support\at32f415.h)(0x675A753D)
 I (..\libraries\cmsis\cm4\core_support\core_cm4.h)(0x675A6FD3)
@@ -518,7 +518,7 @@ I (..\libraries\drivers\inc\at32f415_sdio.h)(0x675A6FCC)
 I (..\libraries\drivers\inc\at32f415_misc.h)(0x675A6FCC)
 I (..\libraries\drivers\inc\at32f415_usb.h)(0x675A6FCC)
 F (..\libraries\drivers\src\at32f415_crc.c)(0x68B982AC)(--c99 -c --cpu Cortex-M4 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\libraries\drivers\inc -I ..\libraries\cmsis\cm4\core_support -I ..\libraries\cmsis\cm4\device_support -I ..\inc -I ..\at32f415_board-IC:\Users\Administrator\AppData\Local\Arm\Packs\ArteryTek\AT32F415_DFP\2.1.6\Device\Include-D__UVISION_VERSION="538" -DAT32F415RBT7 -DAT32F415RBT7 -DUSE_STDPERIPH_DRIVER -DAT_START_F415_V1-o .\objects\at32f415_crc.o --omf_browse .\objects\at32f415_crc.crf --depend .\objects\at32f415_crc.d)
-I (..\inc\at32f415_conf.h)(0x675A7026)
+I (..\inc\at32f415_conf.h)(0x68C77BB3)
 I (..\libraries\drivers\inc\at32f415_crm.h)(0x675A6FCC)
 I (..\libraries\cmsis\cm4\device_support\at32f415.h)(0x675A753D)
 I (..\libraries\cmsis\cm4\core_support\core_cm4.h)(0x675A6FD3)
@@ -559,7 +559,7 @@ I (..\libraries\cmsis\cm4\core_support\cmsis_armcc.h)(0x675A6FD4)
 I (..\libraries\cmsis\cm4\core_support\mpu_armv7.h)(0x675A6FD3)
 I (..\libraries\cmsis\cm4\device_support\system_at32f415.h)(0x675A6FD3)
 I (..\libraries\drivers\inc\at32f415_def.h)(0x675A6FCC)
-I (..\inc\at32f415_conf.h)(0x675A7026)
+I (..\inc\at32f415_conf.h)(0x68C77BB3)
 I (..\libraries\drivers\inc\at32f415_crm.h)(0x675A6FCC)
 I (..\libraries\drivers\inc\at32f415_cmp.h)(0x675A6FCC)
 I (..\libraries\drivers\inc\at32f415_tmr.h)(0x675A6FCC)

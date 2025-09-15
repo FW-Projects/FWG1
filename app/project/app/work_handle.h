@@ -3,7 +3,7 @@
 #include "at32f415.h"
 
 
-#define WORK_HANDLE_TIME      20
+#define WORK_HANDLE_TIME      10
 #define ERROR_TIME_OUT        150  
 #define SLEEP_TIME_OUT        100
 

@@ -5,9 +5,8 @@
 
 void check_handle_position(void)
 {
-
     /* check direct handle position */
-    if (gpio_input_data_bit_read(GPIOC, GPIO_PINS_4 ))
+    if (gpio_input_data_bit_read(GPIOC, GPIO_PINS_4))
     {
         sFWG2_t.Direct_handle_position = NOT_IN_POSSITION;
     }
@@ -49,11 +48,11 @@ void Direct_handle_switch(void)
                     sFWG2_t.Direct_handle_work_mode = NORMAL_MODE;
                 }
 
-//                if (((sFWG2_t.Direct_handle_parameter.actual_temp <= LOW_TEMP_VAL  || \
-//                        sFWG2_t.Direct_handle_parameter.actual_temp >= OVER_TEMP_VAL || \
-//                        sFWG2_t.Direct_handle_parameter.actual_wind < LOW_WIND_RATE)) && \
-//                        sFWG2_t.Direct_handle_position == NOT_IN_POSSITION)
-				                if (((sFWG2_t.Direct_handle_parameter.actual_temp <= LOW_TEMP_VAL  || \
+                //                if (((sFWG2_t.Direct_handle_parameter.actual_temp <= LOW_TEMP_VAL  || \
+                //                        sFWG2_t.Direct_handle_parameter.actual_temp >= OVER_TEMP_VAL || \
+                //                        sFWG2_t.Direct_handle_parameter.actual_wind < LOW_WIND_RATE)) && \
+                //                        sFWG2_t.Direct_handle_position == NOT_IN_POSSITION)
+                if (((sFWG2_t.Direct_handle_parameter.actual_temp <= LOW_TEMP_VAL  || \
                         sFWG2_t.Direct_handle_parameter.actual_temp >= OVER_TEMP_VAL)) && \
                         sFWG2_t.Direct_handle_position == NOT_IN_POSSITION)
                 {
@@ -61,9 +60,9 @@ void Direct_handle_switch(void)
 
                     if (sFWG2_t.Direct_handle_parameter.error_time >= ERROR_TIME_OUT / 2)
                     {
-//                        if (sFWG2_t.Direct_handle_parameter.actual_temp >= OVER_TEMP_VAL && \
-//                                sFWG2_t.Direct_handle_parameter.actual_wind >= LOW_WIND_RATE)
-						if (sFWG2_t.Direct_handle_parameter.actual_temp >= OVER_TEMP_VAL)
+                        //                        if (sFWG2_t.Direct_handle_parameter.actual_temp >= OVER_TEMP_VAL && \
+                        //                                sFWG2_t.Direct_handle_parameter.actual_wind >= LOW_WIND_RATE)
+                        if (sFWG2_t.Direct_handle_parameter.actual_temp >= OVER_TEMP_VAL)
                         {
                             sFWG2_t.Direct_handle_error_state = HANDLE_OVER_TEMP_ERR;
                             sFWG2_t.Direct_handle_parameter.last_state = HANDLE_WORKING;
@@ -74,9 +73,9 @@ void Direct_handle_switch(void)
 
                     if (sFWG2_t.Direct_handle_parameter.error_time >= ERROR_TIME_OUT * 5)
                     {
-//                        if (sFWG2_t.Direct_handle_parameter.actual_temp <= LOW_TEMP_VAL && \
-//                                sFWG2_t.Direct_handle_parameter.actual_wind >= LOW_WIND_RATE)
-						if (sFWG2_t.Direct_handle_parameter.actual_temp <= LOW_TEMP_VAL)
+                        //                        if (sFWG2_t.Direct_handle_parameter.actual_temp <= LOW_TEMP_VAL && \
+                        //                                sFWG2_t.Direct_handle_parameter.actual_wind >= LOW_WIND_RATE)
+                        if (sFWG2_t.Direct_handle_parameter.actual_temp <= LOW_TEMP_VAL)
                         {
                             sFWG2_t.Direct_handle_error_state = HANDLE_LOW_TEMP_ERR;
                             sFWG2_t.Direct_handle_parameter.last_state = HANDLE_WORKING;
@@ -120,19 +119,18 @@ void Direct_handle_switch(void)
             else if (sFWG2_t.Direct_handle_work_mode == COLD_WIND_MODE)
             {
                 /* only check fan state */
-//                if ((sFWG2_t.Direct_handle_parameter.actual_wind < LOW_WIND_RATE))
-//                {
-//                    sFWG2_t.Direct_handle_parameter.error_time++;
-
-//                    if (sFWG2_t.Direct_handle_parameter.error_time >= ERROR_TIME_OUT)
-//                    {
-//                        if (sFWG2_t.Direct_handle_parameter.actual_wind <= LOW_WIND_RATE)
-//                        {
-//                            sFWG2_t.Direct_handle_error_state = HANDLE_FAN_ERR;
-//                            break;
-//                        }
-//                    }
-//                }
+                //                if ((sFWG2_t.Direct_handle_parameter.actual_wind < LOW_WIND_RATE))
+                //                {
+                //                    sFWG2_t.Direct_handle_parameter.error_time++;
+                //                    if (sFWG2_t.Direct_handle_parameter.error_time >= ERROR_TIME_OUT)
+                //                    {
+                //                        if (sFWG2_t.Direct_handle_parameter.actual_wind <= LOW_WIND_RATE)
+                //                        {
+                //                            sFWG2_t.Direct_handle_error_state = HANDLE_FAN_ERR;
+                //                            break;
+                //                        }
+                //                    }
+                //                }
             }
 
             break;
@@ -142,50 +140,49 @@ void Direct_handle_switch(void)
     {
         if (sFWG2_t.general_parameter.code_mode_state == CODE_MODE_START)
         {
-			if(sFWG2_t.general_parameter.code_mode_handle_select == SELECT_DIRECT_HANDLE)
-			{
-			    if (((sFWG2_t.Direct_handle_parameter.actual_temp <= LOW_TEMP_VAL  || \
-                    sFWG2_t.Direct_handle_parameter.actual_temp >= OVER_TEMP_VAL || \
-                    sFWG2_t.Direct_handle_parameter.actual_wind < LOW_WIND_RATE)) && \
-                    sFWG2_t.Direct_handle_position == NOT_IN_POSSITION)
+            if (sFWG2_t.general_parameter.code_mode_handle_select == SELECT_DIRECT_HANDLE)
             {
-                sFWG2_t.Direct_handle_parameter.error_time++;
-
-                if (sFWG2_t.Direct_handle_parameter.error_time >= ERROR_TIME_OUT / 2)
+                if (((sFWG2_t.Direct_handle_parameter.actual_temp <= LOW_TEMP_VAL  || \
+                        sFWG2_t.Direct_handle_parameter.actual_temp >= OVER_TEMP_VAL || \
+                        sFWG2_t.Direct_handle_parameter.actual_wind < LOW_WIND_RATE)) && \
+                        sFWG2_t.Direct_handle_position == NOT_IN_POSSITION)
                 {
-                    if (sFWG2_t.Direct_handle_parameter.actual_temp >= OVER_TEMP_VAL && \
-                            sFWG2_t.Direct_handle_parameter.actual_wind >= LOW_WIND_RATE)
+                    sFWG2_t.Direct_handle_parameter.error_time++;
+
+                    if (sFWG2_t.Direct_handle_parameter.error_time >= ERROR_TIME_OUT / 2)
                     {
-                        sFWG2_t.Direct_handle_error_state = HANDLE_OVER_TEMP_ERR;
+                        if (sFWG2_t.Direct_handle_parameter.actual_temp >= OVER_TEMP_VAL && \
+                                sFWG2_t.Direct_handle_parameter.actual_wind >= LOW_WIND_RATE)
+                        {
+                            sFWG2_t.Direct_handle_error_state = HANDLE_OVER_TEMP_ERR;
+                            sFWG2_t.Direct_handle_parameter.last_state = HANDLE_WORKING;
+                            sFWG2_t.Direct_handle_parameter.error_time = 0;
+                        }
+                    }
+
+                    if (sFWG2_t.Direct_handle_parameter.error_time >= ERROR_TIME_OUT * 5)
+                    {
+                        if (sFWG2_t.Direct_handle_parameter.actual_temp <= LOW_TEMP_VAL && \
+                                sFWG2_t.Direct_handle_parameter.actual_wind >= LOW_WIND_RATE)
+                        {
+                            sFWG2_t.Direct_handle_error_state = HANDLE_LOW_TEMP_ERR;
+                            sFWG2_t.Direct_handle_parameter.last_state = HANDLE_WORKING;
+                            sFWG2_t.Direct_handle_parameter.error_time = 0;
+                        }
+                        else if (sFWG2_t.Direct_handle_parameter.actual_wind < LOW_WIND_RATE)
+                        {
+                            sFWG2_t.Direct_handle_error_state = HANDLE_FAN_ERR;
+                        }
+
                         sFWG2_t.Direct_handle_parameter.last_state = HANDLE_WORKING;
                         sFWG2_t.Direct_handle_parameter.error_time = 0;
                     }
                 }
-
-                if (sFWG2_t.Direct_handle_parameter.error_time >= ERROR_TIME_OUT * 5)
+                else
                 {
-                    if (sFWG2_t.Direct_handle_parameter.actual_temp <= LOW_TEMP_VAL && \
-                            sFWG2_t.Direct_handle_parameter.actual_wind >= LOW_WIND_RATE)
-                    {
-                        sFWG2_t.Direct_handle_error_state = HANDLE_LOW_TEMP_ERR;
-                        sFWG2_t.Direct_handle_parameter.last_state = HANDLE_WORKING;
-                        sFWG2_t.Direct_handle_parameter.error_time = 0;
-                    }
-                    else if (sFWG2_t.Direct_handle_parameter.actual_wind < LOW_WIND_RATE)
-                    {
-                        sFWG2_t.Direct_handle_error_state = HANDLE_FAN_ERR;
-                    }
-
-                    sFWG2_t.Direct_handle_parameter.last_state = HANDLE_WORKING;
                     sFWG2_t.Direct_handle_parameter.error_time = 0;
                 }
             }
-            else
-            {
-                sFWG2_t.Direct_handle_parameter.error_time = 0;
-            }
-			}
-            
         }
     }
 }
