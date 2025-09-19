@@ -111,58 +111,79 @@ void uart5_comm_task(void);
   */
 int main(void)
 {
-    /* add user code begin 1 */
+  /* add user code begin 1 */
     /* config vector table offset */
     nvic_vector_table_set(NVIC_VECTTAB_FLASH, 0x4000);
     /* add user code end 1 */
-    /* system clock config. */
-    wk_system_clock_config();
-    /* config periph clock. */
-    wk_periph_clock_config();
-    /* init debug function. */
-    wk_debug_config();
-    /* nvic config. */
-    wk_nvic_config();
-    /* timebase config. */
-    wk_timebase_init();
-    /* init gpio function. */
-    wk_gpio_config();
-    /* init adc1 function. */
-    wk_adc1_init();
-    /* init dma1 channel1 */
-    wk_dma1_channel1_init();
-    /* config dma channel transfer parameter */
-    /* user need to modify define values DMAx_CHANNELy_XXX_BASE_ADDR and DMAx_CHANNELy_BUFFER_SIZE in at32xxx_wk_config.h */
-    wk_dma_channel_config(DMA1_CHANNEL1,
-                          DMA1_CHANNEL1_PERIPHERAL_BASE_ADDR,
-                          DMA1_CHANNEL1_MEMORY_BASE_ADDR,
-                          DMA1_CHANNEL1_BUFFER_SIZE);
-    dma_channel_enable(DMA1_CHANNEL1, FALSE);
-    /* init usart1 function. */
-    wk_usart1_init();
-    /* init usart2 function. */
-    wk_usart2_init();
-    /* init usart3 function. */
-    wk_usart3_init();
-    /* init uart4 function. */
-    wk_uart4_init();
-    /* init uart5 function. */
-    wk_uart5_init();
-    /* init spi1 function. */
-    wk_spi1_init();
-    /* init exint function. */
-    wk_exint_config();
-    /* init tmr2 function. */
-    wk_tmr2_init();
-    /* init tmr3 function. */
-    wk_tmr3_init();
-    /* init tmr9 function. */
-    wk_tmr9_init();
-    /* init crc function. */
-    wk_crc_init();
-    /* init wdt function. */
-    wk_wdt_init();
-    /* add user code begin 2 */
+
+  /* system clock config. */
+  wk_system_clock_config();
+
+  /* config periph clock. */
+  wk_periph_clock_config();
+
+  /* init debug function. */
+  wk_debug_config();
+
+  /* nvic config. */
+  wk_nvic_config();
+
+  /* timebase config. */
+  wk_timebase_init();
+
+  /* init gpio function. */
+  wk_gpio_config();
+
+  /* init adc1 function. */
+  wk_adc1_init();
+
+  /* init dma1 channel1 */
+  wk_dma1_channel1_init();
+  /* config dma channel transfer parameter */
+  /* user need to modify define values DMAx_CHANNELy_XXX_BASE_ADDR and DMAx_CHANNELy_BUFFER_SIZE in at32xxx_wk_config.h */
+  wk_dma_channel_config(DMA1_CHANNEL1, 
+                        DMA1_CHANNEL1_PERIPHERAL_BASE_ADDR, 
+                        DMA1_CHANNEL1_MEMORY_BASE_ADDR, 
+                        DMA1_CHANNEL1_BUFFER_SIZE);
+  dma_channel_enable(DMA1_CHANNEL1, FALSE);
+
+  /* init usart1 function. */
+  wk_usart1_init();
+
+  /* init usart2 function. */
+  wk_usart2_init();
+
+  /* init usart3 function. */
+  wk_usart3_init();
+
+  /* init uart4 function. */
+  wk_uart4_init();
+
+  /* init uart5 function. */
+  wk_uart5_init();
+
+  /* init spi1 function. */
+  wk_spi1_init();
+
+  /* init exint function. */
+  wk_exint_config();
+
+  /* init tmr2 function. */
+  wk_tmr2_init();
+
+  /* init tmr3 function. */
+  wk_tmr3_init();
+
+  /* init tmr9 function. */
+  wk_tmr9_init();
+
+  /* init crc function. */
+  wk_crc_init();
+
+  /* init wdt function. */
+  wk_wdt_init();
+
+  /* add user code begin 2 */
     tmt_init();
     tmt.create(iap_task,        IAP_HANDLE_TIME);
     tmt.create(key_task,        KEY_HANDLE_TIME);
@@ -192,15 +213,15 @@ int main(void)
 
     /* add user code end 2 */
 
-    while (1)
-    {
-        /* add user code begin 3 */
+  while(1)
+  {
+    /* add user code begin 3 */
         tmt.run();
         /* add user code end 3 */
-    }
+  }
 }
 
-/* add user code begin 4 */
+  /* add user code begin 4 */
 void iap_task(void)
 {
     iap_command_handle();

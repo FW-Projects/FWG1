@@ -376,10 +376,10 @@ static void Direct_Handle_PWM_Out(void)
                         {
                             if ((sFWG2_t.Direct_handle_parameter.actual_temp + sFWG2_t.Direct_handle_parameter.linear_calibration_temp -
                                     sFWG2_t.Direct_handle_parameter.set_calibration_temp) <=
-                                    (sFWG2_t.Direct_handle_parameter.set_temp + ENHANCE_TEMP   + 5) && \
+                                    (sFWG2_t.Direct_handle_parameter.set_temp + ENHANCE_TEMP   + 7) && \
                                     (sFWG2_t.Direct_handle_parameter.actual_temp + sFWG2_t.Direct_handle_parameter.linear_calibration_temp -
                                      sFWG2_t.Direct_handle_parameter.set_calibration_temp) >=
-                                    (sFWG2_t.Direct_handle_parameter.set_temp + ENHANCE_TEMP   - 5))
+                                    (sFWG2_t.Direct_handle_parameter.set_temp + ENHANCE_TEMP   - 7))
                             {
                                 if (change_kd_flag == false)
                                 {
@@ -390,7 +390,7 @@ static void Direct_Handle_PWM_Out(void)
                                     change_kd_time = 0;
                                 }
 
-                                if (change_kd_time >= 8000)
+                                if (change_kd_time >= 7000)
                                 {
                                     change_kd_time = 0;
                                     direct_pid.Kd = low_dp;
@@ -444,10 +444,10 @@ static void Direct_Handle_PWM_Out(void)
                         {
                             if ((sFWG2_t.Direct_handle_parameter.actual_temp + sFWG2_t.Direct_handle_parameter.linear_calibration_temp -
                                     sFWG2_t.Direct_handle_parameter.set_calibration_temp) <=
-                                    (sFWG2_t.Direct_handle_parameter.set_temp + 10) && \
+                                    (sFWG2_t.Direct_handle_parameter.set_temp + 8) && \
                                     (sFWG2_t.Direct_handle_parameter.actual_temp + sFWG2_t.Direct_handle_parameter.linear_calibration_temp -
                                      sFWG2_t.Direct_handle_parameter.set_calibration_temp) >=
-                                    (sFWG2_t.Direct_handle_parameter.set_temp - 10))
+                                    (sFWG2_t.Direct_handle_parameter.set_temp - 8))
                             {
                                 if (change_kd_flag == false)
                                 {
@@ -458,7 +458,7 @@ static void Direct_Handle_PWM_Out(void)
                                     change_kd_time = 0;
                                 }
 
-                                if (change_kd_time >= 8000)
+                                if (change_kd_time >= 7000)
                                 {
                                     change_kd_time = 0;
                                     direct_pid.Kd = low_dp;
