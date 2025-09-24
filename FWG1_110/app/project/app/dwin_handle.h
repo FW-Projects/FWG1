@@ -238,6 +238,8 @@ typedef enum
 	 
 	 SET_SLEEP_MODE = 0x45,
 	 
+	 LONG_PRESS_SET_CHANNEL_VALUE = 0x46,
+	 LONG_PRESS_RELESS = 0x47,
      /* out of page value */
      SHOW_DIRECT_TEMP_COLOUR = 0x6003,
      SHOW_DIRECT_WIND_COLOUR = 0x6063,

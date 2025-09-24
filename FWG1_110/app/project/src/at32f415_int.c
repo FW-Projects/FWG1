@@ -300,7 +300,7 @@ void EXINT15_10_IRQHandler(void)
 /* add user code begin 1 */
 static void Direct_Handle_PWM_Out(void)
 {
-    static uint32_t hight_dp = 960000;
+    static uint32_t hight_dp = 1900000;
     static uint16_t low_dp = 3000;
     static uint16_t temp = 0;
     static bool change_kd_flag = false;
@@ -375,6 +375,9 @@ static void Direct_Handle_PWM_Out(void)
                                  sFWG2_t.Direct_handle_parameter.set_calibration_temp) >=
                                 (sFWG2_t.Direct_handle_parameter.set_temp + ENHANCE_TEMP   - 100))
                         {
+							
+							
+							
                             if ((sFWG2_t.Direct_handle_parameter.actual_temp + sFWG2_t.Direct_handle_parameter.linear_calibration_temp -
                                     sFWG2_t.Direct_handle_parameter.set_calibration_temp) <=
                                     (sFWG2_t.Direct_handle_parameter.set_temp + ENHANCE_TEMP   + 7) && \
@@ -416,9 +419,9 @@ static void Direct_Handle_PWM_Out(void)
                                   sFWG2_t.Direct_handle_parameter.set_calibration_temp) >
                                  (sFWG2_t.Direct_handle_parameter.set_temp  + ENHANCE_TEMP +  100))
                         {
-                            direct_handle_pid_out = 0;
+							
+                            direct_handle_pid_out = 500;
                             direct_hot_run_time_ms++;
-                           
                             change_kd_time = 0;
                             direct_pid.Kd = hight_dp;
                             change_kd_flag = false;

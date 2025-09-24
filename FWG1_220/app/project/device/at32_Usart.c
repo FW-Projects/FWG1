@@ -337,8 +337,21 @@ void UART5_TimeOutCounter(void)
 #ifdef USART1_ENABLE
 void USART1_IRQHandler(void)
 {
-    uint8_t chData;
-
+   uint8_t chData;
+	
+   uint16_t received_data;
+   uint16_t status_flag = usart_flag_get(USART1, USART_ROERR_FLAG);
+   if (status_flag & USART_ROERR_FLAG) 
+   {
+        received_data = usart_data_receive(USART1); 
+        return;
+   }
+   if (status_flag & USART_FERR_FLAG) {
+        received_data = usart_data_receive(USART1); 
+        return;
+    }
+	
+	
     if (USART1->ctrl1_bit.rdbfien != RESET)
     {
         if (usart_flag_get(USART1, USART_RDBF_FLAG) != RESET)
