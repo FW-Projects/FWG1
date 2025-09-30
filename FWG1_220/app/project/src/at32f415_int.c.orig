@@ -229,7 +229,6 @@ void SysTick_Handler(void)
     if (!time_out)
     {
         sFWG2_t.Direct_handle_parameter.actual_wind = tmr3_ch1_readvalue;
-        //printf("Direct actual_wind  = %d\r\n", sFWG2_t.Direct_handle_parameter.actual_wind);
         tmr3_ch1_readvalue = 0;
         time_out = TIME_1S;
     }
@@ -262,18 +261,16 @@ void TMR3_GLOBAL_IRQHandler(void)
   /* add user code begin TMR3_GLOBAL_IRQ 0 */
     if (tmr_interrupt_flag_get(TMR3, TMR_C1_FLAG) != RESET)
     {
-        tmr_flag_clear(TMR3, TMR_C1_FLAG);
         tmr3_ch1_readvalue++;
+        tmr_flag_clear(TMR3, TMR_C1_FLAG);
     }
 
     /* add user code end TMR3_GLOBAL_IRQ 0 */
 
 
   /* add user code begin TMR3_GLOBAL_IRQ 1 */
-    tmr_flag_clear(TMR3, TMR_OVF_FLAG);
     /* add user code end TMR3_GLOBAL_IRQ 1 */
 }
-
 
 
 /**
@@ -286,8 +283,8 @@ void EXINT15_10_IRQHandler(void)
   /* add user code begin EXINT15_10_IRQ 0 */
     if (exint_flag_get(EXINT_LINE_13) != RESET)
     {
-        exint_flag_clear(EXINT_LINE_13);
         Direct_Handle_PWM_Out();
+        exint_flag_clear(EXINT_LINE_13);
     }
 
     /* add user code end EXINT15_10_IRQ 0 */
@@ -295,25 +292,15 @@ void EXINT15_10_IRQHandler(void)
     /* add user code end EXINT15_10_IRQ 1 */
 }
 
-
-
 /* add user code begin 1 */
 static void Direct_Handle_PWM_Out(void)
 {
-	static uint32_t hight_dp = 90000;
-	static uint16_t low_dp = 3000;
-	
-	static uint16_t temp = 0;
-    static bool change_kd_flag = false;
-    static uint16_t change_kd_time = 0;
-    //static bool direct_handle_run_flag = false;
     static uint16_t Direct_handle_last_set_temp = 0;
     static fwg2_code_mode_step_e last_code_mode_step = CODE_WAIT;
     static uint16_t delta = 0;
     static uint16_t direct_hot_run_time_ms = 0;
-    temp = (sFWG2_t.Direct_handle_parameter.actual_temp + sFWG2_t.Direct_handle_parameter.linear_calibration_temp -
-            (sFWG2_t.Direct_handle_parameter.set_calibration_temp));
-
+	static float hight_kd = 99800;
+	static uint32_t low_kd = 1500;
     if (direct_hot_run_time_ms >= 12000)
     {
         direct_hot_run_time_ms = 0;
@@ -351,18 +338,16 @@ static void Direct_Handle_PWM_Out(void)
                                     sFWG2_t.Direct_handle_parameter.set_temp);
                         }
 
-                        if (sFWG2_t.Direct_handle_parameter.set_temp < (sFWG2_t.Direct_handle_parameter.actual_temp +
-                                sFWG2_t.Direct_handle_parameter.linear_calibration_temp -
-                                sFWG2_t.Direct_handle_parameter.set_calibration_temp))
-                        {
-                            //printf("clean i\r\n");
-                        }
-
-                        change_kd_time = 0;
-                        direct_pid.Kd  = hight_dp;
-                        change_kd_flag = false;
-                        direct_pid.SumError = 0;
-                        //direct_pid.SumError = direct_pid.SumError / 2;
+//                        if (sFWG2_t.Direct_handle_parameter.set_temp < Direct_handle_last_set_temp)
+//                        {
+//							direct_pid.SumError = direct_pid.SumError /2;
+//                        }
+//						else
+//						{
+//						   direct_pid.SumError = 0; 
+//						}
+direct_pid.SumError = direct_pid.SumError /2;
+                        
                         Direct_handle_last_set_temp = sFWG2_t.Direct_handle_parameter.set_temp;
                     }
 
@@ -376,39 +361,10 @@ static void Direct_Handle_PWM_Out(void)
                                  sFWG2_t.Direct_handle_parameter.set_calibration_temp) >=
                                 (sFWG2_t.Direct_handle_parameter.set_temp + ENHANCE_TEMP   - 100))
                         {
-                            if ((sFWG2_t.Direct_handle_parameter.actual_temp + sFWG2_t.Direct_handle_parameter.linear_calibration_temp -
-                                    sFWG2_t.Direct_handle_parameter.set_calibration_temp) <=
-                                    (sFWG2_t.Direct_handle_parameter.set_temp + ENHANCE_TEMP   + 10) && \
-                                    (sFWG2_t.Direct_handle_parameter.actual_temp + sFWG2_t.Direct_handle_parameter.linear_calibration_temp -
-                                     sFWG2_t.Direct_handle_parameter.set_calibration_temp) >=
-                                    (sFWG2_t.Direct_handle_parameter.set_temp + ENHANCE_TEMP   - 10))
-                            {
-                                if (change_kd_flag == false)
-                                {
-                                    change_kd_time++;
-                                }
-                                else
-                                {
-                                    change_kd_time = 0;
-                                }
-
-                                if (change_kd_time >= 300)
-                                {
-                                    change_kd_time = 0;
-                                    direct_pid.Kd = low_dp;
-                                    change_kd_flag = true;
-                                }
-                            }
-                            else
-                            {
-                                change_kd_time = 0;
-                                change_kd_flag = false;
-                            }
 
                             direct_handle_pid_out = PID_Position_Calc(&direct_pid, sFWG2_t.Direct_handle_parameter.set_temp + ENHANCE_TEMP,
                                                     (sFWG2_t.Direct_handle_parameter.actual_temp + sFWG2_t.Direct_handle_parameter.linear_calibration_temp -
                                                      sFWG2_t.Direct_handle_parameter.set_calibration_temp));
-                            //printf("pid output\r\n");
                             direct_hot_run_time_ms++;
                         }
                         /*  when the actual temp over than set temp 100 ,stop pid funtion*/
@@ -418,17 +374,9 @@ static void Direct_Handle_PWM_Out(void)
                         {
                             direct_handle_pid_out = 0;
                             direct_hot_run_time_ms++;
-                           // printf("close output\r\n");
-                            change_kd_time = 0;
-                            direct_pid.Kd = hight_dp;
-                            change_kd_flag = false;
                         }
                         else
                         {
-                           // printf("full power output\r\n");
-                            change_kd_flag = false;
-                            change_kd_time = 0;
-                            direct_pid.Kd = hight_dp;
                             direct_handle_pid_out = 36000;
                             direct_hot_run_time_ms++;
                         }
@@ -443,61 +391,37 @@ static void Direct_Handle_PWM_Out(void)
                                  sFWG2_t.Direct_handle_parameter.set_calibration_temp) >=
                                 (sFWG2_t.Direct_handle_parameter.set_temp - 100))
                         {
-                            if ((sFWG2_t.Direct_handle_parameter.actual_temp + sFWG2_t.Direct_handle_parameter.linear_calibration_temp -
-                                    sFWG2_t.Direct_handle_parameter.set_calibration_temp) <=
-                                    (sFWG2_t.Direct_handle_parameter.set_temp + 10) && \
-                                    (sFWG2_t.Direct_handle_parameter.actual_temp + sFWG2_t.Direct_handle_parameter.linear_calibration_temp -
-                                     sFWG2_t.Direct_handle_parameter.set_calibration_temp) >=
-                                    (sFWG2_t.Direct_handle_parameter.set_temp - 10))
-                            {
-                                if (change_kd_flag == false)
-                                {
-                                    change_kd_time++;
-                                }
-                                else
-                                {
-                                    change_kd_time = 0;
-                                }
+							
+							    direct_pid.Kd = hight_kd;
+							    if ((sFWG2_t.Direct_handle_parameter.actual_temp + sFWG2_t.Direct_handle_parameter.linear_calibration_temp -
+                                sFWG2_t.Direct_handle_parameter.set_calibration_temp) <=
+                                (sFWG2_t.Direct_handle_parameter.set_temp + 5) && \
+                                (sFWG2_t.Direct_handle_parameter.actual_temp + sFWG2_t.Direct_handle_parameter.linear_calibration_temp -
+                                 sFWG2_t.Direct_handle_parameter.set_calibration_temp) >=
+                                (sFWG2_t.Direct_handle_parameter.set_temp - 5))
+								{
+								    direct_pid.Kd = low_kd;
+								}
 
-                                if (change_kd_time >= 300)
-                                {
-                                    change_kd_time = 0;
-                                    direct_pid.Kd = low_dp;
-                                    change_kd_flag = true;
-                                }
-                            }
-                            else
-                            {
-                                change_kd_time = 0;
-                                change_kd_flag = false;
-                            }
-
+							
                             direct_handle_pid_out = PID_Position_Calc(&direct_pid, sFWG2_t.Direct_handle_parameter.set_temp,
                                                     (sFWG2_t.Direct_handle_parameter.actual_temp + sFWG2_t.Direct_handle_parameter.linear_calibration_temp -
                                                      sFWG2_t.Direct_handle_parameter.set_calibration_temp));
                             direct_hot_run_time_ms++;
-                            //printf("pid output\r\n");
                         }
                         /*  when the actual temp over than set temp 100 ,stop pid funtion*/
                         else if ((sFWG2_t.Direct_handle_parameter.actual_temp + sFWG2_t.Direct_handle_parameter.linear_calibration_temp -
                                   sFWG2_t.Direct_handle_parameter.set_calibration_temp) >
                                  (sFWG2_t.Direct_handle_parameter.set_temp + 100))
                         {
-                            //printf("close output\r\n");
+							
+							direct_pid.Kd = hight_kd;
                             direct_handle_pid_out = 0;
-                            change_kd_time = 0;
-                            direct_pid.Kd = hight_dp;
-							change_kd_flag = false;
-                            
-                            
                         }
                         else
                         {
-                            //printf("full power output\r\n");
-                            change_kd_flag = false;
-                            change_kd_time = 0;
-                            direct_pid.Kd = hight_dp;
-                            direct_handle_pid_out = 36000;
+							direct_pid.Kd = hight_kd;
+                            direct_handle_pid_out = 48000;
                             direct_hot_run_time_ms++;
                         }
                     }
@@ -508,7 +432,6 @@ static void Direct_Handle_PWM_Out(void)
                     }
 
                     /* open Direct handle pwm output */
-					//printf("当前积分：%f\r\n",direct_pid.Kd);
                     tmr_channel_value_set(TMR2, TMR_SELECT_CHANNEL_1, direct_handle_pid_out);
                     tmr_counter_enable(TMR2, TRUE);
                 }
@@ -520,13 +443,10 @@ static void Direct_Handle_PWM_Out(void)
                 tmr_channel_value_set(TMR2, TMR_SELECT_CHANNEL_1, 0);
                 tmr_counter_enable(TMR2, FALSE);
                 PID_Clear(&direct_pid);
-                change_kd_time = 0;
-                direct_pid.Kd  = hight_dp;
-                change_kd_flag = false;
             }
         }
 
-#if 1
+#if 0
         else if (sFWG2_t.Direct_handle_work_mode == COLD_WIND_MODE)
         {
             sFWG2_t.Direct_handle_parameter.actual_temp  = (get_adcval(ADC_CHANNEL_10) >> 2) + sFWG2_t.general_parameter.mcu_temp;
@@ -566,9 +486,14 @@ static void Direct_Handle_PWM_Out(void)
                                 sFWG2_t.Direct_handle_parameter.linear_calibration_temp -
                                 sFWG2_t.Direct_handle_parameter.set_calibration_temp))
                         {
-                            direct_pid.SumError = direct_pid.SumError / 2;
+                            //direct_pid.SumError = direct_pid.SumError / 2;
                         }
 
+                        change_kd_time = 0;
+                        direct_pid.Kd  = hight_dp;
+                        change_kd_flag = false;
+                        //direct_pid.SumError = 0;
+                        direct_pid.SumError = direct_pid.SumError / 2;
                         Direct_handle_last_set_temp = sFWG2_t.Direct_handle_parameter.set_temp;
                     }
 
@@ -583,15 +508,14 @@ static void Direct_Handle_PWM_Out(void)
                                          ENHANCE_TEMP + sFWG2_t.Direct_handle_parameter.quick_work_temp - 100)
                            )
                         {
-							
-							                        if ((sFWG2_t.Direct_handle_parameter.actual_temp + sFWG2_t.Direct_handle_parameter.linear_calibration_temp -
-                                sFWG2_t.Direct_handle_parameter.set_calibration_temp) <= (sFWG2_t.Direct_handle_parameter.set_temp +
-                                        ENHANCE_TEMP + sFWG2_t.Direct_handle_parameter.quick_work_temp + 10) && \
-                                (sFWG2_t.Direct_handle_parameter.actual_temp + sFWG2_t.Direct_handle_parameter.linear_calibration_temp -
-                                 sFWG2_t.Direct_handle_parameter.set_calibration_temp) >= (sFWG2_t.Direct_handle_parameter.set_temp +
-                                         ENHANCE_TEMP + sFWG2_t.Direct_handle_parameter.quick_work_temp - 10)
-                           )
-							                            {
+                            if ((sFWG2_t.Direct_handle_parameter.actual_temp + sFWG2_t.Direct_handle_parameter.linear_calibration_temp -
+                                    sFWG2_t.Direct_handle_parameter.set_calibration_temp) <= (sFWG2_t.Direct_handle_parameter.set_temp +
+                                            ENHANCE_TEMP + sFWG2_t.Direct_handle_parameter.quick_work_temp + 10) && \
+                                    (sFWG2_t.Direct_handle_parameter.actual_temp + sFWG2_t.Direct_handle_parameter.linear_calibration_temp -
+                                     sFWG2_t.Direct_handle_parameter.set_calibration_temp) >= (sFWG2_t.Direct_handle_parameter.set_temp +
+                                             ENHANCE_TEMP + sFWG2_t.Direct_handle_parameter.quick_work_temp - 10)
+                               )
+                            {
                                 if (change_kd_flag == false)
                                 {
                                     change_kd_time++;
@@ -601,7 +525,7 @@ static void Direct_Handle_PWM_Out(void)
                                     change_kd_time = 0;
                                 }
 
-                                if (change_kd_time >= 300)
+                                if (change_kd_time >= change_time)
                                 {
                                     change_kd_time = 0;
                                     direct_pid.Kd = low_dp;
@@ -610,12 +534,11 @@ static void Direct_Handle_PWM_Out(void)
                             }
                             else
                             {
+                                direct_pid.Kd  = hight_dp;
                                 change_kd_time = 0;
                                 change_kd_flag = false;
                             }
-							
-							
-							
+
                             direct_handle_pid_out = PID_Position_Calc(&direct_pid,
                                                     sFWG2_t.Direct_handle_parameter.set_temp + ENHANCE_TEMP + sFWG2_t.Direct_handle_parameter.quick_work_temp,
                                                     (sFWG2_t.Direct_handle_parameter.actual_temp + sFWG2_t.Direct_handle_parameter.linear_calibration_temp -
@@ -626,18 +549,13 @@ static void Direct_Handle_PWM_Out(void)
                                   sFWG2_t.Direct_handle_parameter.set_calibration_temp) > (sFWG2_t.Direct_handle_parameter.set_temp +
                                           ENHANCE_TEMP + sFWG2_t.Direct_handle_parameter.quick_work_temp + 100))
                         {
-							
-							direct_handle_pid_out = 0;
+                            direct_handle_pid_out = 0;
                             change_kd_time = 0;
                             direct_pid.Kd = hight_dp;
-							change_kd_flag = false;
-                            
-							
-
+                            change_kd_flag = false;
                         }
                         else
                         {
-                            
                             change_kd_flag = false;
                             change_kd_time = 0;
                             direct_pid.Kd = hight_dp;
@@ -657,16 +575,15 @@ static void Direct_Handle_PWM_Out(void)
                                          - 100)
                            )
                         {
-						if ((sFWG2_t.Direct_handle_parameter.actual_temp + sFWG2_t.Direct_handle_parameter.linear_calibration_temp -
-                                sFWG2_t.Direct_handle_parameter.set_calibration_temp) <= (sFWG2_t.Direct_handle_parameter.set_temp +
-                                        sFWG2_t.Direct_handle_parameter.quick_work_temp + 10) && \
-                                (sFWG2_t.Direct_handle_parameter.actual_temp + sFWG2_t.Direct_handle_parameter.linear_calibration_temp -
-                                 sFWG2_t.Direct_handle_parameter.set_calibration_temp) >= (sFWG2_t.Direct_handle_parameter.set_temp +
-                                         sFWG2_t.Direct_handle_parameter.quick_work_temp
-                                         - 10)
-                           )	
-							
-							{
+                            if ((sFWG2_t.Direct_handle_parameter.actual_temp + sFWG2_t.Direct_handle_parameter.linear_calibration_temp -
+                                    sFWG2_t.Direct_handle_parameter.set_calibration_temp) <= (sFWG2_t.Direct_handle_parameter.set_temp +
+                                            sFWG2_t.Direct_handle_parameter.quick_work_temp + 10) && \
+                                    (sFWG2_t.Direct_handle_parameter.actual_temp + sFWG2_t.Direct_handle_parameter.linear_calibration_temp -
+                                     sFWG2_t.Direct_handle_parameter.set_calibration_temp) >= (sFWG2_t.Direct_handle_parameter.set_temp +
+                                             sFWG2_t.Direct_handle_parameter.quick_work_temp
+                                             - 10)
+                               )
+                            {
                                 if (change_kd_flag == false)
                                 {
                                     change_kd_time++;
@@ -676,7 +593,7 @@ static void Direct_Handle_PWM_Out(void)
                                     change_kd_time = 0;
                                 }
 
-                                if (change_kd_time >= 300)
+                                if (change_kd_time >= change_time)
                                 {
                                     change_kd_time = 0;
                                     direct_pid.Kd = low_dp;
@@ -685,13 +602,11 @@ static void Direct_Handle_PWM_Out(void)
                             }
                             else
                             {
+                                direct_pid.Kd  = hight_dp;
                                 change_kd_time = 0;
                                 change_kd_flag = false;
                             }
-							
-							
-		
-							
+
                             direct_handle_pid_out = PID_Position_Calc(&direct_pid,
                                                     sFWG2_t.Direct_handle_parameter.set_temp + sFWG2_t.Direct_handle_parameter.quick_work_temp,
                                                     (sFWG2_t.Direct_handle_parameter.actual_temp + sFWG2_t.Direct_handle_parameter.linear_calibration_temp -
@@ -706,12 +621,11 @@ static void Direct_Handle_PWM_Out(void)
                             direct_handle_pid_out = 0;
                             change_kd_time = 0;
                             direct_pid.Kd = hight_dp;
-							change_kd_flag = false;
-                            
+                            change_kd_flag = false;
                         }
                         else
                         {
-                           change_kd_flag = false;
+                            change_kd_flag = false;
                             change_kd_time = 0;
                             direct_pid.Kd = hight_dp;
                             direct_handle_pid_out = 36000;
@@ -745,7 +659,7 @@ static void Direct_Handle_PWM_Out(void)
 #endif
     }
 
-#if 1
+#if 0
     /* code mode control pid */
     else if (sFWG2_t.general_parameter.work_mode == CODE)
     {
@@ -757,7 +671,7 @@ static void Direct_Handle_PWM_Out(void)
                 if (last_code_mode_step != sFWG2_t.general_parameter.code_mode_step)
                 {
                     last_code_mode_step = sFWG2_t.general_parameter.code_mode_step;
-                    PID_Clear(&direct_pid);
+                    //PID_Clear(&direct_pid);
                 }
 
                 if (sFWG2_t.general_parameter.relay_open_flag == true)
@@ -926,6 +840,7 @@ static void Direct_Handle_PWM_Out(void)
             }
             else if (sFWG2_t.general_parameter.code_mode_state == CODE_MODE_STOP)
             {
+                direct_pid.Kd = low_dp;
                 PID_Clear(&direct_pid);
                 sFWG2_t.Direct_handle_parameter.actual_temp  = (get_adcval(ADC_CHANNEL_10) >> 2) + sFWG2_t.general_parameter.mcu_temp;
                 direct_handle_pid_out = 0;

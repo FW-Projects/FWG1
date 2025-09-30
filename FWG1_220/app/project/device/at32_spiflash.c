@@ -67,7 +67,7 @@ void spiflash_init(void)
 	spi_default_para_init(&spi_init_struct);
 	spi_init_struct.transmission_mode = SPI_TRANSMIT_FULL_DUPLEX;		//全双工模式
 	spi_init_struct.master_slave_mode = SPI_MODE_MASTER;				//主模式
-	spi_init_struct.mclk_freq_division = SPI_MCLK_DIV_2;				//时钟8分频，120M/8=15M
+	spi_init_struct.mclk_freq_division = SPI_MCLK_DIV_4;				//时钟8分频，120M/8=15M
 	spi_init_struct.first_bit_transmission = SPI_FIRST_BIT_MSB;			//大小端，高位在前
 	spi_init_struct.frame_bit_num = SPI_FRAME_8BIT;						//数据为8bit模式
 	spi_init_struct.clock_polarity = SPI_CLOCK_POLARITY_HIGH;			//配置 SPI 时钟空闲时为高电平

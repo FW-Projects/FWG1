@@ -1,7 +1,7 @@
 #ifndef __OUTPUT_H
 #define __OUTPUT_H
 #include "flash.h"
-#define FLASH_HANDLE_TIME          5
+#define FLASH_HANDLE_TIME          10
 #define DATA_SIZE                  2
 #define FLASH_MENBER               109
 

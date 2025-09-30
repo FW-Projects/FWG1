@@ -61,12 +61,13 @@
 /* private typedef -----------------------------------------------------------*/
 /* add user code begin private typedef */
 #define RECORD_HANDLE_TIME     60000
-#define FEED_DOG_HANDLE_TIME   80
-#define ADC_HANDLE_TIME        5
+#define FEED_DOG_HANDLE_TIME   100
+#define ADC_HANDLE_TIME        500
 /* add user code end private typedef */
 
 /* private define ------------------------------------------------------------*/
 /* add user code begin private define */
+
 
 /* add user code end private define */
 
@@ -77,7 +78,7 @@
 
 /* private variables ---------------------------------------------------------*/
 /* add user code begin private variables */
-
+__IO uint32_t flash_id_index  = 0;
 
 
 /* add user code end private variables */
@@ -182,7 +183,6 @@ int main(void)
 
   /* init wdt function. */
   wk_wdt_init();
-
   /* add user code begin 2 */
     tmt_init();
     tmt.create(iap_task,        IAP_HANDLE_TIME);
@@ -201,13 +201,9 @@ int main(void)
     EventRecorderInitialize(0, 1);
     FWG2_Init(&sFWG2_t);
     DwinInitialization(&sdwin);
-    //PID_Init(&direct_pid, 600, 1, 8000, 50000);
-    PID_Init(&direct_pid, 900, 1, 260000, 50000);
+    PID_Init(&direct_pid, 800, 3, 8500, 48000);
     iap_init();
-    spiflash_init();
-    __IO uint32_t flash_id_index  = spiflash_read_id();
     BSP_UsartInit();
-    //printf("system init ok\r\n");
     /* wait for system reday */
     wk_delay_ms(3000);
 
@@ -261,23 +257,7 @@ void beep_task()
 
 void adc_task(void)
 {
-    static bool first_in = false;
-#if 0
-    sFWG2_t.Direct_handle_parameter.actual_temp  = (get_adcval(ADC_CHANNEL_10) >> 2) + sFWG2_t.general_parameter.mcu_temp;
-#endif
 
-    if (first_in == false)
-    {
-        sFWG2_t.Direct_handle_parameter.actual_temp  = (get_adcval(ADC_CHANNEL_10) >> 2);
-        sFWG2_t.general_parameter.mcu_temp =  get_adcval(ADC_CHANNEL_16);
-        sFWG2_t.general_parameter.mcu_temp = (1.26 - ((double)sFWG2_t.general_parameter.mcu_temp * 3.3 / 4096)) / (-0.00423);
-
-        if (sFWG2_t.general_parameter.mcu_temp <= 50 && sFWG2_t.general_parameter.mcu_temp > 0
-                && sFWG2_t.Direct_handle_parameter.actual_temp < 500)
-        {
-            first_in = true;
-        }
-    }
 }
 
 void dwin_task(void)

@@ -1,6 +1,6 @@
 #include "PID_operation.h"
 
-PID direct_pid;
+ PID direct_pid;
 //为了防止积分项过度累积，引入积分项的限幅是一种常见的做法。
 //限制积分项的幅值可以防止积分项过度增加，从而限制了系统的累积误差。这样可以避免系统过度响应或者不稳定。
 volatile float abs_limit(volatile float value, volatile float ABS_MAX)   //积分限幅，设置最大值。
@@ -66,7 +66,7 @@ float PID_Position_Calc(PID *pid, float Target_val, float Actual_val)  //位置式P
 
 	    if (pid->output < - pid->outputmax)
     {
-        pid->output = -pid->outputmax;
+        pid->output = 0;
     }
 	
     return pid->output;   //输出为pwm值

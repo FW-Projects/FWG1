@@ -233,6 +233,7 @@ void wk_nvic_config(void)
   NVIC_SetPriority(DebugMonitor_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(), 0, 0));
   NVIC_SetPriority(PendSV_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(), 0, 0));
   NVIC_SetPriority(SysTick_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(), 15, 0));
+  nvic_irq_enable(TMR2_GLOBAL_IRQn, 0, 0);
   nvic_irq_enable(TMR3_GLOBAL_IRQn, 0, 0);
   nvic_irq_enable(USART1_IRQn, 0, 0);
   nvic_irq_enable(USART2_IRQn, 0, 0);

@@ -6,7 +6,7 @@
 #include <string.h>
 #include "at32f415.h"
 #include "at32_Usart.h"
-#define UART4_HANDLE_TIME   2
+#define UART4_HANDLE_TIME   5
 #define UART4_USART 3
 #define UART4_RX_BUFF_SIZE  256
 #define UART4_TX_BUFF_SIZE  256

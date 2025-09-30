@@ -74,12 +74,12 @@
             <ModeSub name="Enable One cycle mode" value="TRUE"/>
         </Mode>
         <Parameters>
-            <ParametersSub name="DividerValue" value="23"/>
+            <ParametersSub name="DividerValue" value="80"/>
             <ParametersSub name="CounterDirection" value="TMR_COUNT_DOWN"/>
             <ParametersSub name="Period" value="59999"/>
-            <ParametersSub name="OCMode_1" value="TMR_OUTPUT_CONTROL_PWM_MODE_B"/>
+            <ParametersSub name="ClockDivision" value="TMR_CLOCK_DIV4"/>
+            <ParametersSub name="OCMode_1" value="TMR_OUTPUT_CONTROL_PWM_MODE_A"/>
             <ParametersSub name="OC1ImmediatelyMode_PWM" value="TRUE"/>
-            <ParametersSub name="OCPolarity_1" value="TMR_OUTPUT_ACTIVE_LOW"/>
         </Parameters>
     </TMR2>
     <TMR3>
@@ -87,6 +87,10 @@
             <ModeSub name="Channel1 mode" value="Input_direct_mode"/>
             <ModeSub name="Activated" value="TRUE"/>
         </Mode>
+        <Parameters>
+            <ParametersSub name="DividerValue" value="1999"/>
+            <ParametersSub name="Period" value="14999"/>
+        </Parameters>
     </TMR3>
     <TMR9>
         <Mode>
@@ -159,7 +163,7 @@
         <DMA1_Channel1_IRQHandler>0;0;0;0;0</DMA1_Channel1_IRQHandler>
         <ADC1_IRQHandler>0;0;0;0;0</ADC1_IRQHandler>
         <TMR1_BRK_TMR9_IRQHandler>0;0;0;0;0</TMR1_BRK_TMR9_IRQHandler>
-        <TMR2_GLOBAL_IRQHandler>0;0;0;0;0</TMR2_GLOBAL_IRQHandler>
+        <TMR2_GLOBAL_IRQHandler>1;0;0;0;0</TMR2_GLOBAL_IRQHandler>
         <TMR3_GLOBAL_IRQHandler>1;0;0;0;0</TMR3_GLOBAL_IRQHandler>
         <SPI1_IRQHandler>0;0;0;0;0</SPI1_IRQHandler>
         <USART1_IRQHandler>1;0;0;0;0</USART1_IRQHandler>
@@ -267,7 +271,7 @@
     </PINInfo>
     <ProjectInfomation>
         <ProjectName>AT32F415RBT7_WorkBench</ProjectName>
-        <ProjectLocation>D:/Work Area/Code For WorkBench/FWG1/app</ProjectLocation>
+        <ProjectLocation>D:/Work Area/Code For WorkBench/FWG1/FWG1_220/app</ProjectLocation>
         <ToolchainIDE>MDK_V5</ToolchainIDE>
         <ARMCompiler>0</ARMCompiler>
         <KeepUserCode>true</KeepUserCode>

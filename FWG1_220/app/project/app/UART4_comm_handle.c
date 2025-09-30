@@ -440,7 +440,7 @@ void uart4_event_handle(void)
         }
 
         /* show select channel */
-        sdwin.send_data(&sdwin, (DWIN_BASE_ADDRESS + SET_CHANNEL), DWIN_DATA_BITS,
+        sdwin.send_data(&sdwin, (DWIN_BASE_ADDRESS + CHANNEL_STATE), DWIN_DATA_BITS,
                         sFWG2_t.general_parameter.ch);
         sbeep.status = BEEP_SHORT;
         uast4_event = UART4_END_EVENT;
@@ -468,7 +468,7 @@ void uart4_event_handle(void)
         }
 
         /* show select channel */
-        sdwin.send_data(&sdwin, (DWIN_BASE_ADDRESS + SET_CHANNEL), DWIN_DATA_BITS,
+        sdwin.send_data(&sdwin, (DWIN_BASE_ADDRESS + CHANNEL_STATE), DWIN_DATA_BITS,
                         sFWG2_t.general_parameter.ch);
         sbeep.status = BEEP_SHORT;
         uast4_event = UART4_END_EVENT;
@@ -497,7 +497,7 @@ void uart4_event_handle(void)
         }
 
         /* show select channel */
-        sdwin.send_data(&sdwin, (DWIN_BASE_ADDRESS + SET_CHANNEL), DWIN_DATA_BITS,
+        sdwin.send_data(&sdwin, (DWIN_BASE_ADDRESS + CHANNEL_STATE), DWIN_DATA_BITS,
                         sFWG2_t.general_parameter.ch);
         sbeep.status = BEEP_SHORT;
         uast4_event = UART4_END_EVENT;
@@ -525,7 +525,7 @@ void uart4_event_handle(void)
         }
 
         /* show select channel */
-        sdwin.send_data(&sdwin, (DWIN_BASE_ADDRESS + SET_CHANNEL), DWIN_DATA_BITS,
+        sdwin.send_data(&sdwin, (DWIN_BASE_ADDRESS + CHANNEL_STATE), DWIN_DATA_BITS,
                         sFWG2_t.general_parameter.ch);
         sbeep.status = BEEP_SHORT;
         uast4_event = UART4_END_EVENT;

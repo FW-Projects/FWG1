@@ -61,9 +61,9 @@ void wk_tmr2_init(void)
 
   /* configure counter settings */
   tmr_cnt_dir_set(TMR2, TMR_COUNT_DOWN);
-  tmr_clock_source_div_set(TMR2, TMR_CLOCK_DIV1);
+  tmr_clock_source_div_set(TMR2, TMR_CLOCK_DIV4);
   tmr_period_buffer_enable(TMR2, FALSE);
-  tmr_base_init(TMR2, 59999, 23);
+  tmr_base_init(TMR2, 59999, 80);
 
   /* configure primary mode settings */
   tmr_sub_sync_mode_set(TMR2, FALSE);
@@ -73,10 +73,10 @@ void wk_tmr2_init(void)
   tmr_one_cycle_mode_enable(TMR2, TRUE);
 
   /* configure channel 1 output settings */
-  tmr_output_struct.oc_mode = TMR_OUTPUT_CONTROL_PWM_MODE_B;
+  tmr_output_struct.oc_mode = TMR_OUTPUT_CONTROL_PWM_MODE_A;
   tmr_output_struct.oc_output_state = TRUE;
   tmr_output_struct.occ_output_state = FALSE;
-  tmr_output_struct.oc_polarity = TMR_OUTPUT_ACTIVE_LOW;
+  tmr_output_struct.oc_polarity = TMR_OUTPUT_ACTIVE_HIGH;
   tmr_output_struct.occ_polarity = TMR_OUTPUT_ACTIVE_HIGH;
   tmr_output_struct.oc_idle_state = FALSE;
   tmr_output_struct.occ_idle_state = FALSE;
@@ -89,8 +89,16 @@ void wk_tmr2_init(void)
 
   tmr_counter_enable(TMR2, TRUE);
 
-  /* add user code begin tmr2_init 2 */
+  /**
+   * Users need to configure TMR2 interrupt functions according to the actual application.
+   * 1. Call the below function to enable the corresponding TMR2 interrupt.
+   *     --tmr_interrupt_enable(...)
+   * 2. Add the user's interrupt handler code into the below function in the at32f415_int.c file.
+   *     --void TMR2_GLOBAL_IRQHandler(void)
+   */
 
+  /* add user code begin tmr2_init 2 */
+   tmr_interrupt_enable(TMR2,TMR_OVF_INT,TRUE);
   /* add user code end tmr2_init 2 */
 }
 
@@ -129,7 +137,7 @@ void wk_tmr3_init(void)
   tmr_cnt_dir_set(TMR3, TMR_COUNT_UP);
   tmr_clock_source_div_set(TMR3, TMR_CLOCK_DIV1);
   tmr_period_buffer_enable(TMR3, FALSE);
-  tmr_base_init(TMR3, 65535, 0);
+  tmr_base_init(TMR3, 14999, 1999);
 
   /* configure primary mode settings */
   tmr_sub_sync_mode_set(TMR3, FALSE);

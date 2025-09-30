@@ -524,13 +524,13 @@ static void key_event_handle(void)
 
         if (sFWG2_t.general_parameter.temp_uint == CELSIUS)
         {
-            if (sFWG2_t.Direct_handle_parameter.set_temp + 10 >= MAX_SET_TEMP_VAL)
+            if (sFWG2_t.Direct_handle_parameter.set_temp + 5 >= MAX_SET_TEMP_VAL)
             {
                 sFWG2_t.Direct_handle_parameter.set_temp = MAX_SET_TEMP_VAL;
             }
             else
             {
-                sFWG2_t.Direct_handle_parameter.set_temp += 10;
+                sFWG2_t.Direct_handle_parameter.set_temp += 5;
             }
 
             sFWG2_t.Direct_handle_parameter.set_temp_f_display  =  9 * sFWG2_t.Direct_handle_parameter.set_temp  / 5  + 32;
@@ -592,13 +592,13 @@ static void key_event_handle(void)
 
         if (sFWG2_t.general_parameter.temp_uint == CELSIUS)
         {
-            if (sFWG2_t.Direct_handle_parameter.set_temp - 10 <= MIN_SET_TEMP_VAL)
+            if (sFWG2_t.Direct_handle_parameter.set_temp - 5 <= MIN_SET_TEMP_VAL)
             {
                 sFWG2_t.Direct_handle_parameter.set_temp = MIN_SET_TEMP_VAL;
             }
             else
             {
-                sFWG2_t.Direct_handle_parameter.set_temp -= 10;
+                sFWG2_t.Direct_handle_parameter.set_temp -= 5;
             }
 
             sFWG2_t.Direct_handle_parameter.set_temp_f_display  =  9 * sFWG2_t.Direct_handle_parameter.set_temp  / 5  + 32;
@@ -622,10 +622,11 @@ static void key_event_handle(void)
         break;
 
     case DIRECT_WIND_REDUCE_EVENT:
-        sFWG2_t.Direct_handle_parameter.last_set_wind = 0;
+        
 
         if (sFWG2_t.Direct_handle_work_mode  ==  NORMAL_MODE)
         {
+            sFWG2_t.Direct_handle_parameter.last_set_wind = 0;
             if (sFWG2_t.Direct_handle_parameter.set_wind <= MIN_SET_WIND_VAL)
             {
                 sFWG2_t.Direct_handle_parameter.set_wind = MIN_SET_WIND_VAL;
@@ -652,10 +653,11 @@ static void key_event_handle(void)
         break;
 
     case DIRECT_WIND_ADD_EVENT:
-        sFWG2_t.Direct_handle_parameter.last_set_wind = 0;
+        
 
         if (sFWG2_t.Direct_handle_work_mode == NORMAL_MODE)
         {
+            sFWG2_t.Direct_handle_parameter.last_set_wind = 0;
             if (sFWG2_t.Direct_handle_parameter.set_wind >= MAX_SET_WIND_VAL)
             {
                 sFWG2_t.Direct_handle_parameter.set_wind = MAX_SET_WIND_VAL;
@@ -682,12 +684,13 @@ static void key_event_handle(void)
         break;
 
     case DIRECT_WIND_REDUCE_FIVE_EVENT:
-        sFWG2_t.Direct_handle_parameter.last_set_wind = 0;
+        
 
         if (sFWG2_t.Direct_handle_work_mode  ==  NORMAL_MODE)
         {
             if (sFWG2_t.Direct_handle_parameter.set_wind - 5 <= MIN_SET_WIND_VAL)
             {
+                sFWG2_t.Direct_handle_parameter.last_set_wind = 0;
                 sFWG2_t.Direct_handle_parameter.set_wind = MIN_SET_WIND_VAL;
             }
             else
@@ -712,10 +715,11 @@ static void key_event_handle(void)
         break;
 
     case DIRECT_WIND_ADD_FIVE_EVENT:
-        sFWG2_t.Direct_handle_parameter.last_set_wind = 0;
+        
 
         if (sFWG2_t.Direct_handle_work_mode == NORMAL_MODE)
         {
+            sFWG2_t.Direct_handle_parameter.last_set_wind = 0;
             if (sFWG2_t.Direct_handle_parameter.set_wind +5 >= MAX_SET_WIND_VAL)
             {
                 sFWG2_t.Direct_handle_parameter.set_wind = MAX_SET_WIND_VAL;

@@ -6,7 +6,7 @@
 #include <string.h>
 #include "at32f415.h"
 #include "at32_Usart.h"
-#define PC_HANDLE_TIME   2
+#define PC_HANDLE_TIME   5
 #define PC_USART         0
 #define PC_DEVECE_ID     0x00
 #define PC_RX_BUFF_SIZE  256

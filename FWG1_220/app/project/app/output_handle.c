@@ -25,6 +25,7 @@ int8_t direct_handle_wind_20_cal_buff[41] = {12, 7, 7, 6, 4, 4, 3, 2, 0, -1,
 
 void fan_control(void)
 {
+	static bool run_flag = false;
     /* start the Direct handle fan output of  */
     if (sFWG2_t.general_parameter.work_mode == NORMAL && sFWG2_t.Direct_handle_error_state == HANDLE_OK)
     {
@@ -49,16 +50,23 @@ void fan_control(void)
                 /* keep fan output until the temp below 60 */
                 if (sFWG2_t.Direct_handle_parameter.actual_temp >= 60 && sFWG2_t.Direct_handle_parameter.actual_temp < 70)
                 {
+					if(run_flag)
                     tmr_channel_value_set(TMR9, TMR_SELECT_CHANNEL_2, 20 * 1.13 + 30);
                 }
                 else
                 {
-                    /* close fan output */
-                    tmr_channel_value_set(TMR9, TMR_SELECT_CHANNEL_2, 0);
+					if(run_flag)
+					{
+						run_flag = false;
+					}
+					/* close fan output */
+                       tmr_channel_value_set(TMR9, TMR_SELECT_CHANNEL_2, 0);
+                    
                 }
             }
             else if (sFWG2_t.Direct_handle_state == HANDLE_WORKING && sFWG2_t.Direct_handle_position == IN_POSSITION && sFWG2_t.general_parameter.fwg2_sleep_state == SLEEP_OPEN)
             {
+				 run_flag = true;
                 if (sFWG2_t.Direct_handle_parameter.actual_temp >= 250)
                 {
                     sFWG2_t.Direct_handle_parameter.stop_set_wind = 100;
@@ -79,12 +87,14 @@ void fan_control(void)
             }
             else if ((sFWG2_t.Direct_handle_state == HANDLE_WORKING && sFWG2_t.Direct_handle_position == NOT_IN_POSSITION) ||  sFWG2_t.general_parameter.fwg2_sleep_state == SLEEP_CLOSE)
             {
+				run_flag = true;
                 /* open fan output with user set val */
                 tmr_channel_value_set(TMR9, TMR_SELECT_CHANNEL_2, sFWG2_t.Direct_handle_parameter.set_wind * 1.13 + 30);
             }
         }
         else if (sFWG2_t.Direct_handle_work_mode == COLD_WIND_MODE)
         {
+			run_flag = true;
             tmr_channel_value_set(TMR9, TMR_SELECT_CHANNEL_2, sFWG2_t.Direct_handle_parameter.cold_mode_set_wind * 1.13 + 30);
         }
     }
@@ -173,6 +183,7 @@ void fan_control(void)
             }
             else if (sFWG2_t.general_parameter.code_mode_state == CODE_MODE_STOP)
             {
+				run_flag = true;
                 if (sFWG2_t.Direct_handle_parameter.actual_temp >= 250)
                 {
                     sFWG2_t.Direct_handle_parameter.stop_set_wind = 100;
@@ -188,10 +199,15 @@ void fan_control(void)
                 /* keep fan output until the temp below 60 */
                 else if (sFWG2_t.Direct_handle_parameter.actual_temp >= 60 && sFWG2_t.Direct_handle_parameter.actual_temp < 70)
                 {
+					if(run_flag)
                     tmr_channel_value_set(TMR9, TMR_SELECT_CHANNEL_2, 20 * 1.13 + 30);
                 }
                 else
                 {
+					if(run_flag)
+					{
+					    run_flag = false;
+					}
                     /* close fan output */
                     tmr_channel_value_set(TMR9, TMR_SELECT_CHANNEL_2, 0);
                 }
@@ -199,6 +215,7 @@ void fan_control(void)
         }
         else
         {
+			run_flag = true;
             if (sFWG2_t.Direct_handle_parameter.actual_temp >= 250)
             {
                 sFWG2_t.Direct_handle_parameter.stop_set_wind = 100;
@@ -211,8 +228,18 @@ void fan_control(void)
                 sFWG2_t.Direct_handle_parameter.stop_set_wind = sFWG2_t.Direct_handle_parameter.actual_temp * 0.4;
                 tmr_channel_value_set(TMR9, TMR_SELECT_CHANNEL_2, sFWG2_t.Direct_handle_parameter.stop_set_wind * 1.13 + 30);
             }
+			                /* keep fan output until the temp below 60 */
+            else if (sFWG2_t.Direct_handle_parameter.actual_temp >= 60 && sFWG2_t.Direct_handle_parameter.actual_temp < 70)
+            {
+					if(run_flag)
+                    tmr_channel_value_set(TMR9, TMR_SELECT_CHANNEL_2, 20 * 1.13 + 30);
+            }
             else
             {
+				if(run_flag)
+				{
+				  run_flag = false;
+				}
                 /* close fan output */
                 tmr_channel_value_set(TMR9, TMR_SELECT_CHANNEL_2, 0);
             }
@@ -244,8 +271,8 @@ void hot_control(void)
                 /* close relay */
                 gpio_bits_reset(GPIOB, GPIO_PINS_14);
                 /* close Direct handle pwm output */
-                tmr_counter_enable(TMR2, FALSE);
-                tmr_channel_value_set(TMR2, TMR_SELECT_CHANNEL_1, 0);
+                //tmr_counter_enable(TMR2, FALSE);
+                //tmr_channel_value_set(TMR2, TMR_SELECT_CHANNEL_1, 0);
                 /* reset relay open flag */
                 sFWG2_t.general_parameter.relay_open_flag = false;
                 relay_open_delay = RELAY_OPEN_TIME;
@@ -278,8 +305,8 @@ void hot_control(void)
             /* close relay */
             gpio_bits_reset(GPIOB, GPIO_PINS_14);
             /* close Direct handle pwm output */
-            tmr_counter_enable(TMR2, FALSE);
-            tmr_channel_value_set(TMR2, TMR_SELECT_CHANNEL_1, 0);
+            //tmr_counter_enable(TMR2, FALSE);
+            //tmr_channel_value_set(TMR2, TMR_SELECT_CHANNEL_1, 0);
             /* reset relay open flag */
             sFWG2_t.general_parameter.relay_open_flag = false;
             relay_open_delay = RELAY_OPEN_TIME;
@@ -312,8 +339,8 @@ void hot_control(void)
                 /* close relay */
                 gpio_bits_reset(GPIOB, GPIO_PINS_14);
                 /* close Direct handle pwm output */
-                tmr_counter_enable(TMR2, FALSE);
-                tmr_channel_value_set(TMR2, TMR_SELECT_CHANNEL_1, 0);
+                //tmr_counter_enable(TMR2, FALSE);
+                //tmr_channel_value_set(TMR2, TMR_SELECT_CHANNEL_1, 0);
                 /* reset relay open flag */
                 sFWG2_t.general_parameter.relay_open_flag = false;
                 relay_open_delay = RELAY_OPEN_TIME;
@@ -326,8 +353,8 @@ void hot_control(void)
                 /* close relay */
                 gpio_bits_reset(GPIOB, GPIO_PINS_14);
                 /* close Direct handle pwm output */
-                tmr_counter_enable(TMR2, FALSE);
-                tmr_channel_value_set(TMR2, TMR_SELECT_CHANNEL_1, 0);
+                //tmr_counter_enable(TMR2, FALSE);
+                //tmr_channel_value_set(TMR2, TMR_SELECT_CHANNEL_1, 0);
                 /* reset relay open flag */
                 sFWG2_t.general_parameter.relay_open_flag = false;
                 relay_open_delay = RELAY_OPEN_TIME;

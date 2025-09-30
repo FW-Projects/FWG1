@@ -65,8 +65,8 @@ typedef enum
 } handle_work_mode_e;
 typedef enum
 {
-    NORMAL = 0,
-    CODE,
+    NORMAL = 1,
+    CODE = 2,
 } fwg2_work_e;
 
 typedef enum
@@ -99,6 +99,7 @@ typedef enum
     OTA_OFF = 0,
     OTA_ON,
 } fwg2_ota_state_e;
+
 
 
 typedef enum

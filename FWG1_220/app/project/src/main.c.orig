@@ -67,6 +67,9 @@
 
 /* private define ------------------------------------------------------------*/
 /* add user code begin private define */
+#define ADC_VREF                         (3.29)
+#define ADC_TEMP_BASE                    (1.26)
+#define ADC_TEMP_SLOPE                   (-0.00423)
 
 /* add user code end private define */
 
@@ -77,7 +80,7 @@
 
 /* private variables ---------------------------------------------------------*/
 /* add user code begin private variables */
-
+__IO uint32_t flash_id_index  = 0;
 
 
 /* add user code end private variables */
@@ -184,6 +187,8 @@ int main(void)
   wk_wdt_init();
 
   /* add user code begin 2 */
+ 
+  flash_id_index  = spiflash_read_id();
     tmt_init();
     tmt.create(iap_task,        IAP_HANDLE_TIME);
     tmt.create(key_task,        KEY_HANDLE_TIME);
@@ -201,18 +206,12 @@ int main(void)
     EventRecorderInitialize(0, 1);
     FWG2_Init(&sFWG2_t);
     DwinInitialization(&sdwin);
-    //PID_Init(&direct_pid, 600, 1, 8000, 50000);
-    PID_Init(&direct_pid, 900, 1, 260000, 50000);
+    PID_Init(&direct_pid, 710, 0.8, 8000, 40000);
     iap_init();
-    spiflash_init();
-    __IO uint32_t flash_id_index  = spiflash_read_id();
     BSP_UsartInit();
-    //printf("system init ok\r\n");
     /* wait for system reday */
     wk_delay_ms(3000);
-
     /* add user code end 2 */
-
   while(1)
   {
     /* add user code begin 3 */
@@ -262,16 +261,23 @@ void beep_task()
 void adc_task(void)
 {
     static bool first_in = false;
+	__IO uint16_t adc1_ordinary_value = 0;
 #if 0
     sFWG2_t.Direct_handle_parameter.actual_temp  = (get_adcval(ADC_CHANNEL_10) >> 2) + sFWG2_t.general_parameter.mcu_temp;
 #endif
 
     if (first_in == false)
     {
+		 
         sFWG2_t.Direct_handle_parameter.actual_temp  = (get_adcval(ADC_CHANNEL_10) >> 2);
-        sFWG2_t.general_parameter.mcu_temp =  get_adcval(ADC_CHANNEL_16);
-        sFWG2_t.general_parameter.mcu_temp = (1.26 - ((double)sFWG2_t.general_parameter.mcu_temp * 3.3 / 4096)) / (-0.00423);
+//        sFWG2_t.general_parameter.mcu_temp =  get_adcval(ADC_CHANNEL_16);
+//        sFWG2_t.general_parameter.mcu_temp = (1.26 - ((double)sFWG2_t.general_parameter.mcu_temp * 3.3 / 4096)) / (-0.00423);
 
+		    adc1_ordinary_value = get_adcval(ADC_CHANNEL_16);
+            sFWG2_t.general_parameter.mcu_temp = (ADC_TEMP_BASE - (double)adc1_ordinary_value * ADC_VREF / 4096) / ADC_TEMP_SLOPE + 12;
+		
+		
+		
         if (sFWG2_t.general_parameter.mcu_temp <= 50 && sFWG2_t.general_parameter.mcu_temp > 0
                 && sFWG2_t.Direct_handle_parameter.actual_temp < 500)
         {
@@ -355,7 +361,7 @@ void feed_dog_task(void)
     {
         first_in = true;
         /* if enabled, please feed the dog through wdt_counter_reload() function */
-        wdt_enable();
+        //wdt_enable();
     }
 
     wdt_counter_reload();
