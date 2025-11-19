@@ -1,0 +1,563 @@
+#include "PC_comm_handle.h"
+#include "iap.h"
+#include "iap_usart.h"
+#include "dwin_handle.h"
+#include "FWG2_handle.h"
+PC_DATA_t pc_data;
+
+pc_event_e pc_event;
+
+static void RecvDataFromPC(PC_DATA_t *pc);
+static void WriteDataToPC(PC_DATA_t * pc,
+                          uint16_t cmd_1,  uint16_t cmd_2,
+                          uint16_t id,     uint16_t data_len,
+                          uint16_t data_1, uint16_t data_2,
+                          uint16_t data_3, uint16_t data_4,
+                          uint16_t data_5);
+void pc_event_handle(void);
+void send_heartbeat_data(PC_DATA_t * pc, FWG2_Handle * FWG2);
+
+extern bool show_direct_currtne_temp_flag;
+extern bool show_direct_set_temp_flag;
+extern bool show_direct_set_wind_flag;
+extern float direct_handle_pid_out;
+
+void pc_comm_handle(void)
+{
+    static uint16_t time_1 = 0;
+    static uint16_t time_2 = 0;
+    time_1++;
+    time_2++;
+
+    if (time_1 >= 5)
+    {
+        pc_event_handle();
+        time_1 = 0;
+    }
+
+    if (time_2 >= 100)
+    {
+        send_heartbeat_data(&pc_data, &sFWG2_t);
+        time_2 = 0;
+    }
+
+    RecvDataFromPC(&pc_data);
+}
+
+static void RecvDataFromPC(PC_DATA_t *pc)
+{
+    uint32_t crc_value;
+    pc->read_size = usart_receiveData(PC_USART, pc->rx_buff);
+
+    if (pc->read_size == PC_MAX_RECV_SIZE)
+    {
+        if (PC_CHECK_HEAD(pc->rx_buff[PC_HEAD1], pc->rx_buff[PC_HEAD2]))
+        {
+            /* crc check */
+            memset(pc->check_crc_buff, 0, PC_CRC_BUFF_SIZE);
+            convert_data(pc->rx_buff, pc->check_crc_buff, PC_CMD1, PC_DATA5_LEN_L);
+            crc_value = crc_block_calculate(pc->check_crc_buff, 4);
+            crc_data_reset();
+
+            if (pc->rx_buff[PC_CRC32_1] == ((crc_value >> 24) & 0xff)  &&
+                    pc->rx_buff[PC_CRC32_2] == ((crc_value >> 16) & 0xff)  &&
+                    pc->rx_buff[PC_CRC32_3] == ((crc_value >> 8)  & 0xff)   &&
+                    pc->rx_buff[PC_CRC32_4] == (crc_value & 0xff))
+            {
+                /* connect PC */
+                if (pc->rx_buff[PC_CMD1] == 0x01 && pc->rx_buff[PC_CMD2] == 0x01 && pc->rx_buff[PC_ID_L] == 0x00)
+                {
+                    pc_event = CONNECT_PC_EVENT;
+                }
+                /* jump to bootloader */
+                else if (pc->rx_buff[PC_CMD1] == PC_FIRMWARE_UPDATE && pc->rx_buff[PC_CMD2] == PC_FIRMWARE_UPDATE_CONNECT
+                         && pc->rx_buff[PC_ID_L] == 0x00)
+                {
+                    pc_event = IAP_EVENT;
+                }
+                /* other cmd */
+                else
+                {
+                    __NOP();
+                }
+            }
+        }
+
+        pc->read_size = 0;
+    }
+}
+
+
+static void WriteDataToPC(PC_DATA_t * pc,
+                          uint16_t cmd_1,  uint16_t cmd_2,
+                          uint16_t id,     uint16_t data_len,
+                          uint16_t data_1, uint16_t data_2,
+                          uint16_t data_3, uint16_t data_4,
+                          uint16_t data_5)
+{
+    static uint32_t crc_value;
+    pc->tx_buff[PC_HEAD1] = PC_HEAD_1;
+    pc->tx_buff[PC_CMD1] = cmd_1;
+    pc->tx_buff[PC_CMD2] = cmd_2;
+    pc->tx_buff[PC_ID_H] = (uint8_t)((id >> 8) & 0xff);
+    pc->tx_buff[PC_ID_L] = (uint8_t)((id & 0XFF));
+    pc->tx_buff[PC_DATA_LEN_H] = (uint8_t)((data_len >> 8) & 0xff)	;
+    pc->tx_buff[PC_DATA_LEN_L] = (uint8_t)((data_len & 0XFF));
+    pc->tx_buff[PC_DATA1_LEN_H] = (uint8_t)((data_1 >> 8) & 0xff);
+    pc->tx_buff[PC_DATA1_LEN_L] = (uint8_t)((data_1 & 0XFF));
+    pc->tx_buff[PC_DATA2_LEN_H] = (uint8_t)((data_2 >> 8) & 0xff);
+    pc->tx_buff[PC_DATA2_LEN_L] = (uint8_t)((data_2 & 0XFF));
+    pc->tx_buff[PC_DATA3_LEN_H] = (uint8_t)((data_3 >> 8) & 0xff);
+    pc->tx_buff[PC_DATA3_LEN_L] = (uint8_t)((data_3 & 0XFF));
+    pc->tx_buff[PC_DATA4_LEN_H] = (uint8_t)((data_4 >> 8) & 0xff);
+    pc->tx_buff[PC_DATA4_LEN_L] = (uint8_t)((data_4 & 0XFF));
+    pc->tx_buff[PC_DATA5_LEN_H] = (uint8_t)((data_5 >> 8) & 0xff);
+    pc->tx_buff[PC_DATA5_LEN_L] = (uint8_t)((data_5 & 0XFF));
+    memset(pc->check_crc_buff, 0, PC_CRC_BUFF_SIZE);
+    convert_data(pc->tx_buff, pc->check_crc_buff, PC_CMD1, PC_DATA5_LEN_L);
+    crc_value = crc_block_calculate(pc->check_crc_buff, 4);
+    crc_data_reset();
+    pc->tx_buff[PC_CRC32_1] = ((crc_value >> 24) & 0xff);
+    pc->tx_buff[PC_CRC32_2] = ((crc_value >> 16) & 0xff);
+    pc->tx_buff[PC_CRC32_3] = ((crc_value >> 8) & 0xff);
+    pc->tx_buff[PC_CRC32_4] = (crc_value & 0xff);
+    pc->tx_buff[PC_HEAD2] = PC_HEAD_2;
+    /* send data */
+    usart_sendData(PC_USART, pc->tx_buff, PC_MAX_SEND_SIZE);
+}
+
+void pc_event_handle(void)
+{
+    switch (pc_event)
+    {
+    case CONNECT_PC_EVENT:
+        WriteDataToPC(&pc_data, 0x01, 0x01, LOCAL_DEVECE_ID, 0x0A, 256, 0x01, 0x00, 0x00, 0x00);
+        __NOP();
+        pc_event = PC_END_EVENT;
+        break;
+
+    case IAP_EVENT:
+        pc_event = PC_END_EVENT;
+        iap_flag = IAP_REV_FLAG_DONE;
+        break;
+
+    case PC_END_EVENT:
+        break;
+    }
+}
+
+void send_heartbeat_data(PC_DATA_t * pc, FWG2_Handle * FWG2)
+{
+#if 1
+    static uint32_t crc_value;
+    static uint32_t convert_result;
+    static uint8_t last_channel = 0;
+    pc->tx_buff[0]        = 0xD1;
+    pc->tx_buff[1]        = 0x01;
+    pc->tx_buff[2]        = 0x02;
+    pc->tx_buff[3]        = 0x00;
+    pc->tx_buff[4]        = 0x01;
+    pc->tx_buff[5]        = 0x00;
+    pc->tx_buff[6]        = 0x22;
+    pc->tx_buff[7]        = 1;
+    pc->tx_buff[8]        = 2;
+    pc->tx_buff[9]        = 3;
+
+    if (show_direct_currtne_temp_flag == true || show_direct_set_temp_flag == false)
+    {
+#if 1
+
+        if (sFWG2_t.general_parameter.display_lock_state == UNLOCK)
+        {
+            /* show direct handle current temp */
+            if (sFWG2_t.general_parameter.temp_uint == CELSIUS)
+            {
+                if (sFWG2_t.general_parameter.enhance_state == ENHANCE_OPEN)
+                {
+                    if ((sFWG2_t.Direct_handle_parameter.actual_temp + sFWG2_t.Direct_handle_parameter.linear_calibration_temp -
+                            sFWG2_t.Direct_handle_parameter.set_calibration_temp - ENHANCE_TEMP) > sFWG2_t.general_parameter.mcu_temp)
+                    {
+                        pc->tx_buff[10]       = (uint8_t)(((sFWG2_t.Direct_handle_parameter.actual_temp +
+                                                            sFWG2_t.Direct_handle_parameter.linear_calibration_temp -
+                                                            sFWG2_t.Direct_handle_parameter.set_calibration_temp - ENHANCE_TEMP) >> 8) & 0xff);
+                        pc->tx_buff[11]       = (uint8_t)(((sFWG2_t.Direct_handle_parameter.actual_temp +
+                                                            sFWG2_t.Direct_handle_parameter.linear_calibration_temp -
+                                                            sFWG2_t.Direct_handle_parameter.set_calibration_temp - ENHANCE_TEMP) & 0XFF));
+                    }
+                    else
+                    {
+                        pc->tx_buff[10]       = (uint8_t)((sFWG2_t.general_parameter.mcu_temp >> 8) & 0xff);
+                        pc->tx_buff[11]     = (uint8_t)((sFWG2_t.general_parameter.mcu_temp & 0XFF));
+                    }
+                }
+                else
+                {
+                    if ((sFWG2_t.Direct_handle_parameter.actual_temp + sFWG2_t.Direct_handle_parameter.linear_calibration_temp -
+                            sFWG2_t.Direct_handle_parameter.set_calibration_temp)  > sFWG2_t.general_parameter.mcu_temp)
+                    {
+                        pc->tx_buff[10]       = (uint8_t)((((sFWG2_t.Direct_handle_parameter.actual_temp +
+                                                             sFWG2_t.Direct_handle_parameter.linear_calibration_temp -
+                                                             sFWG2_t.Direct_handle_parameter.set_calibration_temp)) >> 8) & 0xff);
+                        pc->tx_buff[11]       = (uint8_t)((((sFWG2_t.Direct_handle_parameter.actual_temp +
+                                                             sFWG2_t.Direct_handle_parameter.linear_calibration_temp -
+                                                             sFWG2_t.Direct_handle_parameter.set_calibration_temp)) & 0XFF));
+                    }
+                    else
+                    {
+                        pc->tx_buff[10]       = (uint8_t)((sFWG2_t.general_parameter.mcu_temp >> 8) & 0xff);
+                        pc->tx_buff[11]     = (uint8_t)((sFWG2_t.general_parameter.mcu_temp & 0XFF));
+                    }
+                }
+            }
+            else if (sFWG2_t.general_parameter.temp_uint == FAHRENHEIT)
+            {
+                pc->tx_buff[10]       = (uint8_t)((sFWG2_t.Direct_handle_parameter.actual_temp_f_display >> 8) & 0xff);
+                pc->tx_buff[11]     = (uint8_t)((sFWG2_t.Direct_handle_parameter.actual_temp_f_display & 0XFF));
+            }
+        }
+        else if (sFWG2_t.general_parameter.display_lock_state == LOCK)
+        {
+            if (sFWG2_t.general_parameter.enhance_state == ENHANCE_OPEN)
+            {
+                if ((sFWG2_t.Direct_handle_parameter.actual_temp + sFWG2_t.Direct_handle_parameter.linear_calibration_temp -
+                        sFWG2_t.Direct_handle_parameter.set_calibration_temp - ENHANCE_TEMP) <
+                        (sFWG2_t.Direct_handle_parameter.set_temp + LOCK_RANGE) &&
+                        (sFWG2_t.Direct_handle_parameter.actual_temp + sFWG2_t.Direct_handle_parameter.linear_calibration_temp -
+                         sFWG2_t.Direct_handle_parameter.set_calibration_temp - ENHANCE_TEMP) >
+                        (sFWG2_t.Direct_handle_parameter.set_temp - LOCK_RANGE))
+                {
+                    /* show direct handle set temp */
+                    if (sFWG2_t.general_parameter.temp_uint == CELSIUS)
+                    {
+                        pc->tx_buff[10]       = (uint8_t)((sFWG2_t.Direct_handle_parameter.set_temp >> 8) & 0xff);
+                        pc->tx_buff[11]     = (uint8_t)((sFWG2_t.Direct_handle_parameter.set_temp & 0XFF));
+                    }
+                    else if (sFWG2_t.general_parameter.temp_uint == FAHRENHEIT)
+                    {
+                        pc->tx_buff[10]     = (uint8_t)((sFWG2_t.Direct_handle_parameter.set_temp_f_display >> 8) & 0xff);
+                        pc->tx_buff[11]     = (uint8_t)((sFWG2_t.Direct_handle_parameter.set_temp_f_display & 0XFF));
+                    }
+                }
+                else
+                {
+                    /* show direct handle current temp */
+                    if (sFWG2_t.general_parameter.temp_uint == CELSIUS)
+                    {
+                        pc->tx_buff[10]     = (uint8_t)(((sFWG2_t.Direct_handle_parameter.actual_temp +
+                                                          sFWG2_t.Direct_handle_parameter.linear_calibration_temp -
+                                                          sFWG2_t.Direct_handle_parameter.set_calibration_temp - ENHANCE_TEMP) >> 8) & 0xff);
+                        pc->tx_buff[11]     = (uint8_t)(((sFWG2_t.Direct_handle_parameter.actual_temp +
+                                                          sFWG2_t.Direct_handle_parameter.linear_calibration_temp -
+                                                          sFWG2_t.Direct_handle_parameter.set_calibration_temp - ENHANCE_TEMP) & 0XFF));
+                    }
+                    else if (sFWG2_t.general_parameter.temp_uint == FAHRENHEIT)
+                    {
+                        pc->tx_buff[10]     = (uint8_t)((sFWG2_t.Direct_handle_parameter.actual_temp_f_display >> 8) & 0xff);
+                        pc->tx_buff[11]     = (uint8_t)((sFWG2_t.Direct_handle_parameter.actual_temp_f_display & 0XFF));
+                    }
+                }
+            }
+            else if (sFWG2_t.general_parameter.enhance_state == ENHANCE_CLOSE)
+            {
+                if ((sFWG2_t.Direct_handle_parameter.actual_temp + sFWG2_t.Direct_handle_parameter.linear_calibration_temp -
+                        sFWG2_t.Direct_handle_parameter.set_calibration_temp) <
+                        (sFWG2_t.Direct_handle_parameter.set_temp + LOCK_RANGE) &&
+                        (sFWG2_t.Direct_handle_parameter.actual_temp + sFWG2_t.Direct_handle_parameter.linear_calibration_temp -
+                         sFWG2_t.Direct_handle_parameter.set_calibration_temp) >
+                        (sFWG2_t.Direct_handle_parameter.set_temp - LOCK_RANGE))
+                {
+                    /* show direct handle set temp */
+                    if (sFWG2_t.general_parameter.temp_uint == CELSIUS)
+                    {
+                        pc->tx_buff[10]     = (uint8_t)((sFWG2_t.Direct_handle_parameter.set_temp >> 8) & 0xff);
+                        pc->tx_buff[11]     = (uint8_t)((sFWG2_t.Direct_handle_parameter.set_temp & 0XFF));
+                    }
+                    else if (sFWG2_t.general_parameter.temp_uint == FAHRENHEIT)
+                    {
+                        pc->tx_buff[10]     = (uint8_t)((sFWG2_t.Direct_handle_parameter.set_temp_f_display >> 8) & 0xff);
+                        pc->tx_buff[11]     = (uint8_t)((sFWG2_t.Direct_handle_parameter.set_temp_f_display & 0XFF));
+                    }
+                }
+                else
+                {
+                    /* show direct handle current temp */
+                    if (sFWG2_t.general_parameter.temp_uint == CELSIUS)
+                    {
+                        pc->tx_buff[10]     = (uint8_t)(((sFWG2_t.Direct_handle_parameter.actual_temp +
+                                                          sFWG2_t.Direct_handle_parameter.linear_calibration_temp -
+                                                          sFWG2_t.Direct_handle_parameter.set_calibration_temp) >> 8) & 0xff);
+                        pc->tx_buff[11]     = (uint8_t)(((sFWG2_t.Direct_handle_parameter.actual_temp +
+                                                          sFWG2_t.Direct_handle_parameter.linear_calibration_temp -
+                                                          sFWG2_t.Direct_handle_parameter.set_calibration_temp) & 0XFF));
+                    }
+                    else if (sFWG2_t.general_parameter.temp_uint == FAHRENHEIT)
+                    {
+                        pc->tx_buff[10]     = (uint8_t)(((sFWG2_t.Direct_handle_parameter.actual_temp_f_display) >> 8) & 0xff);
+                        pc->tx_buff[11]     = (uint8_t)(((sFWG2_t.Direct_handle_parameter.actual_temp_f_display) & 0XFF));
+                        sdwin.send_data(&sdwin, (DWIN_BASE_ADDRESS + SHOW_DIRECT_CURRENT_TEMP), DWIN_DATA_BITS,
+                                        sFWG2_t.Direct_handle_parameter.actual_temp_f_display);
+                    }
+                }
+            }
+        }
+
+#endif
+    }
+    else if (show_direct_set_temp_flag)
+    {
+        /* show direct handle set temp */
+        if (sFWG2_t.general_parameter.temp_uint == CELSIUS)
+        {
+            pc->tx_buff[10]       = (uint8_t)((FWG2->Direct_handle_parameter.set_temp >> 8) & 0xff);
+            pc->tx_buff[11]       = (uint8_t)((FWG2->Direct_handle_parameter.set_temp & 0XFF));
+        }
+        else if (sFWG2_t.general_parameter.temp_uint == FAHRENHEIT)
+        {
+            pc->tx_buff[10]       = (uint8_t)((FWG2->Direct_handle_parameter.set_temp_f_display >> 8) & 0xff);
+            pc->tx_buff[11]       = (uint8_t)((FWG2->Direct_handle_parameter.set_temp_f_display & 0XFF));
+        }
+    }
+
+    if (sFWG2_t.general_parameter.work_mode == NORMAL)
+    {
+        if (sFWG2_t.Direct_handle_work_mode == NORMAL_MODE || sFWG2_t.Direct_handle_work_mode == QUICK_MODE)
+        {
+            /* show direct handle wind */
+            if (show_direct_set_wind_flag == false)
+            {
+                if ((sFWG2_t.Direct_handle_state == HANDLE_WORKING && sFWG2_t.Direct_handle_position == NOT_IN_POSSITION)
+                        || sFWG2_t.general_parameter.fwg2_sleep_state == SLEEP_CLOSE)
+                {
+                    pc->tx_buff[12]       = (uint8_t)FWG2->Direct_handle_parameter.set_wind;
+                }
+                else if (sFWG2_t.Direct_handle_state == HANDLE_WORKING && sFWG2_t.Direct_handle_position == IN_POSSITION)
+                {
+                    if (sFWG2_t.Direct_handle_parameter.actual_temp < 65)
+                    {
+                        pc->tx_buff[12]       = (uint8_t)FWG2->Direct_handle_parameter.set_wind;
+                    }
+                    else
+                    {
+                        pc->tx_buff[12]       = (uint8_t)sFWG2_t.Direct_handle_parameter.stop_set_wind;
+                    }
+                }
+                else if (sFWG2_t.Direct_handle_state == HANDLE_SLEEP)
+                {
+                    pc->tx_buff[12]       = (uint8_t)FWG2->Direct_handle_parameter.set_wind;
+                }
+            }
+            else
+            {
+                pc->tx_buff[12]       = (uint8_t)FWG2->Direct_handle_parameter.set_wind;
+            }
+        }
+        else if (sFWG2_t.Direct_handle_work_mode == COLD_WIND_MODE)
+        {
+            pc->tx_buff[12]       = (uint8_t)sFWG2_t.Direct_handle_parameter.cold_mode_set_wind;
+        }
+    }
+
+    if (FWG2->general_parameter.countdown_flag == true)
+    {
+        pc->tx_buff[13]       = (uint8_t)((FWG2->general_parameter.countdown_time_display >> 8) & 0xff);
+        pc->tx_buff[14]       = (uint8_t)((FWG2->general_parameter.countdown_time_display & 0XFF));
+    }
+    else if (FWG2->general_parameter.countdown_flag == false)
+    {
+        pc->tx_buff[13]       = (uint8_t)((FWG2->general_parameter.countdown_time >> 8) & 0xff);
+        pc->tx_buff[14]       = (uint8_t)((FWG2->general_parameter.countdown_time & 0XFF));
+    }
+
+    if (sFWG2_t.general_parameter.temp_uint == CELSIUS)
+    {
+        pc->tx_buff[15]       = (uint8_t)((FWG2->general_parameter.ch1_set_temp >> 8) & 0xff);
+        pc->tx_buff[16]       = (uint8_t)((FWG2->general_parameter.ch1_set_temp & 0XFF));
+    }
+    else if (sFWG2_t.general_parameter.temp_uint == FAHRENHEIT)
+    {
+        pc->tx_buff[15]       = (uint8_t)(((9 * FWG2->general_parameter.ch1_set_temp / 5 + 32) >> 8) & 0xff);
+        pc->tx_buff[16]       = (uint8_t)(((9 * FWG2->general_parameter.ch1_set_temp / 5 + 32) & 0XFF));
+    }
+
+    pc->tx_buff[17]       = (uint8_t)FWG2->general_parameter.ch1_set_wind;
+
+    if (sFWG2_t.general_parameter.temp_uint == CELSIUS)
+    {
+        pc->tx_buff[18]       = (uint8_t)((FWG2->general_parameter.ch2_set_temp >> 8) & 0xff);
+        pc->tx_buff[19]       = (uint8_t)((FWG2->general_parameter.ch2_set_temp & 0XFF));
+    }
+    else if (sFWG2_t.general_parameter.temp_uint == FAHRENHEIT)
+    {
+        pc->tx_buff[18]       = (uint8_t)(((9 * FWG2->general_parameter.ch2_set_temp / 5 + 32) >> 8) & 0xff);
+        pc->tx_buff[19]       = (uint8_t)(((9 * FWG2->general_parameter.ch2_set_temp / 5 + 32) & 0XFF));
+    }
+
+    pc->tx_buff[20]       = (uint8_t)FWG2->general_parameter.ch2_set_wind;
+
+    if (sFWG2_t.general_parameter.temp_uint == CELSIUS)
+    {
+        pc->tx_buff[21]       = (uint8_t)((FWG2->general_parameter.ch3_set_temp >> 8) & 0xff);
+        pc->tx_buff[22]       = (uint8_t)((FWG2->general_parameter.ch3_set_temp & 0XFF));
+    }
+    else if (sFWG2_t.general_parameter.temp_uint == FAHRENHEIT)
+    {
+        pc->tx_buff[21]       = (uint8_t)(((9 * FWG2->general_parameter.ch3_set_temp / 5 + 32) >> 8) & 0xff);
+        pc->tx_buff[22]       = (uint8_t)(((9 * FWG2->general_parameter.ch3_set_temp / 5 + 32) & 0XFF));
+    }
+
+    pc->tx_buff[23]       = (uint8_t)FWG2->general_parameter.ch3_set_wind;
+
+    if (sFWG2_t.general_parameter.temp_uint == CELSIUS)
+    {
+        pc->tx_buff[24]       = (uint8_t)((FWG2->general_parameter.ch4_set_temp >> 8) & 0xff);
+        pc->tx_buff[25]       = (uint8_t)((FWG2->general_parameter.ch4_set_temp & 0XFF));
+    }
+    else if (sFWG2_t.general_parameter.temp_uint == FAHRENHEIT)
+    {
+        pc->tx_buff[24]       = (uint8_t)(((9 * FWG2->general_parameter.ch4_set_temp / 5 + 32) >> 8) & 0xff);
+        pc->tx_buff[25]       = (uint8_t)(((9 * FWG2->general_parameter.ch4_set_temp / 5 + 32) & 0XFF));
+    }
+
+    pc->tx_buff[26]       = (uint8_t)FWG2->general_parameter.ch4_set_wind;
+
+    if (last_channel != sFWG2_t.general_parameter.ch)
+    {
+        last_channel = sFWG2_t.general_parameter.ch;
+        /* show channel select state */
+        pc->tx_buff[27]       = (uint8_t)FWG2->general_parameter.ch;
+    }
+
+    /* show channel select state */
+    if (sFWG2_t.general_parameter.ch == 1)
+    {
+        if (sFWG2_t.general_parameter.ch1_set_temp != sFWG2_t.Direct_handle_parameter.set_temp ||
+                sFWG2_t.general_parameter.ch1_set_wind != sFWG2_t.Direct_handle_parameter.set_wind ||
+                sFWG2_t.general_parameter.ch1_set_time != sFWG2_t.general_parameter.countdown_time)
+        {
+            /* show not select channel */
+            pc->tx_buff[27]       = 0;
+        }
+    }
+    else if (sFWG2_t.general_parameter.ch == 2)
+    {
+        if (sFWG2_t.general_parameter.ch2_set_temp != sFWG2_t.Direct_handle_parameter.set_temp ||
+                sFWG2_t.general_parameter.ch2_set_wind != sFWG2_t.Direct_handle_parameter.set_wind ||
+                sFWG2_t.general_parameter.ch2_set_time != sFWG2_t.general_parameter.countdown_time)
+        {
+            /* show not select channel */
+            pc->tx_buff[27]       = 0;
+        }
+    }
+    else if (sFWG2_t.general_parameter.ch == 3)
+    {
+        if (sFWG2_t.general_parameter.ch3_set_temp != sFWG2_t.Direct_handle_parameter.set_temp ||
+                sFWG2_t.general_parameter.ch3_set_wind != sFWG2_t.Direct_handle_parameter.set_wind ||
+                sFWG2_t.general_parameter.ch3_set_time != sFWG2_t.general_parameter.countdown_time)
+        {
+            /* show not select channel */
+            pc->tx_buff[27]       = 0;
+        }
+    }
+    else if (sFWG2_t.general_parameter.ch == 4)
+    {
+        if (sFWG2_t.general_parameter.ch4_set_temp != sFWG2_t.Direct_handle_parameter.set_temp ||
+                sFWG2_t.general_parameter.ch4_set_wind != sFWG2_t.Direct_handle_parameter.set_wind ||
+                sFWG2_t.general_parameter.ch4_set_time != sFWG2_t.general_parameter.countdown_time)
+        {
+            /* show not select channel */
+            pc->tx_buff[27]       = 0;
+        }
+    }
+
+    pc->tx_buff[28]       = (uint8_t)!FWG2->Direct_handle_state;
+    pc->tx_buff[29]       = (uint8_t)FWG2->Direct_handle_work_mode;
+    pc->tx_buff[30]       = (uint8_t)FWG2->Direct_handle_error_state;
+    pc->tx_buff[31]       = (uint8_t)FWG2->general_parameter.temp_uint;
+    pc->tx_buff[32]       = (uint8_t)FWG2->general_parameter.fwg2_page;
+    pc->tx_buff[33]       = (uint8_t)(direct_handle_pid_out / 599);
+
+    if (show_direct_currtne_temp_flag == true || show_direct_set_temp_flag == false)
+    {
+        pc->tx_buff[34]   = 0;
+    }
+    else if (show_direct_set_temp_flag)
+    {
+        pc->tx_buff[34]   = 1;
+    }
+
+    if (show_direct_set_wind_flag || sFWG2_t.Direct_handle_work_mode == COLD_WIND_MODE)
+    {
+        pc->tx_buff[35]       = 1;
+    }
+    else
+    {
+        pc->tx_buff[35]       = 0;
+    }
+
+    if (FWG2->general_parameter.countdown_flag == true)
+    {
+        pc->tx_buff[36]       = 0;
+    }
+    else if (FWG2->general_parameter.countdown_flag == false)
+    {
+        pc->tx_buff[36]       = 1;
+    }
+
+    if (FWG2->general_parameter.speak_state == SPEAKER_CLOSE)
+    {
+        pc->tx_buff[37]       = 0;
+    }
+    else if (FWG2->general_parameter.speak_state == SPEAKER_OPEN)
+    {
+        pc->tx_buff[37]       = 1;
+    }
+
+    if (FWG2->general_parameter.enhance_state == ENHANCE_CLOSE)
+    {
+        pc->tx_buff[38]       = 0;
+    }
+    else if (FWG2->general_parameter.speak_state == ENHANCE_OPEN)
+    {
+        pc->tx_buff[38]       = 1;
+    }
+
+    pc->tx_buff[39] = 0;
+    pc->tx_buff[40] = 0;
+    memset(pc->check_crc_buff, 0, PC_CRC_BUFF_SIZE);
+    convert_data(pc->tx_buff, pc->check_crc_buff, 1, 40);
+    crc_value = crc_block_calculate(pc->check_crc_buff, 10);
+    crc_data_reset();
+    pc->tx_buff[41] = ((crc_value >> 24) & 0xff);
+    pc->tx_buff[42] = ((crc_value >> 16) & 0xff);
+    pc->tx_buff[43] = ((crc_value >> 8) & 0xff);
+    pc->tx_buff[44] = (crc_value & 0xff);
+    pc->tx_buff[45] = PC_HEAD_2;
+    /* send data */
+    usart_sendData(PC_USART, pc->tx_buff, 46);
+#endif
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

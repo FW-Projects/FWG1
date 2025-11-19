@@ -1,3 +1,0 @@
-File_name,ram_percent,ram,flash,Code,RO_data,RW_data,ZI_data
-lto-llvm-a2ddd2.o,92.877014%,13352,103635,103324,143,168,13184
-startup_at32f415.o,7.122983%,1024,404,36,368,0,1024
